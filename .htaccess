@@ -1,40 +1,8 @@
-##############################################################
-# Fichier .htaccess                               SPIP v 2.0 #
-#                                                            #
-# Permet de controler les URLs et la version de php utilisee #
-# Compatible avec les URLs 'html', 'propres' et 'propres2'   #
-# Permet aussi d'effectuer la transition de .PHP 3 vers .PHP #
-#                                                            #
-# Pour utiliser ce fichier renommez-le '.htaccess' dans le   #
-# repertoire racine du site, en veillant a ne pas ecraser un #
-# .htaccess personnalise qui s'y trouverait deja             #
-#                                                            #
-# Attention certains hebergeurs desactivent tout ou partie   #
-# des fonctions du fichier .htaccess ; celui-ci est donc     #
-# indicatif - en cas de difficulte voir sur les forums SPIP  #
-##############################################################
+# SPIP v 3.0
+# ryogasp v 3.0
 
 RewriteEngine On
-
-################ CONFIGURATION ######################
-
-### Configuration sous-repertoire
-# Chez la plupart des hebergeurs il faut indiquer "RewriteBase /"
-# sinon modifiez cette ligne
-
 RewriteBase /
-
-
-# SPIP version 'php' - si vous avez d'anciennes adresses en '.php[3]',
-# supprimez le '#' sur les lignes qui suivent pour rediriger les acces
-# errones vers le .php correspondant
-
-#RewriteCond %{REQUEST_FILENAME} -f
-#RewriteRule ^(.+)\.php[3]$ $1.php [QSA,L]
-
-# Fin version
-###
-
 
 ################ REGLAGES PERSONNALISES ######################
 # Inscrivez ci-dessous vos reglages supplementaires
@@ -2087,28 +2055,16 @@ RewriteRule ^site([0-9]+)(\.html)?$	spip.php?page=site&id_syndic=$1 [QSA,L]
 # Fin compatibilite
 ###
 
-###
-# ping http://site/1234 => article1234
 
+# ping http://site/1234 => article1234
 RewriteRule ^([1-9][0-9]*)$     spip.php?action=redirect&type=article&status=301&id=$1 [QSA,L]
 
-#
-###
-
-
-###
 # URLs "propres", "propres2", "libres", "arbo"
-
 RewriteRule ^[^\.]+(\.html)?$		spip.php [QSA,E=url_propre:$0,L]
 
-# Fin URLs "propres" et "propres2"
-###
-
-###
-# Divers
-
-# bloquer les acces aux repertoires .svn/ (SPIP, plugins, squelettes...)
+# bloquer les acces aux repertoires .svn/ et .git/ (SPIP, plugins, squelettes...)
 RewriteRule ^(.*/)?\.svn/ - [F]
+RewriteRule ^(.*/)?\.git/ - [F]
 
 ###
 # Fichiers "standards" (si absents de la racine)
