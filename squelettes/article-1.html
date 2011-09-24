@@ -1,0 +1,135 @@
+<BOUCLE_principale(ARTICLES) {id_article}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<head>
+<title>[(#TITRE|textebrut) - ]
+	<BOUCLE_blogroot(RUBRIQUES){id_rubrique=1}>
+	[(#DESCRIPTIF|textebrut)]
+	</BOUCLE_blogroot>
+</title>
+[<meta name="description" content="(#INTRODUCTION{150}|attribut_html)" />]
+<INCLURE{fond=inclure/head} />
+<INCLURE{fond=inclure/head_blog} />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss" />
+</head>
+
+<body class="blog">
+<div id="page">
+
+	[(#REM) Entete de la page + titre du site ]
+	<INCLURE{fond=_blog_entete}{id_rubrique}>
+
+	[(#REM) Contenu principal : contenu de l'article ]
+    <div class="hfeed" id="conteneur">
+    <div class="hentry post" id="contenu">
+    
+        [(#REM) Fil d'Ariane ]
+        <div id="hierarchie"><BOUCLE_ariane(HIERARCHIE){id_article}{' &gt; '}><a href="#URL_RUBRIQUE">[(#TITRE|couper{80}|supprimer_numero)]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</div>
+
+        <div class="cartouche">
+            <div class="surlignable">
+				[(#LOGO_ARTICLE|image_reduire{200,200})]
+				[<p class="#EDIT{surtitre} surtitre">(#SURTITRE)</p>]
+				<h1 class="#EDIT{titre} entry-title">#TITRE</h1>
+				[<p class="#EDIT{soustitre} soustitre">(#SOUSTITRE)</p>]
+            </div>
+
+            <p><small><abbr class="published" title="[(#DATE|date_iso)]">[(#DATE|nom_jour) ][(#DATE|affdate)]</abbr>[, <:par_auteur:> (#LESAUTEURS)][ (<:texte_date_publication_anterieure:> (#DATE_REDAC|affdate)).]</small></p>
+
+            [(#REM) Inclure le modele des liens de traductions ]
+            #MODELE{article_traductions}
+        </div>
+		
+        <div class="surlignable">
+			[<div class="#EDIT{chapo} chapo">(#CHAPO|image_reduire{500,0})</div>]
+			[<div class="#EDIT{texte} texte entry-content">(#TEXTE|image_reduire{500,0})</div>]
+		</div>
+
+
+		[<p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+        
+		[<div class="ps surlignable"><h2 class="pas_surlignable"><:info_ps:></h2><div class="#EDIT{ps}">(#PS|image_reduire{500,0})</div></div>]
+
+
+
+        [<div class="notes surlignable"><h2 class="pas_surlignable"><:info_notes:></h2>(#NOTES)</div>]
+
+		[(#REM) Forum de l'article ]
+		<a href="#forum" name="forum" id="forum"></a>
+
+		[(#INCLURE{fond=inclure/forum_blog}{id_article})]
+		
+		
+		[(#REM) au bout de 31 jours on ne peut plus ajouter de commentaires]
+		<BOUCLE_age(ARTICLES){id_article}{age < 31}>
+		
+		#FORMULAIRE_FORUM
+		
+		</BOUCLE_age>
+
+	</div><!--#contenu-->
+	</div><!--#conteneur-->
+
+
+
+    [(#REM) Menu de navigation laterale ]
+    <div id="extra">
+		<div class="menu">
+        [(#REM) Articles dans la meme rubrique ]
+		<BOUCLE_rubrique(RUBRIQUES){id_rubrique}>
+		<h3 class="accessibility">#TITRE</h3>
+		</BOUCLE_rubrique>
+			<BOUCLE_cptPrec(ARTICLES){id_rubrique}{id_article != #ID_ARTICLE}{age_relatif>=0}{par date}{0,10}> </BOUCLE_cptPrec>
+				#SET{nbPrec,#TOTAL_BOUCLE}
+			</B_cptPrec>
+			<BOUCLE_cptSuiv(ARTICLES){id_rubrique}{id_article != #ID_ARTICLE}{age_relatif<0}{par date}{0,10}> </BOUCLE_cptSuiv>
+				#SET{nbSuiv,#TOTAL_BOUCLE}
+			</B_cptSuiv>
+
+				#SET{totalV,20}
+				#SET{totalB,#GET{nbPrec}|plus{#GET{nbSuiv}}}
+
+				#SET{addMe,#GET{totalV}|moins{#GET{totalB}}}
+
+				#SET{critSuiv, #GET{addMe}|plus{#GET{nbSuiv}}}
+				#SET{critPrec, #GET{addMe}|plus{#GET{nbPrec}}}
+
+
+
+
+			<B_precedent>
+			<ul>	
+				<BOUCLE_precedent(ARTICLES){id_rubrique}{id_article != #ID_ARTICLE}{age_relatif>=0}{par date}{0,#GET{critPrec}}>
+		                            <li><a href="#URL_ARTICLE"> #TITRE</a></li>
+				</BOUCLE_precedent>        
+				</B_precedent>
+			<ul>
+			<//B_precedent>
+
+			<li class="on">#TITRE</li>
+
+
+
+			<B_suivant>
+				<BOUCLE_suivant(ARTICLES){id_rubrique}{id_article != #ID_ARTICLE}{age_relatif<0}{par date}{0,#GET{critSuiv}}>
+					<li><a href="#URL_ARTICLE"> #TITRE</a></li>
+				</BOUCLE_suivant>
+		            </ul>
+			<//B_suivant>
+
+
+
+			<INCLURE{fond=_blog_nuls} />
+		</div>
+	</div><!--#extra-->
+
+	[(#REM) Menu de navigation laterale ]
+	<INCLURE{fond=_blog_nav,env} />
+
+	[(#REM) Pied de page ]
+	<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
+
+</div><!--#page-->
+</body>
+</html>
+</BOUCLE_principale>

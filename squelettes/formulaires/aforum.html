@@ -1,0 +1,119 @@
+<div class="formulaire_spip formulaire_forum" id="formulaire_forum">
+
+[<p class="reponse_formulaire reponse_formulaire_ok">(#ENV*{message_ok})</p>]
+[<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
+
+[(#ENV{login_forum_abo})
+<INCLURE{fond=formulaires/inc-login_forum_abo, env} />
+]
+
+[(#ENV{editable})
+
+
+[(#REM)
+	Bloc de previsualisation du forum envoye
+
+	Si on valide la previsu, on n'envoie pas en ajax car, si le post reussit
+	il faudra certainement redessiner toute la page pour afficher le nouveau
+	forum
+
+][<form action="#ENV{action}#formulaire_forum" method="post" class="noajax">
+	<div>
+	[(#ACTION_FORMULAIRE{#ENV{action}})]
+	<input type='hidden' name='titre' value="#ENV{titre}" />
+	<input type='hidden' name='texte' value="#ENV{texte}" />
+	<input type='hidden' name='url_site' value="#ENV{url_site}" />
+	<input type='hidden' name='nom_site' value="#ENV{nom_site}" />
+	[<input type="hidden" name="id_forum" value="(#ENV*{id_forum})" />]
+	[(#INCLURE{fond=formulaires/inc-forum_ajouter_mot, ajouter_mot})]
+	(#ENV*{erreurs}|table_valeur{previsu})
+	</div>
+</form>]
+
+
+<form action="#ENV{action}#formulaire_forum" method="post" enctype='multipart/form-data'><div>
+[(#ACTION_FORMULAIRE{#ENV{action}})]
+[<input type="hidden" name="id_forum" value="(#ENV*{id_forum})" />]
+[<fieldset class="moderation_info">
+	<legend><:forum:bouton_radio_modere_priori:></legend>
+	<p class="explication">(#ENV{modere})<:forum:forum_info_modere:></p>
+</fieldset>]
+
+[(#ENV**{afficher_texte}|choixsiegal{'non', ' ',''})
+[<input type="hidden" name="titre" value="(#ENV{titre})" />]
+<p class="spip_bouton"><input type="submit" class="submit" value="<:forum:forum_valider:>" /></p>]
+
+[(#ENV**{afficher_texte}|choixsiegal{'non', '',' '})
+
+
+	<fieldset>
+	<legend>Ajouter un commentaire</legend>
+		<ul>
+	[(#SESSION{auth}|?{' '})
+		[<p class='explication'><:forum:forum_votre_nom:> <strong>(#SESSION{nom}|typo)</strong> <span class="details">&#91;<a href="#URL_LOGOUT" rel="nofollow"><:icone_deconnecter:></a>&#93;</span></p>]
+
+	]
+	[(#SESSION{auth}|?{'',' '})
+			<li class='editer saisie_session_nom'>
+				<label for="session_nom"><:forum:forum_votre_nom:></label>
+				<input type="text" class="text" name="session_nom" id="session_nom" value="[(#SESSION**{nom}|sinon{#SESSION**{session_nom}}|entites_html)]" size="40" />
+				[(#CONFIG{accepter_inscriptions}|=={oui}|?{' '})
+				<span class="details">&#91;<a href="[(#URL_PAGE{login}|parametre_url{url,#SELF})]" rel="nofollow"><:lien_connecter:></a>&#93;</span>
+				]
+			</li>
+			<li class='editer saisie_session_email'>
+				<label for="session_email"><:forum:forum_votre_email:></label>
+				<input type="text" class="text" name="session_email" id="session_email" value="[(#SESSION**{email}|sinon{#SESSION**{session_email}}|entites_html)]" size="40" />
+			</li>
+	]
+
+	[(#CONFIG{forums_urlref}|!={non}|?{
+
+		<li class='editer saisie_url_site[ (#ENV**{erreurs}|table_valeur{url_site}|oui)erreur]'><label for="url_site">Site web :</label>
+		[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{url_site})</span>]
+		<input type="text" class="text" name="url_site" id="url_site" style="text-align: left;" dir="ltr" size="40" value="[(#ENV{url_site})]" /></li>
+	})]
+	[(#CONFIG{forums_texte}|!={non}|?{
+		<li class='editer saisie_texte[ (#ENV**{erreurs}|table_valeur{texte}|oui)erreur]'>
+			<label for='texte'><:forum:forum_texte|typo:></label>
+			[<span class='erreur_message'>(#ENV**{erreurs}|table_valeur{texte})</span>]
+			<p class='explication'><:info_creation_paragraphe:></p>
+			<textarea name="texte" id="texte" rows="12" cols="60"[(#CONFIG{forums_afficher_barre}|=={non}|oui) class="no_barre"]>[(#ENV{texte})]</textarea>
+		</li>
+	})]
+		</ul>
+	</fieldset>
+
+
+
+
+	[(#REM) Piege a robots spammeurs, dont on change le nom a chaque fois,
+	][<p style="display: none;">
+		<label for="(#ENV{cle_ajouter_document})"><:antispam_champ_vide:></label>
+		<input type="text" class="text" name="#ENV{cle_ajouter_document}" id="#ENV{cle_ajouter_document}" value="#ENV{#ENV{cle_ajouter_document}}" size="10" />
+	</p>]
+	[(#ENV{cle_ajouter_document}|non)
+	<p style="display: none;">
+		<label for="nobot_forum"><:antispam_champ_vide:></label>
+		<input type="text" class="text" name="nobot" id="nobot_forum" value="#ENV{nobot}" size="10" />
+	</p>
+	]
+	<p class="boutons"><input type="submit" class="submit" value="<:forum:forum_voir_avant:>" /></p>
+]
+</div>
+</form>
+
+[(#REM)
+	Sauver les donnees du formulaire dans la session, si on quitte la page,
+	et proposer de les remettre quand on revient
+]
+<script type="text/javascript">/*<!#EVAL{chr(91)}CDATA#EVAL{chr(91)}*/
+if (window.jQuery)(function($){
+	$(function(){
+		$('#formulaire_forum form')
+		.autosave();
+	});
+}(jQuery));
+/*#EVAL{chr(93)}[(#EVAL{chr(93)})]>*/</script>
+]
+</div>

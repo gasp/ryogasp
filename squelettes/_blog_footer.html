@@ -1,0 +1,12 @@
+<div id="footer">
+	<p class="tech"><a href="#ENV{skel}" title="<:voir_squelette:>" rel="nofollow"><img src="#CHEMIN{img/squelette.png}" alt="<:squelette:>" /></a></p>
+	<p class="colophon">
+		2004-</B_annee>[(#DATE|annee) &ndash;]RYoGA &ndash;
+		<a href="#URL_PAGE{backend}" rel="alternate" title="<:syndiquer_site:>">RSS&nbsp;2.0</a>
+	</p>
+
+</div>
+[(#REM)
+	Cette balise permet de deporter les calculs lourds (indexation etc)
+	dans une image cachee, ce qui evite de ralentir l'affichage des pages.
+]#SPIP_CRON

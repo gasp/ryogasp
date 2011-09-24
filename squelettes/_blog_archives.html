@@ -1,0 +1,9 @@
+<B_archives_recentes>
+<span class="h3img">[(#VAL{"Archives"}|image_typo{police=eurostyle.ttf,taille=18,couleur=5F0E37})]</span>
+<h3 class="accessibility">Archives</h3>
+<ul>
+<BOUCLE_archives_recentes(ARTICLES){!par date}{mois_relatif!=0}{age<122}>
+	[<li><a[ href="(#URL_PAGE{archives,date=[(#DATE|affdate{'Y-m'})]})"][ title="<:archives_de:> (#DATE|affdate_mois_annee)"]>(#DATE|affdate_mois_annee|unique)</a></li>]
+</BOUCLE_archives_recentes>
+</ul>
+</B_archives_recentes>

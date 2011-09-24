@@ -1,0 +1,29 @@
+[(#REM) cette page, c'est une page d'archive du blog
+	on calcule une fois par semaine
+]#CACHE{604800}
+<BOUCLE_rubrique_principale_head(RUBRIQUES){id_rubrique}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<head>
+<title>#TITRE</title>
+[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{150}|textebrut)" />]
+[<meta name-"date" content="(#ENV{date})">]
+</head>
+
+
+</BOUCLE_rubrique_principale_head>
+
+[<link rel="canonical" href="http://www.ryogasp.com/blog/archives/(#ENV{date}|affdate{Y-m})" />]
+
+<p class="soustitre">[Archives de (#ENV{date}|affdate_mois_annee)]</p>
+
+<B_articles_deladate>
+<ul>
+<BOUCLE_articles_deladate(ARTICLES) {id_secteur=#ID_RUBRIQUE}{mois_relatif=0} {par date} >
+	<li><a href="#URL_ARTICLE">#TITRE</a><br /> [(#DATE|affdate)]</li>
+</BOUCLE_articles_deladate>
+</ul>
+</B_articles_deladate>
+	Aucun article pour cette période
+<//B_articles_deladate>
+

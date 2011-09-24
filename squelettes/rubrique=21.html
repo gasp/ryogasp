@@ -1,0 +1,79 @@
+[(#REM)
+	c'est la page d'accueil du blog
+	cache d'une journée
+]#CACHE{86400}
+<BOUCLE_principale(RUBRIQUES) {id_rubrique}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<head>
+<title>[(#DESCRIPTIF|textebrut)]</title>
+[<meta name="description" content="(#INTRODUCTION{150}|textebrut)" />]
+<INCLURE{fond=inclure/head} />
+<INCLURE{fond=inclure/head_blog} />
+[(#REM) Lien vers le flux RSS des articles la rubrique ]
+<link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/gameover/rss" />
+</head>
+
+<body class="blog">
+<div id="page">
+
+	[(#REM) Entete de la page + titre du site ]
+	<INCLURE{fond=_blog_entete}{id_rubrique}>
+
+	[(#REM) Contenu principal : contenu de la rubrique ]
+	<div id="conteneur">
+	<div id="contenu">
+    
+		[(#REM) Fil d'Ariane ]
+		<div id="hierarchie"><a href="#URL_SITE_SPIP/"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_rubrique}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</div>
+			[(#REM) Articles de la rubrique ]
+			<B_articles>
+			<div class="menu articles hfeed">
+				#ANCRE_PAGINATION
+				<BOUCLE_articles(ARTICLES) {id_secteur} {par date}{inverse} {pagination}>
+					<div class="hentry post">
+						<div class="post-info">
+							[<h2 id="p#ID_ARTICLE"><a href="#URL_ARTICLE">(#TITRE)</a></h2>]
+							[<span class="day-date">(#DATE|affdate_jourcourt)</span>]
+							[<span class="author"><:par_auteur:> (#LESAUTEURS)</span>]
+						</div>
+						[<div>(#TEXTE|image_reduire{500,0})</div>]
+					
+						<BOUCLE_commentaires(FORUMS){id_article}{plat}> </BOUCLE_commentaires>
+						<div><a href="#URL_ARTICLE">#TOTAL_BOUCLE [(#TOTAL_BOUCLE|=={1}|?{commentaire,commentaires})]</a></div>
+						</B_commentaires>
+						<div><a href="#URL_ARTICLE">Aucun commentaire</a></div>
+						<//B_commentaires>
+
+					
+					</div>
+				</BOUCLE_articles>
+			</div>
+			[<p class="pagination">(#PAGINATION)</p>]
+		</B_articles>
+
+	</div><!--#contenu-->
+	</div><!--#conteneur-->
+
+	<div id="extra">
+		<div class="menu">
+			
+			[(#REM) texte de la rubrique]
+			<h3 class="accessibility">&Agrave; propos</h3>
+			[<div class="#EDIT{texte} chapo">(#TEXTE)</div>]
+
+			
+		</div>
+	</div>
+
+	[(#REM) Menu de navigation laterale ]
+ 	<INCLURE{fond=_blog_nav_go,env} />
+    
+	[(#REM) Pied de page ]
+	<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
+
+</div><!--#page-->
+</body>
+</html>
+</BOUCLE_principale>

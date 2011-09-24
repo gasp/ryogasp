@@ -1,0 +1,11 @@
+<div id="entete">
+<BOUCLE_secteur(RUBRIQUES){id_rubrique}>
+<BOUCLE_entete(RUBRIQUES){id_secteur}{racine}>
+<h1>
+	<a rel="start home" href="#URL_RUBRIQUE"[ title="(#DESCRIPTIF|attribut_html)"] 
+	class="accueil">[<strong id="nom_site_spip">(#DESCRIPTIF|strip_tags|SINON{#TITRE})</strong>]</a>
+</h1>
+</BOUCLE_entete>
+</BOUCLE_secteur>
+	#FORMULAIRE_RECHERCHE
+</div>

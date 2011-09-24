@@ -1,0 +1,50 @@
+[(#REM) Menu de navigation laterale ]
+ <div id="navigation">
+		<div class="menu">
+
+	        [(#REM) Menu de navigation par rubriques ]
+
+			[(#REM) rubriques]
+			
+			<h3 class="accessibility">Catégories</h3>
+			<B_categories>
+			<ul>
+			<BOUCLE_categories(RUBRIQUES){id_parent=1}{par num titre, titre}>
+				[<li><a href="#URL_RUBRIQUE" [title="(#DESCRIPTIF|attribut_html)"] class="#EXPOSE">(#TITRE|supprimer_numero)</a></li>]
+			</BOUCLE_categories>
+			</ul>
+			</B_categories>
+			
+			[(#REM) archives]
+			<B_archives>
+
+			<h3 class="accessibility">Archives</h3>
+			<ul class="h">
+			<BOUCLE_archives(ARTICLES){id_secteur=1}{!par date}{mois_relatif!=0}>
+				[<li><a href="/blog/archives/[(#DATE|affdate{'Y-m'})]"[ title="<:archives_de:> (#DATE|affdate_mois_annee)"]>(#DATE|affdate_mois_annee|unique)</a></li>]
+			</BOUCLE_archives>
+			</ul>
+			</B_archives>
+
+			[(#REM) Sites de la rubrique ]
+	        <B_sites>
+         <h3 class="accessibility">Blogroll</h3>
+         <ul class="h">
+             <BOUCLE_sites(SITES) {id_rubrique=1} {par nom_site}>
+             <li>
+					<a href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT})]">#NOM_SITE</a>
+                 <B_syndic>
+                 <ul>
+                     <BOUCLE_syndic(SYNDIC_ARTICLES) {id_syndic} {age<180} {par date}{inverse} {0,3}>
+                     <li><a href="#URL_ARTICLE" class="spip_out">#TITRE</a></li>
+                     </BOUCLE_syndic>
+                 </ul>
+                 </B_syndic>
+             </li>
+             </BOUCLE_sites>
+         </ul>
+	        </B_sites>
+
+		</div><!--.menu-->
+
+ </div><!--#navigation-->

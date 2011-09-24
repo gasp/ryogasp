@@ -1,0 +1,161 @@
+body{
+	text-align:center;
+	background:#eee;
+	margin:auto;
+}
+a{
+	text-decoration:none;
+	color:#00f;
+}
+a:hover,a:active,a:focus{
+	text-decoration:underline;
+	background:transparent;
+	color:#03f;
+}
+
+h1,h2,h3,h4{
+	font-weight:normal;
+	line-height:0.9em;
+}
+#page{
+	text-align:left;
+	margin:auto;
+	background:#fff;
+	border:1px solid #ccc;
+	padding:10px;
+	width:960px;
+}
+
+#conteneur{
+	width:500px;
+	float:left;
+	margin:0 10px 0 0;
+}
+#navigation,#extra{
+	font: 10.5pt "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+	width:220px;
+	float:left;
+	margin:0;
+}
+#navigation h3, #extra h3{
+	font-size:14.5pt;
+}
+
+#navigation a, #extra a{
+	color:#604A7F;
+	text-decoration:none;
+}
+#hierarchie, #hierarchie a{
+	color:#666;
+	font-family: "Luxi sans","Lucida Grande",Lucida,"Lucida Sans Unicode",sans-serif;
+	font-size:8pt;
+}
+#hierarchie a{
+	
+}
+
+.post{margin:2em 0;clear:both;}
+
+#entete h1 a{
+	color:#444;
+	position:relative;
+	top:0;
+	left:0;
+	font: 75% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+	text-decoration:none;
+}
+#entete{
+	border:none;
+	position:relative;
+}
+.menu{
+	padding:5px;
+}
+.menu h3 {
+    border-top: 1px solid #DDDDDD;
+    margin: 0.2em 0;
+    padding: 0.5em 0;
+}
+.formulaire_recherche{
+	position: absolute; 
+	top:12px;
+	right:30px;
+}
+.formulaire_recherche * { display: inline; }
+
+#index_carton{
+	background: transparent url(img/blog/index_carton.jpg) no-repeat scroll center center;
+	
+}
+ul.h{display:none;}
+
+.spip_logos{float:none;}
+.surlignable .spip_logos{float:right;}
+
+h1, .cartouche h1, .h1 {
+    margin-bottom: 0.25em;
+}
+
+
+.post-info h2{
+	margin-bottom:0;
+}
+.post-info{
+	margin-bottom:15px;
+}
+
+.entry-content{
+	margin:1em 0;
+}
+
+.forum-fil{
+	border-top: 1px solid #ddd;
+}
+.forum-chapo .photo{
+	float:left;
+	width:60px;
+	margin-right:20px;
+}
+.forum-about{
+	float:left;
+	width:350px;
+}
+.forum-texte{
+	clear:both;
+}
+.forum-anchor{
+	display:block;
+	float:right;
+	padding-right:8px;
+	color:#ccc;
+}
+.formulaire_forum label{
+	display:block;
+}
+
+ul .forum-message {
+    border: none;
+    margin: 0;
+    padding: 0;
+}
+ul .forum-chapo {
+	background: #fff;
+	border-color: #fff;
+	border:none;
+	border-right: 1px solid #ddd;
+	font-size:0.8em;
+	height:60px;
+}
+
+#footer{
+	border-top: 1px solid #ddd;
+	clear:both;
+}
+#footer .colophon {
+    float: none;
+    height: 40px;
+    width: 100%;
+}
+#footer .tech{
+	float:right;
+}
