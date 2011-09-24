@@ -2070,6 +2070,7 @@ RewriteRule ^(.*/)?\.git/ - [F]
 # Fichiers "standards" (si absents de la racine)
 #
 RewriteRule ^robots[.]txt$      spip.php?page=robots.txt [QSA,L]
+RewriteRule ^humans[.]txt$      spip.php?page=humans.txt [QSA,L]
 RewriteRule ^favicon[.]ico$      spip.php?page=favicon.ico [QSA,L]
 RewriteRule ^sitemap[.]xml$      spip.php?page=sitemap.xml [QSA,L]
 ##
