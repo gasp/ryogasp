@@ -1,0 +1,97 @@
+<BOUCLE_principale(AUTEURS) {id_auteur}>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+[(#REM) Cf.: http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ ]
+<!--[if lt IE 7 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie8"> <![endif]-->
+<!--[if IE 9 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js"> <!--<![endif]-->
+<head>
+<script type='text/javascript'>/*<![CDATA[*/(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement);/*]]>*/</script>
+<title>[(#NOM|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
+[<meta name="description" content="(#BIO|couper{150}|attribut_html)" />]
+<INCLURE{fond=inclure/head} />
+
+[(#REM) Favicon personnalisee a partir du logo (si filtres d'image) ]
+[(#MODELE{favicon}{favicon=#LOGO_AUTEUR})]
+
+[(#REM) Lien vers le flux RSS des articles de l'auteur ]
+<link rel="alternate" type="application/rss+xml" title="[(#NOM|textebrut)]" href="[(#URL_PAGE{backend}|parametre_url{id_auteur,#ID_AUTEUR})]" />
+</head>
+
+<body class="pas_surlignable page_auteur">
+<div id="page">
+	<div id="container">
+		<div id="main">
+	
+	[(#REM) Contenu principal : contenu de l'article ]
+    <div class="wrapper hfeed">
+    <div class="content hentry" id="content">
+        <p class="arbo"><a href="#URL_SITE_SPIP/"><:accueil_site:></a> &gt; <:info_auteurs:>[ &gt; <strong class="on">(#NOM|couper{80})</strong>]</p>
+
+		<div class="vcard">[(#REM) microformat vcard]
+        <div class="cartouche">
+            [(#LOGO_AUTEUR|image_reduire{200,200})]
+            <h1 class="#EDIT{qui} fn">#NOM</h1>
+        </div>
+
+        [<div class="#EDIT{bio} texte note">(#BIO)</div>]
+        [<p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="url org spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+		</div>[(#REM) / vcard]
+		
+
+
+        [(#REM) Articles de l'auteur ]
+		<BOUCLE_sections(RUBRIQUES){racine}>
+        <B_articles>
+        <div class="menu articles">
+            #ANCRE_PAGINATION
+            <h2>Articles dans #_sections:TITRE (#GRAND_TOTAL)</h2>
+            <ul>
+                <BOUCLE_articles(ARTICLES){id_auteur}{id_secteur}{par popularite}{inverse} {pagination 10}>
+                <li><a href="#URL_ARTICLE">#TITRE</a></li>
+                </BOUCLE_articles>
+            </ul>
+            [<p class="pagination">(#PAGINATION)</p>]
+        </div>
+        </B_articles>
+		</BOUCLE_sections>
+
+        #FORMULAIRE_ECRIRE_AUTEUR
+
+        [<div class="notes"><h2><:info_notes:></h2>(#NOTES)</div>]
+
+
+	</div><!--.content-->
+	</div><!--.wrapper-->
+
+
+    <div class="aside">
+
+       	[(#REM) Autres auteurs ]
+        <B_auteurs>
+        <div class="menu">
+            <h2><:info_auteurs:></h2>
+            <ul>
+                <BOUCLE_auteurs(AUTEURS) {par nom} {par hasard} {0,15}>
+                <li><a href="#URL_AUTEUR"[ class="(#EXPOSE)"]>[(#NOM|couper{80})]</a></li>
+                </BOUCLE_auteurs>
+            </ul>
+        </div>
+        </B_auteurs>
+
+
+		#FORMULAIRE_RECHERCHE
+
+
+    </div><!--.aside-->
+		<div class="clearfix"></div>
+
+		</div><!--#main-->
+	</div><!--#container-->
+	<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
+</div><!--#page-->
+</body>
+</html>
+</BOUCLE_principale>[(#INCLURE{fond=404, erreur=<:aucun_article:>})]
+<//B_principale>

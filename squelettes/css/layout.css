@@ -1,0 +1,83 @@
+/* --------------------------------------------------------------
+
+   layout.css
+   Disposition des blocs principaux
+   cf.: http://romy.tetue.net/structure-html-de-base
+
+-------------------------------------------------------------- */
+
+body {
+	text-align: center;
+	background: #dedbc5 url(img/sommaire/bg.png) repeat-x scroll top left;
+}
+#page {
+	text-align: left;
+	background: transparent url(img/sommaire/page.png) repeat-y scroll top center;
+}
+#container{
+	background: transparent url(img/sommaire/header_inner.png) no-repeat scroll top center;
+}
+#main{
+	position: relative;
+	width: 930px;
+	margin: 0 auto 0 auto;
+}
+
+.header { width: 100%; }
+.wrapper { clear: both; float: left; width: 640px; overflow: hidden; }
+.content { min-height: 300px; padding:75px 0 0 40px;}
+.aside { float: left; width: 230px; overflow: hidden; margin:100px 0 1em 50px;}
+.footer {
+	clear:both;
+	background: transparent url(img/sommaire/footer.png) no-repeat scroll top center;
+	height:63px;
+	text-align:center;
+}
+
+/* Gabarit d'impression */
+@media print {
+	.nav,.aside,.footer { display: none; }
+	#page,.content { width: auto; }
+}
+
+
+/* Entete et barre de navigation
+------------------------------------------ */
+
+.formulaire_menu_lang { position: absolute; right: 0; top: .9em; display: block; width: 30%; }
+
+.formulaire_recherche {}
+.formulaire_recherche * { display: inline; }
+
+.footer .tech{
+	float: auto;
+	height:20px;
+	width:900px;
+	text-align:right;
+	margin:0 auto;
+}
+.footer .colophon {
+	float: auto;
+	height: 40px;
+	width:900px;
+	text-align:left;
+	margin:0 auto;
+	color:#bbb;
+}
+
+/* end */
+
+/*to move to typo*/
+#content .chapo{
+	
+	font-family: "Lucida Grande";
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 25px;
+}
+.info-publi{
+	color: #4C4C4C;
+}
+h1,h2,h3,h4{
+	font-weight:normal;
+}

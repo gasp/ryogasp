@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+[(#REM) Cf.: http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ ]
+<!--[if lt IE 7 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie6"> <![endif]-->
+<!--[if IE 7 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie7"> <![endif]-->
+<!--[if IE 8 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie8"> <![endif]-->
+<!--[if IE 9 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie9"> <![endif]-->
+<!--[if (gt IE 9)|!(IE)]><!--> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js"> <!--<![endif]-->
+<head>
+<script type='text/javascript'>/*<![CDATA[*/(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement);/*]]>*/</script>
+<title><:resultats_recherche:> - [(#NOM_SITE_SPIP|textebrut)]</title>
+[<link rel="canonical" href="(#ID_SYNDIC|generer_url_entite{site}|url_absolue)" />]
+<INCLURE{fond=inclure/head} />
+</head>
+
+<body class="pas_surlignable page_recherche">
+<div id="page">
+	<div id="container">
+		<div id="main">
+	
+	[(#REM) Contenu principal : contenu de l'article ]
+    <div class="wrapper hfeed">
+    <div class="content hentry" id="content">
+        <p class="arbo"><a href="#URL_SITE_SPIP/"><:accueil_site:></a> &gt; <:info_rechercher:>[ &gt; <strong class="on">(#RECHERCHE)</strong>]</p>
+
+		[<div class="cartouche">
+			<h1><:resultats_recherche:></h1>
+			<p class="soustitre">&#171;&nbsp;(#RECHERCHE)&nbsp;&#187;</p>
+		</div>]
+		
+        [(#REM) Articles trouves par section]
+		<B_section>
+		<BOUCLE_section(RUBRIQUES){racine}{par num titre, titre}>
+		<B_articles_section>
+		<div class="menu articles">
+			#ANCRE_PAGINATION
+			<h2><:articles:> de la section #_section:TITRE (#GRAND_TOTAL)</h2>
+			<ul>
+				<BOUCLE_articles_section(ARTICLES) {id_secteur}{recherche} {!par points} {pagination}>
+				<li><a href="#URL_ARTICLE">#TITRE</a></li>
+				</BOUCLE_articles_section>
+			</ul>
+			[<p class="pagination">(#PAGINATION)</p>]
+		</div>
+		</B_articles_section>
+		</BOUCLE_section>
+		</B_section>
+
+		
+		[(#REM) Rubriques trouvees ]
+		<B_rubriques>
+		<div class="menu rubriques">
+			#ANCRE_PAGINATION
+			<h2><:rubriques:> (#GRAND_TOTAL)</h2>
+			<ul>
+				<BOUCLE_rubriques(RUBRIQUES) {recherche} {!par points} {pagination 5}>
+				<li><a href="#URL_RUBRIQUE">#TITRE</a></li>
+				</BOUCLE_rubriques>
+			</ul>
+			[<p class="pagination">(#PAGINATION)</p>]
+		</div>
+		</B_rubriques>
+		
+		[(#REM) Mots-cles trouves ]
+		<B_mots>
+		<div class="menu">
+			#ANCRE_PAGINATION
+			<h2><:mots_clefs:> (#GRAND_TOTAL)</h2>
+			<ul>
+				<BOUCLE_mots(MOTS) {recherche} {!par points} {pagination 5}>
+				<li><a href="#URL_MOT">#TITRE</a></li>
+				</BOUCLE_mots>
+			</ul>
+			[<p class="pagination">(#PAGINATION)</p>]
+		</div>
+		</B_mots>
+		
+		[(#REM) Breves trouvees ]
+		<B_breves>
+		<div class="menu">
+			#ANCRE_PAGINATION
+			<h2><:breves:> (#GRAND_TOTAL)</h2>
+			<ul>
+				<BOUCLE_breves(BREVES) {recherche} {!par points} {pagination 5}>
+				<li><a href="#URL_BREVE">#TITRE</a></li>
+				</BOUCLE_breves>
+			</ul>
+			[<p class="pagination">(#PAGINATION)</p>]
+		</div>
+		</B_breves>
+		
+		[(#REM) Messages trouves ]
+		<B_messages>
+		<div class="menu">
+			#ANCRE_PAGINATION
+			<h2><:messages_forum:> (#GRAND_TOTAL)</h2>
+			<ul>
+				<BOUCLE_messages(FORUMS?) {recherche} {!par points} {pagination 5}>
+				<li><a href="#URL_FORUM"[ title="(#TITRE|attribut_html|couper{80})"]>[(#TEXTE|couper{80})]</a></li>
+				</BOUCLE_messages>
+			</ul>
+			[<p class="pagination">(#PAGINATION)</p>]
+		</div>
+		</B_messages>
+		
+		[(#REM) Sites web trouves ]
+		<B_sites>
+		<div class="menu">
+			#ANCRE_PAGINATION
+			<h2><:sites_web:> (#GRAND_TOTAL)</h2>
+			<ul>
+				<BOUCLE_sites(SITES) {recherche} {!par points} {pagination 5}>
+				<li><a href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT})]">#NOM_SITE</a></li>
+				</BOUCLE_sites>
+			</ul>
+			[<p class="pagination">(#PAGINATION)</p>]
+		</div>
+		</B_sites>
+
+	</div><!--.content-->
+	</div><!--.wrapper-->
+
+
+    <div class="aside">
+	
+
+       	[(#REM) Autres sites web ]
+        <B_rubriques_racine>
+        <div class="menu">
+            <h2>Sections du site</h2>
+            <ul>
+                <BOUCLE_rubriques_racine(RUBRIQUES){racine}{par num titre, titre} {0,15}>
+                <li><a href="#URL_RUBRIQUE">#TITRE</a></li>
+                </BOUCLE_rubriques_racine>
+            </ul>
+        </div>
+
+
+		#FORMULAIRE_RECHERCHE
+
+        
+    </div><!--.aside-->
+		<div class="clearfix"></div>
+
+		</div><!--#main-->
+	</div><!--#container-->
+	<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
+</div><!--#page-->
+</body>
+</html>
