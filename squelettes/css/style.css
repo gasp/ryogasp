@@ -73,7 +73,11 @@ textarea { width: 100%; }
 .formulaire_menu_lang { margin: 0; padding: 0; background: none; }
 
 /* Formulaires de recherche (site / petitions) */
-.formulaire_recherche input.text { width: 10em; padding-left: 20px; background-image: url(img/general/recherche.png); background-repeat: no-repeat; background-position: left center; }
+.formulaire_recherche input.text {
+	width: 10em; padding-left: 20px;
+	background-image: url(img/general/recherche.png);
+	background-repeat: no-repeat; background-position: left center;
+}
 .formulaire_recherche input.submit {display:none;}
 
 /* Choix des mots-clefs */
