@@ -151,7 +151,7 @@ ul.choix_mots li label { display: inline; font-weight: normal; }
 /* Pagination */
 .pagination a,
 .pagination .on  { padding: .2em .5em; margin: 0 1px; }
-.pagination a { background: #EED; text-decoration: none; }
+.pagination a { background: #eee; text-decoration: none; }
 .pagination .on { font-weight: bold; background: #222; color: #fff; }
 .pagination .sep { display: none; }
 
