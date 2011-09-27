@@ -67,7 +67,19 @@ body {
 
 /* end */
 
+
+
 /*to move to typo*/
+a { color: #B25431; text-decoration: none; }
+a:focus,
+a:hover,
+a:active { background-color: #B25431; color: #FFF; text-decoration: none; }
+
+
+.arbo { clear: both; font-size: .9em; color: #555; }
+.arbo * { font-weight: normal; }
+
+
 #content .chapo{
 	
 	font-family: "Lucida Grande";
