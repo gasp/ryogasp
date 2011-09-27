@@ -147,14 +147,6 @@ ul .forum-chapo {
 	height:60px;
 }
 
-input.text,
-textarea {
-	background-color: rgb(250,250,250);
-	border: 1px solid #eee;
-	border-radius: 3px;
-	padding:3px;
-}
-
 #footer{
 	border-top: 1px solid #ddd;
 	clear:both;

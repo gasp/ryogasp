@@ -115,7 +115,12 @@ ul.choix_mots li label { display: inline; font-weight: normal; }
 .formulaire_forum .saisie_titre input.text { width: 100% }
 .formulaire_forum .session_qui { display: none; }
 .formulaire_forum .saisie_texte .explication { font-size: .9em; font-style: italic; }
-
+.formulaire_forum input.text, .formulaire_forum textarea{
+	background-color: rgb(250,250,250);
+	border: 1px solid #eee;
+	border-radius: 3px;
+	padding:3px;
+}
 
 /* Habillage des petitions
 ---------------------------------------------- */
