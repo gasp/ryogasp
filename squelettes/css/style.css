@@ -167,12 +167,6 @@ ul.choix_mots li label { display: inline; font-weight: normal; }
 .menu_breves li h3 { margin: 0; }
 
 
-/* Hyperliens
----------------------------------------------- */
-a { color: #900; text-decoration: none; }
-a:focus,
-a:hover,
-a:active { background-color: #900; color: #FFF; text-decoration: none; }
 
 /* ------------------------------------------
 /* Autres medias

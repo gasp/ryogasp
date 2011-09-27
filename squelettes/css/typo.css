@@ -132,7 +132,8 @@ Cf.: http://www.alsacreations.com/astuce/lire/1177
 
 /* end */
 
-/* re-definition des liens */
+/* Hyperliens
+---------------------------------------------- */
 a { color: #B25431; text-decoration: none; }
 a:focus,
 a:hover,
