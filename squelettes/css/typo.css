@@ -131,3 +131,32 @@ Cf.: http://www.alsacreations.com/astuce/lire/1177
 }
 
 /* end */
+
+/* re-definition des liens */
+a { color: #B25431; text-decoration: none; }
+a:focus,
+a:hover,
+a:active { background-color: #B25431; color: #FFF; text-decoration: none; }
+
+/* barre de typo */
+.arbo { clear: both; font-size: .9em; color: #555; }
+.arbo * { font-weight: normal; }
+
+
+#content .chapo{
+	
+	font-family: "Lucida Grande";
+	font-size: 20px;
+	font-weight: normal;
+	line-height: 25px;
+}
+.info-publi{
+	color: #4C4C4C;
+}
+h1,h2,h3,h4{
+	font-weight:normal;
+}
+.notes p{
+	margin-bottom:0;
+	font-size:.8em;
+}
