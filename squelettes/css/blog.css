@@ -152,6 +152,11 @@ ul .forum-chapo {
 	height:60px;
 }
 
+.formulaire_forum {
+	border-top:1px solid #ddd;
+	margin-top:1em;
+}
+
 #footer{
 	border-top: 1px solid #ddd;
 	clear:both;

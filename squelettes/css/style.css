@@ -113,7 +113,7 @@ ul.choix_mots li label { display: inline; font-weight: normal; }
 /* Formulaire de forum */
 .formulaire_forum {
 	padding:1em 0;
-	border-top:4px solid #fff;
+	border-top:1px solid #000;
 }
 .formulaire_forum legend { display: none; }
 .formulaire_forum .saisie_titre input.text { width: 100% }
@@ -125,12 +125,14 @@ ul.choix_mots li label { display: inline; font-weight: normal; }
 	border-radius: 3px;
 	padding:3px;
 }
+.formulaire_forum .explication{padding:0;margin:0;}
 
 /* Habillage des petitions
 ---------------------------------------------- */
 #signatures {}
 #signatures td.signature-date small { white-space: nowrap; }
 #signatures .formulaire_recherche { margin: 1.5em auto; text-align: center; }
+
 
 /* Formulaire de signature */
 .formulaire_signature {}
