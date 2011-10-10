@@ -1,4 +1,7 @@
-<BOUCLE_principale(SITES){id_syndic}>
+[(#REM)
+	la page site peut referencer des flux rss
+	3 jours de cache c'est raisonnable
+]#CACHE{259200}<BOUCLE_principale(SITES){id_syndic}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 [(#REM) Les sites n'ont pas de "lang" a proprement parler ; on se base donc sur la langue de la rubrique qui les contient. Les articles syndiques, eux, ont une "lang". ]
 <BOUCLE_lang(RUBRIQUES){id_rubrique}><!-- Cf.: http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ -->
