@@ -86,7 +86,7 @@ samp { font-weight: bold; }
 var { font-style: italic; }
 
 /* Paragraphes */
-p, .p, dl, dd, blockquote, address, pre, table, fieldset { margin-bottom: 1.5em; }
+p, .p, dl, dd, blockquote, address, pre, table, fieldset, iframe { margin-bottom: 1.5em; }
 
 /* Liens */
 a {}
