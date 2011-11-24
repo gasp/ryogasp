@@ -72,7 +72,7 @@
         <div class="menu">
             <h2><:meme_rubrique:></h2>
             <ul>
-                <BOUCLE_articles_rubrique(ARTICLES) {id_rubrique} {!par date} {0,10}>
+                <BOUCLE_articles_rubrique(ARTICLES) {id_rubrique} {!par date} {0,7}>
                 <li><a href="#URL_ARTICLE"[ class="(#EXPOSE)"]>#TITRE</a></li>
                 </BOUCLE_articles_rubrique>
             </ul>
@@ -84,7 +84,7 @@
         <div class="menu">
             <h2>Ephémérides</h2>
             <ul>
-                <BOUCLE_breves_rubrique(BREVES) {id_secteur} {!par date} {0,10}>
+                <BOUCLE_breves_rubrique(BREVES) {id_secteur} {!par date} {0,4}>
                 <li><a href="#URL_BREVE">#TITRE</a></li>
                 </BOUCLE_breves_rubrique>
             </ul>
