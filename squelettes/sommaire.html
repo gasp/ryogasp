@@ -17,27 +17,6 @@
 <link rel="alternate" type="application/rss+xml" title="Syndiquer tout le site" href="spip.php?page=backend" />
 <meta name="generator" content="SPIP" />
 
-<script type="text/javascript" charset="utf-8">
-g = function(e){return document.getElementById(e);}
-f = function(d){return '#CHEMIN{.}/css/img/sommaire-[(#DATE|annee)]-[(#DATE|saison|translitteration)]/'+d+'.png'}
-p = function(d){return 'url('+f(d)+')';}
-var i=new Image();
-l=function(){
-	console.log(i.src+' loaded');
-	
-	g('sommaire').style.backgroundImage=p('bg');
-	g('page').style.backgroundImage=p('header');
-}
-window.onload = function(){
-	i.src=f('bg');
-};
-i.onLoad=l;
-i.onError=function(){
-	console.log('bad');
-	
-}
-</script>
-
 <style type="text/css" media="screen">
 	body{
 		text-align:center;
@@ -57,6 +36,8 @@ i.onError=function(){
 	#page{
 		background: transparent url(#CHEMIN{css/img/sommaire/header.png}) no-repeat scroll top center;
 	}
+	#page{background-image:url('#CHEMIN{.}/css/img/sommaire-[(#DATE|annee)]-[(#DATE|saison|translitteration)]/header.png');}
+ 
 	h1{display:none;}
 	#top{
 		
