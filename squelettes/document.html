@@ -62,10 +62,10 @@
 
 		</BOUCLE_portfolio>
 
-		[(#FICHIER
+		[<p>(#FICHIER
 		|image_reduire{500,*}
 		|inserer_attribut{class,moyennedef}
-		|inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]})]
+		|inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]})</p>]
 		
 
 	</div><!--.content-->
