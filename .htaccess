@@ -12,6 +12,12 @@ RewriteRule ^plan$	spip.php?page=plan [QSA,L]
 RewriteRule ^rss$	spip.php?page=backend [QSA,L]
 
 
+#anciens sites
+RewriteRule ^babel$	http://babel.ryogasp.com [QSA,L]
+RewriteRule ^ryoga/ryoga.htm$ http://richardcornu.com [QSA,L]
+
+
+
 ## blog
 #correspondance RSS
 RewriteRule ^blog\/rss\.php$	spip.php?page=backend&id_rubrique=1 [QSA,L]
@@ -2098,10 +2104,9 @@ ErrorDocument 403 /spip.php?page=403
 #redirects permanents
 
 # remove www
-RewriteCond %{HTTP_HOST} !^ryogasp\.com$ [NC]  
-RewriteRule ^(.*)$ http://ryogasp.com/$1 [R=301,L]
+#RewriteCond %{HTTP_HOST} !^ryogasp\.com$ [NC]  
+#RewriteRule ^(.*)$ http://ryogasp.com/$1 [R=301,L]
 
 #force no-www.org
 # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
 # RewriteRule ^(.*)$ http://%1/$1 [R=301,L]
-
