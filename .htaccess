@@ -2010,6 +2010,9 @@ RewriteRule ^blog\/index\.php\/ spip.php?page=article&id_article=987 [R=301,L]
 RewriteCond %{QUERY_STRING} ^2011\/08\/05\/1080-songe-d-une-nuit-d-ete$ 
 RewriteRule ^blog\/index\.php\/ spip.php?page=article&id_article=988 [R=301,L]
 
+# redirection de blog/index.php/ sans query-string
+RewriteRule ^blog\/index\.php\/$	spip.php?page=rubrique&id_rubrique=1 [QSA,L]
+
 # redirections pour gameover
 RewriteCond %{QUERY_STRING} ^([0-9]{4})/(.*)$
 RewriteRule ^gameover\/index.php spip.php?page=rubrique&id_rubrique=21 [R=301,L]
