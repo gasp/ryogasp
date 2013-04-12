@@ -28,7 +28,6 @@
         <p class="arbo"><a href="#URL_SITE_SPIP/">ryogasp</a><BOUCLE_ariane(HIERARCHIE){id_breve}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</p>
 
 		<div class="cartouche">
-			[(#LOGO_ARTICLE_RUBRIQUE|image_reduire{40,*})]
 			[<p class="#EDIT{surtitre} surtitre">(#SURTITRE)</p>]
 			<h1 class="h1 #EDIT{titre}">#TITRE</h1>
 			[<p class="#EDIT{soustitre} soustitre">(#SOUSTITRE)</p>]
@@ -38,6 +37,7 @@
 			#MODELE{article_traductions}
 		</div>
 		
+		[<figure>(#LOGO_BREVE|image_reduire{600,*}|inserer_attribut{alt,#TITRE|attribut_html})</figure>]
 		[<div class="#EDIT{texte} texte surlignable">(#TEXTE|image_reduire{500,*})</div>]
 	
 		[<hr /><p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
