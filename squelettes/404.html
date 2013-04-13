@@ -18,32 +18,31 @@
 		.aouch{
 			height:480px;
 			width:640px;
-			background: #f90[ url(/(#CHEMIN{css/img/general/404.gif})) no-repeat scroll center center];
+			background: #f90[ url(/(#CHEMIN{css/img/general/404.gif})?v=2) no-repeat scroll center center];
 		}
 		.aouch h1,.aouch p{
 			color:#fff;
 			font: normal normal normal 2em Georgia, serif;
 			padding:1em;
-			width:200px;
+			width:400px;
 			
 		}
 
 		a{text-decoration:none;}
-		a.c0,a.c1,a.c2,a.c3,a.c4,a.c5{font-family: monospace;}
-		a.c0:visited,a.c1:visited,a.c2:visited,a.c3:visited,a.c4:visited,a.c5:visited{color:#000;font-weight:bold;}
-		a.c0{color:#0fc;}
-		a.c1{color:#0c0;}
-		a.c2{color:#cf0;}
-		a.c3{color:#ccc;}
-		a.c4{color:#fcc;}
-		a.c5{color:#fcf;}
-
+		a.c{font-family: monospace;}
+		a.c:visited{color:#000;font-weight:bold;}
+<?php
+for ($i=0; $i < 25; $i++) {
+	$c = dechex(155-$i*5);
+	echo '		a.p'.$i.'{color:#'.$c.$c.$c.'}'."\n";
+}
+?>
 	</style>
 </head>
 <body>
 <div class="aouch">
 	<h1>Aouch, erreur 404 !</h1>
-	<p>Il y a un truc qui était là et qui s'est fait la malle.</p>
+	<p>Il y a un truc qui marche plus et qu'il faut réparer.</p>
 </div>
 
 
@@ -53,7 +52,7 @@
 <h1>Tous les articles</h1>
 <p>Ce que vous recherchez, c'est certainement là dedans</p>
 <BOUCLE_touslesarticles(ARTICLES){', '}{par date}{inverse}>
-<a class="c<?php echo floor(rand(0,5)) ?>" href="#URL_ARTICLE">#TITRE</a>
+<a class="c p#POPULARITE" href="#URL_ARTICLE">#TITRE</a>
 </BOUCLE_touslesarticles>
 </B_touslesarticles>
 </body>
