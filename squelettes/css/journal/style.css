@@ -321,6 +321,9 @@ h2 {
   font-size: 3em;
   margin-bottom: .1em;
 }
+#header-container .last_pubdate {
+  color: #ccc;
+}
 article header h1,
 article header h2 {
   margin-bottom: .1em;
@@ -360,6 +363,20 @@ article figcaption .legend {
 }
 aside {
   font-size: .8em;
+}
+.portfolio ul,
+.portfolio li {
+  padding: 0;
+  margin: 0;
+}
+.portfolio li {
+  list-style-type: none;
+}
+.portfolio .spip_logos {
+  float: left;
+  margin: 0 10px 10px 0;
+  padding: 0;
+  border: none;
 }
 /* =============================================================================
    Media Queries
