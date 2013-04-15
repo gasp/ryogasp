@@ -30,16 +30,19 @@
 	#SET{url,#ENV{lien,#URL_DOCUMENT}}
 ]
 
-<dl class='spip_photo spip_img_responsive spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
-<dt>[<a href="(#GET{url})"[
+<figure class='spip_photo spip_img_responsive spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
+[<a href="(#GET{url})"[
 	class="(#ENV{lien_class})"] title='#TYPE_DOCUMENT - [(#TAILLE|taille_en_octets|texte_backend)]'[
 	(#ENV{lien}|?{'',type="#MIME_TYPE"})]>]
 		<img src='#GET{fichier}'[ alt="(#TITRE)"] width="" height="" style="" />
 	[(#GET{url}|?{</a>})]
-</dt>
-[<dt class='#EDIT{titre} spip_photo_titre'>(#TITRE)</dt>]
-[<dd class='#EDIT{descriptif} spip_photo_descriptif'>(#DESCRIPTIF|PtoBR)[(#NOTES|PtoBR)]</dd>]
-</dl>
+
+[<figcaption>
+	<div class='#EDIT{titre} title'>(#TITRE)</div>
+	[<div class='#EDIT{descriptif} legend'>(#DESCRIPTIF|PtoBR)[(#NOTES|PtoBR)]</div>]
+</figcaption>
+]
+</figure>
 
 </BOUCLE_doc>
 #FILTRE{trim}

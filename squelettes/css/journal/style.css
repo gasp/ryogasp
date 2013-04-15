@@ -350,11 +350,11 @@ article section h2 {
 article section blockquote.spip_poesie {
   color: #777777;
 }
-article .spip_photo .spip_photo_titre {
+article figcaption .title {
   font-weight: normal;
   font-size: .8em;
 }
-article .spip_photo .spip_photo_descriptif {
+article figcaption .legend {
   font-weight: normal;
   font-size: .7em;
 }
