@@ -1,0 +1,44 @@
+.wrapper{
+	width:90%;
+	margin:0 5%;
+}
+
+::-moz-selection { background: #369; color: #fff; text-shadow: none; }
+::selection      { background: #369; color: #fff; text-shadow: none; }
+
+#main{
+	section.content{
+		padding:2em 0
+	}
+	article{
+		img{
+			max-width:100%;
+		}
+		
+		header{
+			padding:2em 0
+		}
+	} 
+}
+
+#main aside{
+	padding:0px 5% 10px;
+}
+
+#footer-container footer{
+	border-top:1px solid @light;
+	padding:20px;
+	a{
+		text-decoration:none;
+		color:@dark;
+	}
+	.tech{
+		float:right;
+	}
+}
+
+/* ===============
+    ALL: IE Fixes
+   =============== */
+
+.ie7 #title{ padding-top:20px; }

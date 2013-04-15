@@ -1,0 +1,84 @@
+@font-face {
+	font-family: 'AdelleBasicBold';
+	src: url('adellebasic_bold-adelle.eot');
+	src: url('adellebasic_bold-adelle.eot?#iefix')
+		format('eot'), url('adellebasic_bold-adelle.woff')
+		format('woff'), url('adellebasic_bold-adelle.ttf')
+		format('truetype'),
+		url('adellebasic_bold-adelle.svgz#webfontQtT5Mhrs')
+		format('svg'),
+		url('adellebasic_bold-adelle.svg#webfontQtT5Mhrs')
+		format('svg');
+	font-weight: normal;
+	font-style: normal;
+}
+
+
+//body{ font:16px/26px 'Helvetica Neue',Helvetica, Arial; }
+body{ font:16px/26px Georgia; }
+
+h1,h2{
+	font-weight:normal;
+	font-style: normal;
+	font-family: 'AdelleBasicBold', Georgian, Times, serif;
+	line-height:1em
+}
+
+#header-container{
+	color:@dark;
+	h1#title{
+		font-size:3em;
+		margin-bottom:.1em;
+	}	
+}
+
+article{
+	header{
+		h1,h2{
+			margin-bottom:.1em;
+			a{
+				text-decoration:none;
+				color:@color;
+			}
+		}
+		h1{
+			font-size:1.8em;
+			margin-top:0;
+		}
+		p{
+			margin:0;
+			padding:0;
+		}
+	}
+	section.chapo{
+		font-size:1.1em;
+		padding-left:1em;
+		color:@dark;
+		border-left:.5em solid @light;
+	}
+	section{
+		h2{
+			font-size:1.6em;
+		}
+		blockquote.spip_poesie{
+			color:@grey;
+		}
+	}
+	// should be figcaption
+	.spip_photo{
+		.spip_photo_titre{
+			font-weight:normal;
+			font-size:.8em;
+		}
+		.spip_photo_descriptif{
+			font-weight:normal;
+			font-size:.7em;
+		}
+	}
+
+	
+}
+
+aside{
+	font-size:.8em;
+}
