@@ -321,8 +321,18 @@ h2 {
   font-size: 3em;
   margin-bottom: .1em;
 }
-#header-container .last_pubdate {
+#header-container .last_pubdate,
+#header-container .ariane {
   color: #ccc;
+}
+#header-container .last_pubdate a,
+#header-container .ariane a {
+  color: #bbb;
+  text-decoration: none;
+}
+#header-container .last_pubdate a:hover,
+#header-container .ariane a:hover {
+  text-decoration: underline;
 }
 article header h1,
 article header h2 {
