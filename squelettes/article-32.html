@@ -1,9 +1,9 @@
 [(#REM)
-	rubrique32 : le journal de bord
+	article-32 : le journal de bord
 	Un cache d'une journee
 	
 ]#CACHE{86400}
-<BOUCLE_principale(ARTICLES) {id_article}>
+<BOUCLE_principale(ARTICLES) {id_article}{doublons nav}>
 <!doctype html>
 
 <head>
@@ -69,7 +69,40 @@
 	</section>
 
 		<aside>
-			<a href="#URL_RUBRIQUE{32}">journal de bord</a>
+			<section>
+				<BOUCLE_rubrique_aside(RUBRIQUES){id_secteur}>
+				<h2>A propos</h2>
+				[<div class="#EDIT{texte} chapo">(#TEXTE|sinon{"Journal de bord, on y note des choses au fur et à mesure, ou pas."})</div>]
+				</BOUCLE_rubrique_aside>
+			</section>
+			<section class="nav">
+				<h2>Lire aussi</h2>
+				<!-- le lien vers l'article précédent, par ordre chronologique} -->
+				<BOUCLE_precedent(ARTICLES){id_rubrique}{age_relatif>=0}{par date}{inverse}{1,1}{doublons nav}>
+				<div>
+					&laquo;
+					<a href='#URL_ARTICLE'>#TITRE</a>,
+					<span class="info">[(#DATE|affdate_jourcourt)]</span>
+				</div>
+				</BOUCLE_precedent>
+
+				<!-- le lien vers l'article suivant, par ordre chronologique-->
+				<BOUCLE_suivant(ARTICLES){id_rubrique}{age_relatif<0}{par date}{0,1}{doublons nav}>
+				<div>
+					&raquo;
+					<a href='#URL_ARTICLE'>#TITRE</a>,
+					<span class="info">[(#DATE|affdate_jourcourt)]</span>
+				</div>
+				
+				<BOUCLE_autres(ARTICLES){id_rubrique}{!par date}{0,5}{doublons nav}>
+				<div>
+					&bull;
+					<a href="#URL_ARTICLE">#TITRE</a>,
+					<span class="info">[(#DATE|affdate_jourcourt)]</span>
+				</div>
+				</BOUCLE_autres>
+			</section>
+			</BOUCLE_suivant>
 		</aside>
 		
 	</div> <!-- #main -->
