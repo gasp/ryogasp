@@ -29,7 +29,7 @@
 	<div id="header-container">
 	<header class="wrapper clearfix">
 		<BOUCLE_rubrique_titraille(RUBRIQUES){id_secteur}{racine}>
-[		<h1 id="title" class="#EDIT{titre}">(#DESCRIPTIF*|typo)</h1>]
+[		<h1 id="title" class="#EDIT{titre}"><a href="#URL_RUBRIQUE">(#DESCRIPTIF*|typo)</a></h1>]
 		</BOUCLE_rubrique_titraille>
 
 		[(#REM) Fil d'Ariane ]
@@ -44,7 +44,7 @@
 		[(#REM) Articles de la rubrique ]
 		<article>
 			<header>
-				<h1>[<a href="##URL_ARTICLE">(#TITRE|sinon{sans titre})</a>]</h1>
+				<h1>[(#TITRE|sinon{sans titre})]</h1>
 				<p class="info">[(#DATE|affdate_jourcourt)][, <:par_auteur:> (#LESAUTEURS)][, (#SOUSTITRE)]</p>
 			</header>
 [

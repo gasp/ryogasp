@@ -29,6 +29,16 @@ h1,h2{
 	h1#title{
 		font-size:3em;
 		margin-bottom:.1em;
+		a{
+			color:@dark;
+			text-decoration:none;
+			&:visited{
+				color:@dark;
+			}
+			&:hover{
+				color:@hover;
+			}
+		}
 	}
 	.last_pubdate, .ariane{
 		color:#ccc;
@@ -49,6 +59,12 @@ article{
 			a{
 				text-decoration:none;
 				color:@darker;
+				&:visited{
+					color:@darker;
+				}
+				&:hover{
+					color:@hover;
+				}
 			}
 		}
 		h1{

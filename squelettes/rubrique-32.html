@@ -33,7 +33,7 @@
 
 <div id="header-container">
 	<header class="wrapper clearfix">
-[		<h1 id="title" class="#EDIT{titre}">(#DESCRIPTIF*|typo)</h1>]
+[		<h1 id="title" class="#EDIT{titre}"><a href="#URL_RUBRIQUE">(#DESCRIPTIF*|typo)</a></h1>]
 [		<p class="last_pubdate"><time datetime="#DATE" pubdate="pubdate">(#DATE|affdate)</time></p>]
 	</header>
 </div>
@@ -47,7 +47,7 @@
 		<BOUCLE_articles(ARTICLES) {id_rubrique} {par date}{inverse} {pagination}>
 		<article>
 			<header>
-				<h1>[<a href="##URL_ARTICLE">(#TITRE|sinon{sans titre})</a>]</h1>
+				<h1>[<a href="#URL_ARTICLE">(#TITRE|sinon{sans titre})</a>]</h1>
 				<p class="info">[(#DATE|affdate_jourcourt)][, <:par_auteur:> (#LESAUTEURS)][, (#SOUSTITRE)]</p>
 			</header>
 [
