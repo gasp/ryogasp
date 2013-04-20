@@ -381,13 +381,23 @@ article section h2 {
 article section blockquote.spip_poesie {
   color: #777777;
 }
-article figcaption .title {
+article figure {
+  margin: .3em 0 1em 0;
+}
+article figure figcaption {
+  margin: .3em 0;
+}
+article figure figcaption .title {
   font-weight: normal;
   font-size: .8em;
+  line-height: 1.2em;
+  padding: .4em;
 }
-article figcaption .legend {
+article figure figcaption .legend {
   font-weight: normal;
   font-size: .7em;
+  line-height: 1.1em;
+  padding: .4em;
 }
 aside {
   font-size: .8em;
