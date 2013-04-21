@@ -477,7 +477,6 @@ li.erreur textarea {
 /* Formulaire de forum */
 .formulaire_forum {
   padding: 1em 0;
-  border-top: 1px solid #ddd;
   margin-top: 1em;
 }
 .formulaire_forum ul,
