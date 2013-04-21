@@ -402,7 +402,7 @@ article figure figcaption .legend {
 aside {
   font-size: .8em;
 }
-/*reponse formulaire */
+/* reponse formulaire et messages d'erreur (vient de spip.css) */
 .erreur_message {
   display: block;
   color: #ff0000;
@@ -427,6 +427,14 @@ aside {
 }
 .reponse_formulaire_erreur a {
   color: #8a1f11;
+}
+li.erreur input[type="text"],
+li.erreur input.text,
+li.erreur input[type="password"],
+li.erreur input.password,
+li.erreur textarea {
+  background-color: #FBE3E4;
+  border-color: #FBC2C4;
 }
 .comments .vcard .avatar {
   border: medium none;
