@@ -402,6 +402,143 @@ article figure figcaption .legend {
 aside {
   font-size: .8em;
 }
+/*reponse formulaire */
+.erreur_message {
+  display: block;
+  color: #ff0000;
+}
+.reponse_formulaire {
+  margin-bottom: 1.5em;
+  padding: 0.75em;
+  border: 2px solid #ddd;
+}
+.reponse_formulaire_ok {
+  background: #e6efc2;
+  color: #264409;
+  border-color: #c6d880;
+}
+.reponse_formulaire_erreur {
+  background: #fbe3e4;
+  color: #8a1f11;
+  border-color: #fbc2c4;
+}
+.reponse_formulaire_ok a {
+  color: #264409;
+}
+.reponse_formulaire_erreur a {
+  color: #8a1f11;
+}
+.comments .vcard .avatar {
+  border: medium none;
+  float: left;
+  margin: 0 10px 10px 0;
+  padding: 0;
+}
+.comments .item {
+  display: none;
+}
+.comments ul,
+.comments li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.comments .comment-meta {
+  margin: 0;
+  font-weight: bold;
+}
+.comments .comment-meta small {
+  font-size: 100%;
+}
+.comments .comment-meta abbr {
+  border: 0;
+}
+.comments .comment-meta a {
+  color: #222;
+}
+.comments .comment-meta a:focus,
+.comments .comment-meta a:hover,
+.comments .comment-meta a:active {
+  color: #fff;
+}
+.comments .comment-meta .hyperlien {
+  padding: 0;
+  background: transparent;
+  font-weight: normal;
+}
+/* Formulaire de forum */
+.formulaire_forum {
+  padding: 1em 0;
+  border-top: 1px solid #ddd;
+  margin-top: 1em;
+}
+.formulaire_forum ul,
+.formulaire_forum li {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+.formulaire_forum legend {
+  display: none;
+}
+.formulaire_forum .saisie_titre input.text {
+  width: 100%;
+}
+.formulaire_forum .session_qui {
+  display: none;
+}
+.formulaire_forum .saisie_texte .explication {
+  font-size: .9em;
+  font-style: italic;
+}
+.formulaire_forum input.text,
+.formulaire_forum textarea {
+  background-color: #fafafa;
+  border: 1px solid #eee;
+  border-radius: 3px;
+  padding: 3px;
+}
+.formulaire_forum .explication {
+  padding: 0;
+  margin: 0;
+}
+.forum-fil {
+  border-top: 1px solid #ddd;
+}
+.forum-chapo .photo {
+  float: left;
+  width: 60px;
+  margin-right: 20px;
+}
+.forum-about {
+  float: left;
+  width: 350px;
+}
+.forum-texte {
+  clear: both;
+}
+.forum-anchor {
+  display: block;
+  float: right;
+  padding-right: 8px;
+  color: #ccc;
+}
+.formulaire_forum label {
+  display: block;
+}
+ul .forum-message {
+  border: none;
+  margin: 0;
+  padding: 0;
+}
+ul .forum-chapo {
+  background: #fff;
+  border-color: #fff;
+  border: none;
+  border-right: 1px solid #ddd;
+  font-size: 0.8em;
+  height: 60px;
+}
 .portfolio ul,
 .portfolio li {
   padding: 0;

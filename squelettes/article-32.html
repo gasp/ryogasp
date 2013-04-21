@@ -63,7 +63,16 @@
 				<hr>
 				[<div class="notes">(#NOTES)</div>]
 				[<div class="ps">(#PS)</div>]
+				
+				[<div class="notes"><hr />(#NOTES)</div>]
 			</footer>
+			
+			<section>
+				[(#REM) Forum de l'article ]
+				<a href="#forum" name="forum" id="forum"></a>
+				<INCLURE{fond=inclure/forum,id_article} />
+				#FORMULAIRE_FORUM
+			</section>
 			
 		</article>
 	</section>

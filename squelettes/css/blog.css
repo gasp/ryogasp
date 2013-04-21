@@ -139,9 +139,9 @@ h1, .cartouche h1, .h1 {
 }
 
 ul .forum-message {
-    border: none;
-    margin: 0;
-    padding: 0;
+	border: none;
+	margin: 0;
+	padding: 0;
 }
 ul .forum-chapo {
 	background: #fff;
