@@ -1,0 +1,36 @@
+[(#ENV{id_rubrique,'specifier une rubrique, c’est plus simple'})]
+
+<p>
+	<BOUCLE_racine(RUBRIQUES){racine}{' | '}>
+		<a href="/spip.php?page=forums&id_rubrique=#ID_RUBRIQUE">#TITRE</a>
+	</BOUCLE_racine>
+</p>
+
+<p>
+	<BOUCLE_sous_rubrique(RUBRIQUES){id_parent?}{' | '}>
+		<a href="/spip.php?page=forums&id_rubrique=#ID_RUBRIQUE">#TITRE</a>
+	</BOUCLE_sous_rubrique>
+</p>
+
+<h1>Suivi des commentaires</h1>
+<BOUCLE_rubrique(RUBRIQUES){id_secteur?}>
+<h2>#TITRE</h2>
+<ul>
+	<BOUCLE_articles(ARTICLES){id_rubrique}{par date}{inverse}{0,30}>
+		<B_forum>
+		<li>
+			<a href="#URL_ARTICLE"[ title="ryogasp: journal - (#TITRE|attribut_html)"]>#TITRE</a>
+			<ul>
+				<BOUCLE_forum(FORUMS){id_article}{par date}{inverse}>
+				<li>
+					<div>#DATE – #TITRE</div>
+					<div>#NOM</div>
+					<div>#TEXTE</div>
+				</li>
+				</BOUCLE_forum>
+			</ul>
+		</li>
+		</B_forum>
+	</BOUCLE_articles>
+</ul>
+</BOUCLE_rubrique>
