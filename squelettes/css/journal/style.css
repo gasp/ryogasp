@@ -474,6 +474,9 @@ li.erreur textarea {
   background: transparent;
   font-weight: normal;
 }
+.comments-nb {
+  float: right;
+}
 /* Formulaire de forum */
 .formulaire_forum {
   padding: 1em 0;
