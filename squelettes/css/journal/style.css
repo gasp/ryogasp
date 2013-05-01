@@ -314,6 +314,9 @@ h2 {
   font-family: 'AdelleBasicBold', Georgian, Times, serif;
   line-height: 1em;
 }
+.active {
+  font-weight: bold;
+}
 #header-container {
   color: #555555;
 }
@@ -401,6 +404,10 @@ article figure figcaption .legend {
 }
 aside {
   font-size: .8em;
+}
+aside ul,
+aside ol {
+  padding: 0 0 0 20px;
 }
 /* reponse formulaire et messages d'erreur (vient de spip.css) */
 .erreur_message {
@@ -607,7 +614,7 @@ a.badge:hover {
   
 }
 @media only screen and (min-width: 768px) {
-  #main section.content {
+  #main .content {
     float: left;
     width: 57%;
   }

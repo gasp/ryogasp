@@ -1,0 +1,35 @@
+[(#REM) Articles de la rubrique ]
+<section class="articles">
+<B_articles>
+#ANCRE_PAGINATION
+<BOUCLE_articles(ARTICLES) {id_rubrique=32} {par date}{inverse} {pagination}>
+<article>
+	<header>
+		<h1>[<a href="#URL_ARTICLE">(#TITRE|sinon{sans titre})</a>]</h1>
+		<p class="info">[(#DATE|affdate_jourcourt)][, <:par_auteur:> (#LESAUTEURS)][, (#SOUSTITRE)]</p>
+	</header>
+[
+	<section class="chapo">
+		<div>(#CHAPO)</div>
+	</section>
+]
+	<section>
+[				<div>(#TEXTE|image_reduire{700,0})</div>]
+	</section>
+	
+	
+	[(#REM) Gestion du portfolio et des documents ]
+	[(#INCLURE{fond=inclure/documents,id_article, env})]
+
+	<footer>
+		<hr>
+		[<div class="notes">(#NOTES)</div>]
+		[<div class="ps">(#PS)</div>]
+		[<div class="comments-nb">(#MODELE{comments-nb})</div>]
+	</footer>
+	
+</article>
+</BOUCLE_articles>
+[<p class="pagination">(#PAGINATION)</p>]
+</B_articles>
+</section>

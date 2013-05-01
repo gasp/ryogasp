@@ -40,42 +40,16 @@
 
 <div id="main-container">
 	<div id="main" class="wrapper clearfix">
-		<section class="content">
-		[(#REM) Articles de la rubrique ]
-		<B_articles>
-		#ANCRE_PAGINATION
-		<BOUCLE_articles(ARTICLES) {id_rubrique} {par date}{inverse} {pagination}>
-		<article>
-			<header>
-				<h1>[<a href="#URL_ARTICLE">(#TITRE|sinon{sans titre})</a>]</h1>
-				<p class="info">[(#DATE|affdate_jourcourt)][, <:par_auteur:> (#LESAUTEURS)][, (#SOUSTITRE)]</p>
-			</header>
-[
-			<section class="chapo">
-				<div>(#CHAPO)</div>
-			</section>
-]
-			<section>
-[				<div>(#TEXTE|image_reduire{700,0})</div>]
-			</section>
-			
-			
-			[(#REM) Gestion du portfolio et des documents ]
-			[(#INCLURE{fond=inclure/documents,id_article, env})]
+		<div class="content">
+[(#ENV{archive}|?{
+[(#INCLURE{fond=inclure/journal_archives}{date=#ENV{archive}})],
+[(#INCLURE{fond=inclure/journal_list})]
+})]
 
-			<footer>
-				<hr>
-				[<div class="notes">(#NOTES)</div>]
-				[<div class="ps">(#PS)</div>]
-				[<div class="comments-nb">(#MODELE{comments-nb})</div>]
-			</footer>
-			
-		</article>
-		</BOUCLE_articles>
-		[<p class="pagination">(#PAGINATION)</p>]
-		</B_articles>
-		</section>
 
+
+
+		</div><!-- /.content-->
 		<aside>
 			<section>
 			<h2>A propos</h2>
@@ -87,6 +61,26 @@
 					<a class="badge rss" href="http://ryogasp.com/spip.php?page=backend&id_rubrique=32">RSS</a>
 				</div>
 			</section>
+
+			<BOUCLE_archives_rubrique(RUBRIQUES){id_rubrique}>
+			<section class="archives">
+
+				<h2>Archives</h2>
+				<ul>
+				<BOUCLE_archives(ARTICLES){id_secteur ?}
+					{lang_select=non}{fusion DATE_FORMAT(date,'%Y-%m')}
+					{par date}{inverse}
+					{mois_relatif>=0}{mois_relatif<12}>
+				[<li>
+					<a href="[(#URL_RUBRIQUE{32}|parametre_url{archive,[(#DATE|affdate{Y-m})]})]"[
+					    class="(#DATE|affdate{Y-m}|=={[(#ENV{archive}|affdate{Y-m})]}|?{active})"
+					][  title="<:archives_de:> (#DATE|affdate_mois_annee)"]>(#DATE|affdate_mois_annee)</a>
+				</li>]
+				</BOUCLE_archives>
+
+				</ul>
+			</section>
+			</BOUCLE_archives_rubrique>
 		</aside>
 		
 	</div> <!-- #main -->
