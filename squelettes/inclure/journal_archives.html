@@ -1,8 +1,12 @@
 <section class="archives">
 [<h2>Archives de (#DATE|affdate_mois_annee)</h2>]
+<B_archives>
 <ul>
-<BOUCLE_archives(ARTICLES){id_rubrique ?}{mois_relatif=0}>
+<BOUCLE_archives(ARTICLES){id_rubrique=32}{mois_relatif=0}>
 <li><a href="#URL_ARTICLE">#TITRE</a></li>
 </BOUCLE_archives>
 </ul>
+</B_archives>
+<p>Aucun article pour ce mois-ci.</p>
+<//B_archives>
 </section>

@@ -20,7 +20,7 @@
 
 	<meta name="viewport" content="width=device-width">
 
-	<link[ rel="stylesheet" href="(#CHEMIN{css/journal/style.css})"]>
+	<link[ rel="stylesheet" href="(#CHEMIN{css/journal/style.css})?2"]>
 	<link rel="alternate" type="application/rss+xml" 
 		title="[(#DESCRIPTIF|textebrut)en ]RSS" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
 	<!--[if lt IE 9]>
@@ -45,21 +45,11 @@
 [(#INCLURE{fond=inclure/journal_archives}{date=#ENV{archive}})],
 [(#INCLURE{fond=inclure/journal_list})]
 })]
-
-
-
-
 		</div><!-- /.content-->
 		<aside>
 			<section>
 			<h2>A propos</h2>
 			[<div class="#EDIT{texte} chapo">(#TEXTE|sinon{"Journal de bord, on y note des choses au fur et à mesure, ou pas."})</div>]
-			</section>
-			
-			<section class="feeds">
-				<div class="rss">
-					<a class="badge rss" href="http://ryogasp.com/spip.php?page=backend&id_rubrique=32">RSS</a>
-				</div>
 			</section>
 
 			<BOUCLE_archives_rubrique(RUBRIQUES){id_rubrique}>
@@ -77,10 +67,15 @@
 					][  title="<:archives_de:> (#DATE|affdate_mois_annee)"]>(#DATE|affdate_mois_annee)</a>
 				</li>]
 				</BOUCLE_archives>
-
 				</ul>
 			</section>
 			</BOUCLE_archives_rubrique>
+			
+			<section class="feeds">
+				<div class="rss">
+					<a class="badge rss" href="http://ryogasp.com/spip.php?page=backend&id_rubrique=32">RSS</a>
+				</div>
+			</section>
 		</aside>
 		
 	</div> <!-- #main -->
