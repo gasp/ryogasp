@@ -317,6 +317,9 @@ h2 {
 .active {
   font-weight: bold;
 }
+.light {
+  color: #777777;
+}
 #header-container {
   color: #555555;
 }
