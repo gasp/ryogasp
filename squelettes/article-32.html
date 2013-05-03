@@ -92,8 +92,8 @@
 				<BOUCLE_precedent(ARTICLES){id_rubrique}{age_relatif>=0}{par date}{inverse}{1,1}{doublons nav}>
 				<div>
 					&laquo;
-					<a href='#URL_ARTICLE'>#TITRE</a>,
-					<span class="info">[(#DATE|affdate_jourcourt)]</span>
+					<a href='#URL_ARTICLE'>#TITRE</a>
+					[<span class="light">&ndash; <time datetime="#DATE">(#DATE|affdate_jourcourt)</time></span>]
 				</div>
 				</BOUCLE_precedent>
 
@@ -101,15 +101,15 @@
 				<BOUCLE_suivant(ARTICLES){id_rubrique}{age_relatif<0}{par date}{0,1}{doublons nav}>
 				<div>
 					&raquo;
-					<a href='#URL_ARTICLE'>#TITRE</a>,
-					<span class="info">[(#DATE|affdate_jourcourt)]</span>
+					<a href='#URL_ARTICLE'>#TITRE</a>
+					[<span class="light">&ndash; <time datetime="#DATE">(#DATE|affdate_jourcourt)</time></span>]
 				</div>
 				</BOUCLE_suivant>
 				<BOUCLE_autres(ARTICLES){id_rubrique}{!par date}{0,5}{doublons nav}>
 				<div>
 					&bull;
-					<a href="#URL_ARTICLE">#TITRE</a>,
-					<span class="info">[(#DATE|affdate_jourcourt)]</span>
+					<a href="#URL_ARTICLE">#TITRE</a>
+					[<span class="light">&ndash; <time datetime="#DATE">(#DATE|affdate_jourcourt)</time></span>]
 				</div>
 				</BOUCLE_autres>
 			</section>

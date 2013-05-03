@@ -3,7 +3,7 @@
 <B_archives>
 <ul>
 <BOUCLE_archives(ARTICLES){id_rubrique=32}{!par date}{mois_relatif=0}>
-<li><a href="#URL_ARTICLE">#TITRE</a>[<span class="light"> &ndash; [(#DATE|nom_jour)] (#DATE|affdate{d})</span>]</li>
+<li><a href="#URL_ARTICLE">#TITRE</a>[<span class="light"> &ndash; <time datetime="#DATE">[(#DATE|nom_jour)] (#DATE|affdate{d})</time></span>]</li>
 </BOUCLE_archives>
 </ul>
 </B_archives>

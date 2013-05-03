@@ -64,7 +64,7 @@
 				[<li>
 					<a href="[(#URL_RUBRIQUE{32}|parametre_url{archive,[(#DATE|affdate{Y-m})]})]"[
 					    class="(#DATE|affdate{Y-m}|=={[(#ENV{archive}|affdate{Y-m})]}|?{active})"
-					][  title="<:archives_de:> (#DATE|affdate_mois_annee)"]>(#DATE|affdate_mois_annee)</a>
+					][  title="<:archives_de:> (#DATE|affdate_mois_annee)"]><time datetime="#DATE">(#DATE|affdate_mois_annee)</time></a>
 				</li>]
 				</BOUCLE_archives>
 				</ul>
