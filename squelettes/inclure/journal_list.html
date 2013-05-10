@@ -25,7 +25,10 @@
 		<hr>
 		[<div class="notes">(#NOTES)</div>]
 		[<div class="ps">(#PS)</div>]
-		[<div class="comments-nb">(#MODELE{comments-nb}|sinon{<a href="#URL_ARTICLE">Laisser un commentaire</a>})</div>]
+		<BOUCLE_age(ARTICLES){id_article}{age < 31}>
+			[<div class="comments-nb">(#MODELE{comments-nb}|sinon{<a href="#URL_ARTICLE">Laisser un commentaire</a>})</div>]
+		</BOUCLE_age>
+			[<div class="comments-nb">(#MODELE{comments-nb})</div>]
 	</footer>
 	
 </article>
