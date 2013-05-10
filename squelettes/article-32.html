@@ -72,7 +72,10 @@
 				[(#REM) Forum de l'article ]
 				<a href="#forum" name="forum" id="forum"></a>
 				<INCLURE{fond=inclure/forum,id_article} />
-				#FORMULAIRE_FORUM
+
+				<BOUCLE_age(ARTICLES){id_article}{age < 31}>
+					#FORMULAIRE_FORUM
+				</BOUCLE_age>
 			</section>
 			
 		</article>
