@@ -43,7 +43,7 @@
 		<div class="content">
 [(#ENV{archive}|?{
 [(#INCLURE{fond=inclure/journal_archives}{date=#ENV{archive}})],
-[(#INCLURE{fond=inclure/journal_list})]
+[(#INCLURE{fond=inclure/journal_list,env})]
 })]
 		</div><!-- /.content-->
 		<aside>
