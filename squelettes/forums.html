@@ -1,15 +1,15 @@
 #CACHE{86400}
-[(#ENV{id_rubrique,'specifier une rubrique, c’est plus simple'})]
+[(#ENV{id_secteur,'specifier une rubrique, c’est plus simple'})]
 
 <p>
 	<BOUCLE_racine(RUBRIQUES){racine}{' | '}>
-		<a href="/spip.php?page=forums&id_rubrique=#ID_RUBRIQUE">#TITRE</a>
+		<a href="/spip.php?page=forums&id_secteur=#ID_RUBRIQUE">#TITRE</a>
 	</BOUCLE_racine>
 </p>
 
 <p>
 	<BOUCLE_sous_rubrique(RUBRIQUES){id_parent?}{' | '}>
-		<a href="/spip.php?page=forums&id_rubrique=#ID_RUBRIQUE">#TITRE</a>
+		<a href="/spip.php?page=forums&id_secteur=#ID_RUBRIQUE">#TITRE</a>
 	</BOUCLE_sous_rubrique>
 </p>
 
@@ -24,8 +24,7 @@
 			<ul>
 				<BOUCLE_forum(FORUMS){id_article}{par date}{inverse}>
 				<li>
-					<div>#DATE – #TITRE</div>
-					<div>#NOM</div>
+					<div>[(#DATE|affdate) – ]#NOM</div>
 					<div>#TEXTE</div>
 				</li>
 				</BOUCLE_forum>
