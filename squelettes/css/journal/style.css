@@ -405,6 +405,9 @@ article figure figcaption .legend {
   line-height: 1.1em;
   padding: .4em;
 }
+article hr {
+  clear: both;
+}
 aside {
   font-size: .8em;
 }
