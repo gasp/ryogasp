@@ -4,7 +4,4 @@ $(document).ready(function(){
 		$(this).next().slideToggle();
 	});
 	
-	// clear spip_photo size, let it be responsive
-	$('.spip_photo img').attr({'width':'','height':'','style':''});
-
 });
