@@ -22,11 +22,12 @@ $(document).ready(function(){
 			next.onclick();
 		}).css({'cursor':'pointer'})
 	
-		// maximize image size
-		var h = $(this).css({'position':'absolute','max-width':'90%', 'z-index':2}).height();
-		$(this).parent().css({'height':h});
+		if(!maximage(this))
+			$(this).load(function(){
+				maximage(this);
+			});
 
-//		console.log(next.href);
+	//		console.log(next.href);
 		if(next.href){
 			var raquo = $('<div>&raquo;</div>').addClass('raquo').click(function(){
 				next.onclick();
@@ -34,9 +35,15 @@ $(document).ready(function(){
 			$(this).parent().mouseover(function(){
 				raquo.css({'visibility':'visible'});
 			}).mouseout(function(){
-				raquo.css({'visibility':'hidden', 'height':h});
+				raquo.css({'visibility':'hidden', 'height':maximage(this)});
 			}).append(raquo);
-			
 		}// there is no next
 	});
 });
+
+var maximage = function(el){
+	// maximize image size
+	var h = $(el).css({'position':'absolute','max-width':'90%', 'z-index':2}).height();
+	$(el).parent().css({'height':h});
+	return h;
+}
