@@ -20,7 +20,7 @@
 	Afficher en grand le document demande dans l'URL
 ]
 <BOUCLE_afficher_document(DOCUMENTS) {id_document}{id_article} {mode=document}{extension IN png,jpg,gif}>
-[(#MODELE{emb}|image_reduire{500,*})]
+[(#MODELE{emb}|image_reduire{1000,*})]
 <p class="spip_doc_descriptif"><a href="#FICHIER">Original file</a>: [[(#LARGEUR) x ](#HAUTEUR)px][, (#TAILLE|taille_en_octets)] – <a[ href="(#URL_PAGE{document,id_document=})#ID_DOCUMENT"]>more info</a></p>
 </BOUCLE_afficher_document>
 
