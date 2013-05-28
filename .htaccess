@@ -16,6 +16,9 @@ RewriteRule ^rss$	spip.php?page=backend [QSA,L]
 RewriteRule ^babel$	http://babel.ryogasp.com [QSA,L]
 RewriteRule ^ryoga/ryoga.htm$ http://richardcornu.com [QSA,L]
 
+RewriteRule ^ryoga(.*)$ http://archives.ryogasp.com/ryoga/$1 [L,R=301]
+RewriteRule ^bikoko(.*)$ http://archives.ryogasp.com/bikoko/$1 [L,R=301]
+RewriteRule ^onedayonearth(.*)$ http://archives.ryogasp.com/onedayonearth/$1 [L,R=301]
 
 
 ## blog
