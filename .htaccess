@@ -2110,8 +2110,8 @@ ErrorDocument 403 /spip.php?page=403
 #redirects permanents
 
 # remove www
-#RewriteCond %{HTTP_HOST} !^ryogasp\.com$ [NC]  
-#RewriteRule ^(.*)$ http://ryogasp.com/$1 [R=301,L]
+# RewriteCond %{HTTP_HOST} !^ryogasp\.com$ [NC]  
+# RewriteRule ^(.*)$ http://ryogasp.com/$1 [R=301,L]
 
 #force no-www.org
 # RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
