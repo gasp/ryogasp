@@ -16,12 +16,13 @@ $(document).ready(function(){
 
 		var el = $('.portfolio a#doc'+id);
 		if(!el.length) el = $('.portfolio a#img'+id);
-		
+
+		// create next that selects next element or a fake one
 		var next = $('a',$(el).parent().next())[0] || {onclick:function(){return false},href:false};
 		$(this).click(function(){
 			next.onclick();
 		}).css({'cursor':'pointer'})
-	
+
 		if(!maximage(this))
 			$(this).load(function(){
 				maximage(this);
@@ -33,9 +34,10 @@ $(document).ready(function(){
 				next.onclick();
 			});
 			$(this).parent().mouseover(function(){
-				raquo.css({'visibility':'visible'});
+				var h = $(this).height();
+				raquo.css({'visibility':'visible', 'height':h});
 			}).mouseout(function(){
-				raquo.css({'visibility':'hidden', 'height':maximage(this)});
+				raquo.css({'visibility':'hidden'});
 			}).append(raquo);
 		}// there is no next
 	});
