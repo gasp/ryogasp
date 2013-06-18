@@ -1,11 +1,16 @@
 $(document).ready(function(){
+
 	// clear spip_photo size, let it be responsive
 	$('.spip_photo img, .portfolio .spip_documents img').attr({'width':'','height':'','style':''});
+
+	// reset form size
+	$('.formulaire_forum input, .formulaire_forum textarea').not('.boutons input').attr({'size':null,'cols':null}).css({'width':'100%'});
+	$('.formulaire_forum').show(); /// is hidden by css
 
 	// add next and previous
 	$('.portfolio .spip_documents img').each(function(){
 		// get the link of the next one
-		
+
 		var i=14, // position of the number
 			id='', // empty string
 			cn = $(this).parent().parent()[0].className;
