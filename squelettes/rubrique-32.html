@@ -19,7 +19,7 @@
 
 	<meta name="viewport" content="width=device-width">
 
-	<link[ rel="stylesheet" href="(#CHEMIN{css/journal/style.css})?4"]>
+	<link[ rel="stylesheet" href="(#CHEMIN{css/journal/style.css}|compacte)"]>
 	<link rel="alternate" type="application/rss+xml" 
 		title="[(#DESCRIPTIF|textebrut)en ]RSS" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
 	<!--[if lt IE 9]>
@@ -88,7 +88,7 @@
 
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.2/jquery.min.js"></script>
 <script>window.jQuery || document.write('<script[ src="(#CHEMIN{js/libs/jquery-1.7.2.min.js})"]><\/script>')</script>
-[<script src="(#CHEMIN{js/journal.js})?3"></script>]
+[<script src="(#CHEMIN{js/journal.js}|compacte)"></script>]
 <INCLURE{fond=inclure/piwik}>
 
 </body>
