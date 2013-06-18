@@ -1,11 +1,40 @@
-/* =============================================================================
-   Media Queries
-   ========================================================================== */
-
-@media only screen and (min-width: 480px) {
-
+/* Media Queries
+ */
+// more than portrait iPhone
+@media only screen and (min-width: 320px) {
+	body{
+//		background-color:#aeaea;
+//		#aeaea
+//		@fakewhitelight
+		background: @fakewhitelight; /* Old browsers */
+		
+		background: -moz-linear-gradient(top,  @fakewhitelight 0%, @fakewhitedark 100%); /* FF3.6+ */
+		background: -webkit-gradient(linear, left top, left bottom, 
+			color-stop(0%, @fakewhitelight), color-stop(100%, @fakewhitedark)); /* Chrome,Safari4+ */
+		background: -webkit-linear-gradient(top, @fakewhitelight 0%,@fakewhitedark 100%); /* Chrome10+,Safari5.1+ */
+		background: -o-linear-gradient(top, @fakewhitelight 0%,@fakewhitedark 100%); /* Opera 11.10+ */
+		background: -ms-linear-gradient(top,  @fakewhitelight 0%,@fakewhitedark 100%); /* IE10+ */
+		background: linear-gradient(to bottom, @fakewhitelight 0%,@fakewhitedark 100%); /* W3C */
+		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@fakewhitelight', endColorstr='@fakewhitedark',GradientType=0 ); /* IE6-9 */
+	}
+	#header-container{
+		h1#title{
+			font-size:3em;
+		}
+		.last_pubdate, .ariane{
+			display:block;
+		}
+	}
+	#footer-container footer a{
+		display:inline;
+	}
+	#main aside section{
+		display:block;
+	}
+	
 }
 
+// more than vertical iPad
 @media only screen and (min-width: 769px) {
 
 	#main .content{
@@ -20,11 +49,7 @@
 }
 
 @media only screen and (min-width: 1140px) {
-
-/* ===============
-    Maximal Width
-   =============== */
-
+	// Maximal Width
 	.wrapper{
 		width:1026px; /* 1140px - 10% for margins */
 		margin:0 auto;
