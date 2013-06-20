@@ -32,15 +32,22 @@
 
 #footer-container footer{
 	border-top:1px solid @light;
-	a{
-		text-decoration:none;
-		color:@dark;
-		display:none; // responsive
-		&.login_modal {
-			display: inline;
+	
+	.colophon{
+		a{
+			text-decoration:none;
+			color:@dark;
+			display:none; // responsive
+			&.login_modal {
+				display: inline;
+			}
+		}
+		.sep{
+			display:none
 		}
 	}
 	.tech{
+		display:none;
 		float:right;
 	}
 }
