@@ -5,17 +5,13 @@
 @link:#248;
 @hover:#06e;
 @visited:#551a8b;
-@fakewhitelight:#fefefe;
-@fakewhitedark:#eeeeee;
+@fakewhitelight: #ffffff; // was #fefefe;
+@fakewhitedark: #fefefe;// was #eeeeee;
 
 
 @import "normalize.less";
 @import "global-mobile.less";
-
-/* ===== Primary Styles ========================================================
-   Author:	gaspard
-   ========================================================================== */
-
+//media-queries.less, helpers.less and print.less to the bottom
 @import "typo.less";
 @import "comment.less";
 
@@ -73,8 +69,6 @@ a.badge{
 	}
 }
 
-
-
 .raquo{
 	position:absolute;
 	visibility:hidden;
@@ -86,9 +80,6 @@ a.badge{
 	z-index:3;
 	color:#fff;
 }
-
-
-
 
 @import "media-queries.less";
 @import "helpers.less";

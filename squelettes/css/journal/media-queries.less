@@ -3,11 +3,7 @@
 // more than portrait iPhone
 @media only screen and (min-width: 321px) {
 	body{
-//		background-color:#aeaea;
-//		#aeaea
-//		@fakewhitelight
 		background: @fakewhitelight; /* Old browsers */
-		
 		background: -moz-linear-gradient(top,  @fakewhitelight 0%, @fakewhitedark 100%); /* FF3.6+ */
 		background: -webkit-gradient(linear, left top, left bottom, 
 			color-stop(0%, @fakewhitelight), color-stop(100%, @fakewhitedark)); /* Chrome,Safari4+ */
@@ -25,7 +21,8 @@
 			display:block;
 		}
 	}
-	#footer-container footer a{
+	#footer-container footer .colophon a,
+	#footer-container footer .colophon .sep{
 		display:inline;
 	}
 	#main aside section{
@@ -45,6 +42,9 @@
 	#main aside{
 		float:right;
 		width:28%;
+	}
+	#footer-container footer .tech{
+		display:block;
 	}
 }
 
