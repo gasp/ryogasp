@@ -1,29 +1,108 @@
 [(#REM) cette page, c'est une page d'archive du blog
-	on calcule une fois par semaine
-]#CACHE{604800}
-<BOUCLE_rubrique_principale_head(RUBRIQUES){id_rubrique}>
+	on calcule une fois par mois
+]#CACHE{2419200}
+<BOUCLE_principale(RUBRIQUES) {id_rubrique}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
 <head>
-<title>#TITRE</title>
-[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{150}|textebrut)" />]
-[<meta name-"date" content="(#ENV{date})">]
+<title>
+	<BOUCLE_blogroot(RUBRIQUES){racine}{meme_parent}{branche}>
+	[(#DESCRIPTIF|textebrut)]
+	</BOUCLE_blogroot>
+</title>
+[<meta name="description" content="(#INTRODUCTION{150}|textebrut)" />]
+<INCLURE{fond=inclure/head} />
+<INCLURE{fond=inclure/head_blog} />
+[(#REM) Lien vers le flux RSS des articles la rubrique ]
+<link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss" />
+[<link rel="canonical" href="http://www.ryogasp.com/blog/archives/(#ENV{date}|affdate{Y-m})" />]
 </head>
 
+<body class="blog">
+<div id="page">
 
-</BOUCLE_rubrique_principale_head>
+	[(#REM) Entete de la page + titre du site ]
+	<INCLURE{fond=_blog_entete}{id_rubrique}>
 
-[<link rel="canonical" href="http://www.ryogasp.com/blog/archives/(#ENV{date}|affdate{Y-m})" />]
+	[(#REM) Contenu principal : contenu de la rubrique ]
+	<div id="conteneur">
+	<div id="contenu">
 
-<p class="soustitre">[Archives de (#ENV{date}|affdate_mois_annee)]</p>
+		[(#REM) Fil d'Ariane ]
+		<div id="hierarchie"><BOUCLE_ariane(HIERARCHIE){id_rubrique}> <a href="#URL_RUBRIQUE">[(#TITRE|couper{80}|supprimer_numero)]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80}|supprimer_numero)</strong>]</div>
 
-<B_articles_deladate>
-<ul>
-<BOUCLE_articles_deladate(ARTICLES) {id_secteur=#ID_RUBRIQUE}{mois_relatif=0} {par date} >
-	<li><a href="#URL_ARTICLE">#TITRE</a><br /> [(#DATE|affdate)]</li>
-</BOUCLE_articles_deladate>
-</ul>
-</B_articles_deladate>
-	Aucun article pour cette période
-<//B_articles_deladate>
+		<div class="cartouche">
+			[(#LOGO_RUBRIQUE||image_reduire{500,0})]
+			[<h1 class="#EDIT{titre}">(#TITRE|supprimer_numero)</h1>]
+			[<p>Archives de (#ENV{date}|affdate_mois_annee)</p>]
+		</div>
 
+
+		<p class="soustitre"></p>
+
+		<B_articles_deladate>
+		<ul>
+		<BOUCLE_articles_deladate(ARTICLES) {id_secteur=#ID_RUBRIQUE}{mois_relatif=0} {par date} >
+			<li><a href="#URL_ARTICLE">#TITRE</a><br /> [(#DATE|affdate)]</li>
+		</BOUCLE_articles_deladate>
+		</ul>
+		</B_articles_deladate>
+			Aucun article pour cette période
+		<//B_articles_deladate>
+
+		[(#REM) Articles de la rubrique ]
+		<B_articles>
+		<div class="menu articles">
+			#ANCRE_PAGINATION
+				<div class="menu articles hfeed">
+					#ANCRE_PAGINATION
+					<BOUCLE_articles(ARTICLES) {id_rubrique} {par date}{inverse} {pagination}>
+						<div class="hentry post">
+							<div class="post-info">
+								[<h2 id="p#ID_ARTICLE"><a href="#URL_ARTICLE">(#TITRE)</a></h2>]
+								[<span class="day-date">(#DATE|affdate_jourcourt)</span>]
+								[<span class="author"><:par_auteur:> (#LESAUTEURS)</span>]
+							</div>
+							[<div>(#TEXTE|image_reduire{500,0})</div>]
+
+							<BOUCLE_commentaires(FORUMS){id_article}{plat}> </BOUCLE_commentaires>
+							<div><a href="#URL_ARTICLE">#TOTAL_BOUCLE [(#TOTAL_BOUCLE|=={1}|?{commentaire,commentaires})]</a></div>
+							</B_commentaires>
+							<div><a href="#URL_ARTICLE">Aucun commentaire</a></div>
+							<//B_commentaires>
+
+						</div>
+					</BOUCLE_articles>
+				</div>
+            [<p class="pagination">(#PAGINATION)</p>]
+		</div>
+		</B_articles>
+
+	</div><!--#contenu-->
+	</div><!--#conteneur-->
+
+	[(#REM) Extras ]
+    <div id="extra">
+		<div class="menu">
+			[
+			<h3>A propos</h3>
+			<div class="#EDIT{texte} chapo">(#TEXTE)</div>]
+		</div>
+    </div><!--#extra-->
+
+	[(#REM) Menu de navigation laterale ]
+	<BOUCLE_isblog(RUBRIQUES){id_rubrique}{id_rubrique=1}>
+	</BOUCLE_isblog>
+		<INCLURE{fond=_blog_nav,env}>
+	</B_isblog>
+		<INCLURE{fond=_blog_nav_go,env}>
+	<//B_isblog>
+
+	[(#REM) Pied de page ]
+	<INCLURE{fond=_blog_footer, skel=#SQUELETTE} />
+
+</div><!--#page-->
+</body>
+</html>
+</BOUCLE_principale>
