@@ -1,7 +1,8 @@
 [(#REM) cette page, c'est une page d'archive du blog
 	on calcule une fois par mois
 ]#CACHE{2419200}
-<BOUCLE_principale(RUBRIQUES) {id_rubrique}>
+#ENV{date}
+<BOUCLE_principale_header(RUBRIQUES) {id_rubrique}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
 <head>
@@ -38,8 +39,7 @@
 			[<p>Archives de (#ENV{date}|affdate_mois_annee)</p>]
 		</div>
 
-
-		<p class="soustitre"></p>
+</BOUCLE_principale_header>
 
 		<B_articles_deladate>
 		<ul>
@@ -51,37 +51,9 @@
 			Aucun article pour cette période
 		<//B_articles_deladate>
 
-		[(#REM) Articles de la rubrique ]
-		<B_articles>
-		<div class="menu articles">
-			#ANCRE_PAGINATION
-				<div class="menu articles hfeed">
-					#ANCRE_PAGINATION
-					<BOUCLE_articles(ARTICLES) {id_rubrique} {par date}{inverse} {pagination}>
-						<div class="hentry post">
-							<div class="post-info">
-								[<h2 id="p#ID_ARTICLE"><a href="#URL_ARTICLE">(#TITRE)</a></h2>]
-								[<span class="day-date">(#DATE|affdate_jourcourt)</span>]
-								[<span class="author"><:par_auteur:> (#LESAUTEURS)</span>]
-							</div>
-							[<div>(#TEXTE|image_reduire{500,0})</div>]
-
-							<BOUCLE_commentaires(FORUMS){id_article}{plat}> </BOUCLE_commentaires>
-							<div><a href="#URL_ARTICLE">#TOTAL_BOUCLE [(#TOTAL_BOUCLE|=={1}|?{commentaire,commentaires})]</a></div>
-							</B_commentaires>
-							<div><a href="#URL_ARTICLE">Aucun commentaire</a></div>
-							<//B_commentaires>
-
-						</div>
-					</BOUCLE_articles>
-				</div>
-            [<p class="pagination">(#PAGINATION)</p>]
-		</div>
-		</B_articles>
-
 	</div><!--#contenu-->
 	</div><!--#conteneur-->
-
+	<BOUCLE_principale_menu(RUBRIQUES) {id_rubrique}>
 	[(#REM) Extras ]
     <div id="extra">
 		<div class="menu">
@@ -101,8 +73,7 @@
 
 	[(#REM) Pied de page ]
 	<INCLURE{fond=_blog_footer, skel=#SQUELETTE} />
-
+	</BOUCLE_principale_menu>
 </div><!--#page-->
 </body>
 </html>
-</BOUCLE_principale>
