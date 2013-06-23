@@ -1,7 +1,6 @@
 [(#REM) cette page, c'est une page d'archive du blog
 	on calcule une fois par mois
 ]#CACHE{2419200}
-#ENV{date}
 <BOUCLE_principale_header(RUBRIQUES) {id_rubrique}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
@@ -51,6 +50,9 @@
 			Aucun article pour cette période
 		<//B_articles_deladate>
 
+		<BOUCLE_mois_precedent(ARTICLES) {id_secteur=#ID_RUBRIQUE}{mois_relatif=1} {par date} >
+		[<hr><p>(&laquo; <a href="#URL_RUBRIQUE{#ENV{id_rubrique}}archives/[(#DATE|affdate{'Y-m'})]">(#DATE|affdate_mois_annee|unique)</a>)</p>]
+		</BOUCLE_mois_precedent>
 	</div><!--#contenu-->
 	</div><!--#conteneur-->
 	<BOUCLE_principale_menu(RUBRIQUES) {id_rubrique}>
