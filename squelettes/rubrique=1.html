@@ -28,15 +28,14 @@
 		[(#REM) Fil d'Ariane ]
 		<div id="hierarchie"><a href="#URL_SITE_SPIP/"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_rubrique}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</div>
 
-			<div class="cartouche">
-				[(#LOGO_RUBRIQUE||image_reduire{500,0})]
-[				<h1 class="#EDIT{titre}">(#TITRE|supprimer_numero)</h1>]
-[				<p><small><:dernier_ajout:> : (#DATE|affdate_jourcourt).</small></p>]
-			</div>
+		<div class="cartouche">
+			[(#LOGO_RUBRIQUE||image_reduire{500,0})]
+			[<h1 class="#EDIT{titre}">(#TITRE|supprimer_numero)</h1>]
+			[<p><small><:dernier_ajout:> : (#DATE|affdate_jourcourt).</small></p>]
+		</div>
 
-
-			[(#REM) Articles de la rubrique ]
-			<B_articles>
+		[(#REM) Articles de la rubrique ]
+		<B_articles>
 			<div class="menu articles hfeed">
 				#ANCRE_PAGINATION
 				<BOUCLE_articles(ARTICLES) {id_secteur} {par date}{inverse} {pagination}>
@@ -54,7 +53,6 @@
 						<div><a href="#URL_ARTICLE">Aucun commentaire</a></div>
 						<//B_commentaires>
 
-					
 					</div>
 				</BOUCLE_articles>
 			</div>
@@ -66,16 +64,14 @@
 
 	<div id="extra">
 		<div class="menu">
-			
 			[(#REM) texte de la rubrique]
-			<h3 class="accessibility">&Agrave; propos</h3>
-			[<div class="#EDIT{texte} chapo">(#TEXTE)</div>]
+			[<h3 class="accessibility">&Agrave; propos</h3>
+			<div class="#EDIT{texte} chapo">(#TEXTE)</div>]
 
 			<INCLURE{fond=_blog_nuls} />
 
-			
 		</div>
-	</div>
+	</div><!--#extra-->
 
 	[(#REM) Menu de navigation laterale ]
  	<INCLURE{fond=_blog_nav,env} />
