@@ -1,4 +1,5 @@
-[(#REM) gameover pages rubriques
+[(#REM)
+	gameover pages rubriques
 	cache d'un mois, juste pour comme ca voir]
 #CACHE{2592000}
 <BOUCLE_principale(RUBRIQUES) {id_rubrique}>
@@ -25,59 +26,50 @@
 	<INCLURE{fond=_blog_entete}{id_rubrique}>
 
 	[(#REM) Contenu principal : contenu de la rubrique ]
-    <div id="conteneur">
-    <div id="contenu">
-    
-        [(#REM) Fil d'Ariane ]
-        <div id="hierarchie"><BOUCLE_ariane(HIERARCHIE){id_rubrique}> <a href="#URL_RUBRIQUE">[(#TITRE|couper{80}|supprimer_numero)]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80}|supprimer_numero)</strong>]</div>
+	<div id="conteneur">
+	<div id="contenu">
 
-        <div class="cartouche">
-[            <h1 class="#EDIT{titre}">(#TITRE|supprimer_numero)</h1>]
-            [<p><small><:dernier_ajout:> : (#DATE|affdate_jourcourt).</small></p>]
-        </div>
+		[(#REM) Fil d'Ariane ]
+		<div id="hierarchie"><BOUCLE_ariane(HIERARCHIE){id_rubrique}> <a href="#URL_RUBRIQUE">[(#TITRE|couper{80}|supprimer_numero)]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80}|supprimer_numero)</strong>]</div>
 
-        [(#REM) Articles de la rubrique ]
-        <B_articles>
-        <div class="menu articles">
-            #ANCRE_PAGINATION
-            	<div class="menu articles hfeed">
-					#ANCRE_PAGINATION
-					<BOUCLE_articles(ARTICLES) {id_rubrique} {par date}{inverse} {pagination}>
-						<div class="hentry post">
-							<div class="post-info">
-								[<h2 id="p#ID_ARTICLE"><a href="#URL_ARTICLE">(#TITRE)</a></h2>]
-								[<span class="day-date">(#DATE|affdate_jourcourt)</span>]
-								[<span class="author"><:par_auteur:> (#LESAUTEURS)</span>]
-							</div>
-							[<div>(#TEXTE|image_reduire{500,0})</div>]
+		<div class="cartouche">
+			[<h1 class="#EDIT{titre}">(#TITRE|supprimer_numero)</h1>]
+			[<p><small><:dernier_ajout:> : (#DATE|affdate_jourcourt).</small></p>]
+		</div>
 
-							<BOUCLE_commentaires(FORUMS){id_article}{plat}> </BOUCLE_commentaires>
-							<div><a href="#URL_ARTICLE">#TOTAL_BOUCLE [(#TOTAL_BOUCLE|=={1}|?{commentaire,commentaires})]</a></div>
-							</B_commentaires>
-							<div><a href="#URL_ARTICLE">Aucun commentaire</a></div>
-							<//B_commentaires>
-
-
+		[(#REM) Articles de la rubrique ]
+		<B_articles>
+			<div class="menu articles hfeed">
+				#ANCRE_PAGINATION
+				<BOUCLE_articles(ARTICLES) {id_rubrique} {par date}{inverse} {pagination}>
+					<div class="hentry post">
+						<div class="post-info">
+							[<h2 id="p#ID_ARTICLE"><a href="#URL_ARTICLE">(#TITRE)</a></h2>]
+							[<span class="day-date">(#DATE|affdate_jourcourt)</span>]
+							[<span class="author"><:par_auteur:> (#LESAUTEURS)</span>]
 						</div>
-					</BOUCLE_articles>
-				</div>
-            [<p class="pagination">(#PAGINATION)</p>]
-        </div>
-        </B_articles>
+						[<div>(#TEXTE|image_reduire{500,0})</div>]
 
+						<BOUCLE_commentaires(FORUMS){id_article}{plat}> </BOUCLE_commentaires>
+						<div><a href="#URL_ARTICLE">#TOTAL_BOUCLE [(#TOTAL_BOUCLE|=={1}|?{commentaire,commentaires})]</a></div>
+						</B_commentaires>
+						<div><a href="#URL_ARTICLE">Aucun commentaire</a></div>
+						<//B_commentaires>
 
-
-
-        [<div class="notes"><h2><:info_notes:></h2>(#NOTES)</div>]
+					</div>
+				</BOUCLE_articles>
+			</div>
+			[<p class="pagination">(#PAGINATION)</p>]
+		</B_articles>
 
 	</div><!--#contenu-->
 	</div><!--#conteneur-->
 
 	[(#REM) Extras ]
-    <div id="extra">
+	<div id="extra">
 		<div class="menu">
-			[
-			<h3>A propos</h3>
+			[(#REM) texte de la rubrique]
+			[<h3 class="accessibility">&Agrave; propos</h3>
 			<div class="#EDIT{texte} chapo">(#TEXTE)</div>]
 		</div>
     </div><!--#extra-->

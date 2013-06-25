@@ -28,7 +28,7 @@
 	[(#REM) Contenu principal : contenu de la rubrique ]
 	<div id="conteneur">
 		<div id="contenu">
-    
+
 		[(#REM) Fil d'Ariane ]
 		<div id="hierarchie"><BOUCLE_ariane(HIERARCHIE){id_rubrique}> <a href="#URL_RUBRIQUE">[(#TITRE|couper{80}|supprimer_numero)]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80}|supprimer_numero)</strong>]</div>
 
