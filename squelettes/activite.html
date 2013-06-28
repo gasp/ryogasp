@@ -4,7 +4,7 @@
 <title>Publications activity ryogasp.com</title>
 <meta charset="utf-8">
 <style>
-body{
+.mono{
 	font-family: monospace;
 	color:#222;
 }
@@ -16,8 +16,8 @@ body{
 
 <body>
 
-<BOUCLE_articles(ARTICLES){lang_select=non}{fusion DATE_FORMAT(date,'%Y-%m')}>
+<div class="mono"><BOUCLE_articles(ARTICLES){lang_select=non}{fusion DATE_FORMAT(date,'%Y-%m')}>
 <div>[(#DATE|affdate{Y-m})&nbsp;<span class="c">]<BOUCLE_mois(ARTICLES){mois_relatif=0}>█</BOUCLE_mois></span>&nbsp;(#TOTAL_BOUCLE)</B_mois></div>
-</BOUCLE_articles>
+</BOUCLE_articles></div>
 </body>
 </html>
