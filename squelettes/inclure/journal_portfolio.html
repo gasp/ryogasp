@@ -1,10 +1,10 @@
 [(#REM) Portfolio : album d'images ]
 <B_documents_portfolio>
-<div class="bloc clearfix portfolio" id="documents_portfolio">
-	<h2>(photobook)<:medias:info_portfolio:></h2>
+<div class="bloc clearfix portfolio documents_portfolio portfolio_thumbs">
+	<h2><:photographies:></h2>
 	<ul>
 		<BOUCLE_documents_portfolio(DOCUMENTS) {id_article} {mode=document}{extension IN png,jpg,gif} {par num titre, date}{doublons}{vu=non}>[
-		<li><a href="(#URL_DOCUMENT)" type="#MIME_TYPE"[ class="(#EXPOSER)"][ title="(#TITRE|attribut_html|couper{80})"] id="doc#ID_DOCUMENT" class="thumb" data-redirect="[(#URL_ARTICLE
+		<li><a href="(#URL_DOCUMENT)" type="#MIME_TYPE"[ title="(#TITRE|attribut_html|couper{80})"] id="doc#ID_DOCUMENT" class="thumb[ (#EXPOSE{'active'})]" data-redirect="[(#URL_ARTICLE
 						|parametre_url{id_document,#ID_DOCUMENT}
 						)][#spip_document_(#ID_DOCUMENT)]">[(#FICHIER
 			|image_passe_partout{90,90}
