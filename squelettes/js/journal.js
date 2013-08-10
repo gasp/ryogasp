@@ -8,10 +8,7 @@ $(document).ready(function(){
 	$('.formulaire_forum').show(); /// is hidden by css
 
 	// portfolio
-	$(".portfolio a.thumb").on("click", function(e){
-		location.href = $(this).data("redirect");
-		e.preventDefault();
-	})
+	// portfolio.init();
 
 
 	// add next and previous
@@ -42,12 +39,13 @@ $(document).ready(function(){
 
 	//		console.log(next.href);
 		if(next.href){
-			var raquo = $('<div>&raquo;</div>').addClass('raquo').click(function(){
+			var ww = $("#main.wrapper").width();
+				raquo = $('<div>&raquo;</div>').addClass('raquo').click(function(){
 				next.onclick();
 			});
 			$(this).parent().mouseover(function(){
 				var h = $(this).height();
-				raquo.css({'visibility':'visible', 'height':h});
+				raquo.css({'visibility':'visible', 'height':h, left: (ww - raquo.width())});
 			}).mouseout(function(){
 				raquo.css({'visibility':'hidden'});
 			}).append(raquo);
@@ -57,7 +55,11 @@ $(document).ready(function(){
 
 var maximage = function(el){
 	// maximize image size
-	var h = $(el).css({'position':'absolute','max-width':'90%', 'z-index':2}).height();
-	$(el).parent().css({'height':h});
+	
+	// get wrapper size
+	var ww = $("#main.wrapper").width();
+	
+	var h = $(el).css({'position':'absolute','max-width':ww, 'z-index':2}).height();
+	$(el).parent().css({'height':h, 'position':'relative'});
 	return h;
 }
