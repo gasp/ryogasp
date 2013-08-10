@@ -45,6 +45,11 @@ var portfolio = {
 			console.dir(this.env)
 		}.bind(this),50);
 
+		$(window).on("resize",function(){
+			portfolio.refresh();
+
+			portfolio._setBigImageSize(function(){});
+		})
 	},
 	refresh: function(){
 		this.env.wrapperWidth = null;
@@ -55,6 +60,7 @@ var portfolio = {
 
 		// bind thumbnails 
 		$("a.thumb",this.env.obj).on("click", function(e){
+
 			location.href = $(this).data("redirect");
 			e.preventDefault();
 		});
@@ -79,15 +85,24 @@ var portfolio = {
 							window.location.href = next;
 					});
 				}
+				else{ // this is not the active thumbnail
+					$(this).css({'opacity':'0.8'}).on('mouseover',function(){
+						$(this).animate({'opacity':'1'},'fast')
+					}).on('mouseout',function(){
+						$(this).animate({'opacity':'0.8'},'fast')
+					})
+				}
 			});
 		}
 	},
 	clean: function(){
-		
+		var env = this.env;
 		// remove width and height
 		if(this.env.isActive){
 
-			this._setBigImageSize();
+			this._setBigImageSize(function(){
+				window.scrollTo(0, Math.floor(this.env.activeDocument.offset().top))
+			});
 
 		}
 	},
@@ -101,6 +116,7 @@ var portfolio = {
 	_setBigImageSize : function (callback) {
 
 		var that = this;
+		that.callback = callback;
 
 		$('<img/>').attr('src', this.env.bigImage.attr('src')).on("load",function(){
 			var real = this,
@@ -116,6 +132,7 @@ var portfolio = {
 */
 
 			that.env.bigImage.css({
+				'max-width': width,
 				'width': width,
 				'height': height,
 				'position':'absolute'
@@ -128,6 +145,8 @@ var portfolio = {
 
 			that.env.bigImageWidth = width;
 			that.env.bigImageHeight = height;
+
+			that.callback()
 		});
 	},
 	_makeRaquo: function () {
