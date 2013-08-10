@@ -17,7 +17,7 @@ $(document).ready(function(){
 var portfolio = {
 	env: {},
 	init: function(){
-		
+
 		// set env variables
 		this.env.obj = $(".journal_portfolio"); // cache the object
 		this.env.isArticle = $("body").hasClass("article");
@@ -27,9 +27,7 @@ var portfolio = {
 		// id is a number or null
 		this.env.id = 
 			(this.env.isActive) 
-				&& this._getActiveIdFromClassName(
-					this.env.activeDocument[0].className
-				)
+				&& $(".portfolio_big", this.env.obj).data("id")
 				|| null;
 		this.env.bigImage = 
 			(this.env.isActive) 
@@ -39,17 +37,14 @@ var portfolio = {
 
 		this.env.wrapperWidth = null;
 
-		console.dir(this.env);
-		
-		
-		
 		// call after a short delay, don't block the threadt
 		window.setTimeout(function(){
 			this.clean();
 			this.bind();
+
+			console.dir(this.env)
 		}.bind(this),50);
 
-		
 	},
 	refresh: function(){
 		this.env.wrapperWidth = null;
@@ -68,14 +63,11 @@ var portfolio = {
 		}
 		if(this.env.isActive){
 			var active = $('.portfolio_thumbs .active',this.env.obj).get(0);
-//			console.log(active,' is active');
-			
 			this.env.thumbs = $('.portfolio_thumbs a');
 			this.env.thumbs.each(function(){
-//				console.log(this,active)
+
 				if(this == active){
 
-					console.log($(this).data("redirect"));
 					var next = $($('a',$(active).parent().next())[0]).data("redirect") 
 						|| false;
 
@@ -89,7 +81,6 @@ var portfolio = {
 				}
 			});
 		}
-		console.log('bind')
 	},
 	clean: function(){
 		
@@ -102,17 +93,6 @@ var portfolio = {
 	},
 	
 	// utils
-	_getActiveIdFromClassName : function(cn){
-		/*
-			TODO get it from data-id
-		*/
-		var i=14, // position of the number
-			id=''; // empty string
-		// go and fetch !
-		while(!isNaN(cn[i]))
-			id += cn[i++];
-		return id;
-	},
 	_getWrapperWidth : function () {
 		if(this.env.wrapperWidth == null)
 			this.env.wrapperWidth = $("#main.wrapper").width();
@@ -121,8 +101,7 @@ var portfolio = {
 	_setBigImageSize : function (callback) {
 
 		var that = this;
-		console.log('making a copy of',this.env.bigImage.attr('src'),callback);
-		
+
 		$('<img/>').attr('src', this.env.bigImage.attr('src')).on("load",function(){
 			var real = this,
 				width = Math.min(that._getWrapperWidth(),real.width),
@@ -135,19 +114,18 @@ var portfolio = {
 				if(ratio > 3)
 					console.log('ratio w/h', ratio, 'panoramique ?');
 */
-			console.log("modifs des css de",that.env.bigImage);
-				
+
 			that.env.bigImage.css({
 				'width': width,
 				'height': height,
 				'position':'absolute'
 			});
-			
+
 			that.env.bigImage.parent().css({
 				'position': 'relative',
 				'height': height
 			})
-			
+
 			that.env.bigImageWidth = width;
 			that.env.bigImageHeight = height;
 		});
