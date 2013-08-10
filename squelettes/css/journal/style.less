@@ -22,20 +22,27 @@
 @import "typo.less";
 @import "comment.less";
 
-.portfolio{
-	ul,li{
-		padding: 0;
-		margin: 0;
-	}
-	li{
-		list-style-type: none
-	}
+.journal_portfolio{
+	.portfolio_thumbs{
+		ul,li{
+			padding: 0;
+			margin: 0;
+		}
+		li{
+			list-style-type: none
+		}
 	
-	.spip_logos {
-		float: left;
-		margin: 0 10px 10px 0;
-		padding: 0;
-		border: none;
+		.spip_logos {
+			float: left;
+			margin: 0 10px 10px 0;
+			padding: 0;
+			border: none;
+		}
+	}
+	.portfolio_big{
+		.spip_doc_titre, .spip_doc_descriptif{
+			margin:.5em 0;
+		}
 	}
 }
 a.badge{
@@ -91,3 +98,14 @@ a.badge{
 @import "media-queries.less";
 @import "helpers.less";
 @import "print.less";
+
+#spip-admin{
+	.spip-admin-bloc, &.spip-admin-float {
+		bottom: 0;
+		position: fixed;
+		white-space: nowrap;
+		z-index: 100;
+		right:auto;
+		top:auto;
+	}
+}

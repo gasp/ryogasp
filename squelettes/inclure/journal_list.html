@@ -14,12 +14,14 @@
 	</section>
 ]
 	<section>
-[				<div>(#TEXTE|image_reduire{700,0})</div>]
+[		<div>(#TEXTE|image_reduire{700,0})</div>]
 	</section>
 	
 	
 	[(#REM) Gestion du portfolio et des documents ]
-	[(#INCLURE{fond=inclure/journal_portfolio,id_article, env})]
+	<section class="journal_portfolio">
+		[(#INCLURE{fond=inclure/journal_portfolio,id_article, env})]
+	</section>
 
 	<footer class="clearfix">
 		<hr>

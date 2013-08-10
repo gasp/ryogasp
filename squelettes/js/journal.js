@@ -1,65 +1,169 @@
 $(document).ready(function(){
 
 	// clear spip_photo size, let it be responsive
-	$('.spip_photo img, .portfolio .spip_documents img').attr({'width':'','height':'','style':''});
+	$('.spip_photo img, .journal_portfolio .portfolio_big img').attr({'width':'','height':'','style':''});
 
 	// reset form size
 	$('.formulaire_forum input, .formulaire_forum textarea').not('.boutons input').attr({'size':null,'cols':null}).css({'width':'100%'});
 	$('.formulaire_forum').show(); /// is hidden by css
 
 	// portfolio
-	// portfolio.init();
+	portfolio.init();
+
+});
 
 
-	// add next and previous
-	$('.portfolio .spip_documents img').each(function(){
-		// get the link of the next one
 
+var portfolio = {
+	env: {},
+	init: function(){
+		
+		// set env variables
+		this.env.obj = $(".journal_portfolio"); // cache the object
+		this.env.isArticle = $("body").hasClass("article");
+		this.env.activeDocument = $(".spip_documents",this.env.obj);
+		this.env.isActive = (this.env.activeDocument.length > 0);
+
+		// id is a number or null
+		this.env.id = 
+			(this.env.isActive) 
+				&& this._getActiveIdFromClassName(
+					this.env.activeDocument[0].className
+				)
+				|| null;
+		this.env.bigImage = 
+			(this.env.isActive) 
+				&& $(".portfolio_big img", this.env.obj)
+				|| null;
+
+
+		this.env.wrapperWidth = null;
+
+		console.dir(this.env);
+		
+		
+		
+		// call after a short delay, don't block the threadt
+		window.setTimeout(function(){
+			this.clean();
+			this.bind();
+		}.bind(this),50);
+
+		
+	},
+	refresh: function(){
+		this.env.wrapperWidth = null;
+	},
+	
+	bind: function(){
+		var that = this;
+
+		// bind thumbnails 
+		$("a.thumb",this.env.obj).on("click", function(e){
+			location.href = $(this).data("redirect");
+			e.preventDefault();
+		});
+
+		if(this.env.isArticle){
+		}
+		if(this.env.isActive){
+			var active = $('.portfolio_thumbs .active',this.env.obj).get(0);
+//			console.log(active,' is active');
+			
+			this.env.thumbs = $('.portfolio_thumbs a');
+			this.env.thumbs.each(function(){
+//				console.log(this,active)
+				if(this == active){
+
+					console.log($(this).data("redirect"));
+					var next = $($('a',$(active).parent().next())[0]).data("redirect") 
+						|| false;
+
+					if(next)
+						that._makeRaquo()
+
+					that.env.bigImage.on("click", function(){
+						if(next)
+							window.location.href = next;
+					});
+				}
+			});
+		}
+		console.log('bind')
+	},
+	clean: function(){
+		
+		// remove width and height
+		if(this.env.isActive){
+
+			this._setBigImageSize();
+
+		}
+	},
+	
+	// utils
+	_getActiveIdFromClassName : function(cn){
+		/*
+			TODO get it from data-id
+		*/
 		var i=14, // position of the number
-			id='', // empty string
-			cn = $(this).parent().parent()[0].className;
-
+			id=''; // empty string
 		// go and fetch !
 		while(!isNaN(cn[i]))
 			id += cn[i++];
+		return id;
+	},
+	_getWrapperWidth : function () {
+		if(this.env.wrapperWidth == null)
+			this.env.wrapperWidth = $("#main.wrapper").width();
+		return this.env.wrapperWidth;
+	},
+	_setBigImageSize : function (callback) {
 
-		var el = $('.portfolio a#doc'+id);
-		if(!el.length) el = $('.portfolio a#img'+id);
-
-		// create next that selects next element or a fake one
-		var next = $('a',$(el).parent().next())[0] || {onclick:function(){return false},href:false};
-		$(this).click(function(){
-			next.onclick();
-		}).css({'cursor':'pointer'})
-
-		if(!maximage(this))
-			$(this).load(function(){
-				maximage(this);
+		var that = this;
+		console.log('making a copy of',this.env.bigImage.attr('src'),callback);
+		
+		$('<img/>').attr('src', this.env.bigImage.attr('src')).on("load",function(){
+			var real = this,
+				width = Math.min(that._getWrapperWidth(),real.width),
+				height =  Math.ceil(real.height / real.width * width);
+/*
+				todo later?
+				console.log(real.width,real.height,width,height);
+				
+				var ratio = real.width/real.height;
+				if(ratio > 3)
+					console.log('ratio w/h', ratio, 'panoramique ?');
+*/
+			console.log("modifs des css de",that.env.bigImage);
+				
+			that.env.bigImage.css({
+				'width': width,
+				'height': height,
+				'position':'absolute'
 			});
-
-	//		console.log(next.href);
-		if(next.href){
-			var ww = $("#main.wrapper").width();
-				raquo = $('<div>&raquo;</div>').addClass('raquo').click(function(){
-				next.onclick();
+			
+			that.env.bigImage.parent().css({
+				'position': 'relative',
+				'height': height
+			})
+			
+			that.env.bigImageWidth = width;
+			that.env.bigImageHeight = height;
+		});
+	},
+	_makeRaquo: function () {
+		var env = this.env;
+		var raquo = $('<div>&raquo;</div>').addClass('raquo');
+		$(this.env.bigImage).parent().on('mouseover',function(){
+			raquo.css({
+				'visibility': 'visible',
+				'height': env.bigImageHeight,
+				'left': (env.bigImageWidth - raquo.width()),
+				'top': 0
 			});
-			$(this).parent().mouseover(function(){
-				var h = $(this).height();
-				raquo.css({'visibility':'visible', 'height':h, left: (ww - raquo.width())});
-			}).mouseout(function(){
-				raquo.css({'visibility':'hidden'});
-			}).append(raquo);
-		}// there is no next
-	});
-});
-
-var maximage = function(el){
-	// maximize image size
-	
-	// get wrapper size
-	var ww = $("#main.wrapper").width();
-	
-	var h = $(el).css({'position':'absolute','max-width':ww, 'z-index':2}).height();
-	$(el).parent().css({'height':h, 'position':'relative'});
-	return h;
-}
+		}).mouseout(function(){
+			raquo.css({'visibility':'hidden'});
+		}).append(raquo);
+	}
+};
