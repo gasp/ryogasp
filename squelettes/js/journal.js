@@ -7,6 +7,13 @@ $(document).ready(function(){
 	$('.formulaire_forum input, .formulaire_forum textarea').not('.boutons input').attr({'size':null,'cols':null}).css({'width':'100%'});
 	$('.formulaire_forum').show(); /// is hidden by css
 
+	// portfolio
+	$(".portfolio a.thumb").on("click", function(e){
+		location.href = $(this).data("redirect");
+		e.preventDefault();
+	})
+
+
 	// add next and previous
 	$('.portfolio .spip_documents img').each(function(){
 		// get the link of the next one
