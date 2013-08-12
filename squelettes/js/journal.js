@@ -45,10 +45,6 @@ var portfolio = {
 			console.dir(this.env)
 		}.bind(this),50);
 
-		// these can't wait
-		$(".portfolio_big img",this.env.obj).css({'visibility':'hidden'});
-
-
 		$(window).on("resize",function(){
 			portfolio.refresh();
 
@@ -115,11 +111,11 @@ var portfolio = {
 	// utils
 	_getWrapperWidth : function () {
 		if(this.env.wrapperWidth == null)
-			this.env.wrapperWidth = $("#main.wrapper").width();
+			this.env.wrapperWidth = Math.floor($("#main.wrapper").width());
 		return this.env.wrapperWidth;
 	},
 	_getScreenHeight : function () {
-		this.env.screenHeight = $(window).height() * .8;
+		this.env.screenHeight = Math.floor($(window).height() * .8);
 		return this.env.screenHeight;
 	},
 	_setBigImageSize : function (callback) {
@@ -143,17 +139,20 @@ var portfolio = {
 				$(".raquo",that.env.obj).hide()
 				console.log('ratio w/h', ratio, 'panoramique picture');
 				var panoheight = Math.min(that._getScreenHeight(), 700),
-					panowidth = that._getScreenHeight() * ratio;
+					panowidth = Math.floor(that._getScreenHeight() * ratio);
 
 //				console.log("panoheight",panoheight,"panowidth",panowidth);
 
+				// remove any previous elements:
+				$(".portfolio_big .pano",that.env.obj).remove();
 				var src = $(".portfolio_big .spip_doc_descriptif a.hd",that.env.obj).attr("href"),
 					panopict = $("<img />").attr({
 						"src":src
 					}).css({
 						'width': panowidth,
 						'height': panoheight,
-						'max-width': panowidth
+						'max-width': panowidth,
+						'visibility': 'visible'
 					}),
 					pano = $("<div/>").css({
 						'width': that._getWrapperWidth(),
@@ -174,6 +173,7 @@ var portfolio = {
 					'height': that._getScreenHeight()+20 // same 20px for the scroll bar
 				})
 
+				that.callback()
 				return;
 			}
 
