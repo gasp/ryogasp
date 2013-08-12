@@ -42,13 +42,19 @@ var portfolio = {
 			this.clean();
 			this.bind();
 
-			console.dir(this.env)
+//			console.dir(this.env)
 		}.bind(this),50);
+
+// debug
+		window.setTimeout(function(){
+			console.dir(this.env)
+		}.bind(this),350);
+
 
 		$(window).on("resize",function(){
 			portfolio.refresh();
 
-			portfolio._setBigImageSize(function(){});
+			portfolio._setBigImage(function(){});
 		})
 	},
 	refresh: function(){
@@ -100,7 +106,7 @@ var portfolio = {
 		var env = this.env;
 		// remove width and height
 		if(this.env.isActive){
-			this._setBigImageSize(function(){
+			this._setBigImage(function(){
 				window.scrollTo(0, Math.floor(this.env.activeDocument.offset().top));
 				$(".portfolio_big img",this.env.obj).css({'visibility':'visible'});
 			});
@@ -118,83 +124,94 @@ var portfolio = {
 		this.env.screenHeight = Math.floor($(window).height() * .8);
 		return this.env.screenHeight;
 	},
-	_setBigImageSize : function (callback) {
+	_setBigImage : function (callback) {
 
 		var that = this;
 		that.callback = callback;
 
 		$('<img/>').attr('src', this.env.bigImage.attr('src')).on("load",function(){
-			var real = this,
-				width = Math.min(that._getWrapperWidth(),real.width),
-				height =  Math.ceil(real.height / real.width * width);
-/*
-				todo later?
-				console.log(real.width,real.height,width,height);
-*/
-			var ratio = real.width/real.height;
-			if(ratio >= 3){
+			that.env.imageObject = this;
+			that.env.real = {
+				width: that.env.imageObject.width,
+				height: that.env.imageObject.height
+			}
+			that.env.ratio = that.env.real.width / that.env.real.height;
+
+			if(that.env.ratio >= 3){
 				that.env.isPano =  true;
 				// should be somewhere else...
 				// but bind is faster because it doesn't load all these images
 				$(".raquo",that.env.obj).hide()
-				console.log('ratio w/h', ratio, 'panoramique picture');
-				var panoheight = Math.min(that._getScreenHeight(), 700),
-					panowidth = Math.floor(that._getScreenHeight() * ratio);
+				console.log('ratio w/h', that.env.ratio, 'panoramique picture');
+				that._makePano();
+			}
 
-//				console.log("panoheight",panoheight,"panowidth",panowidth);
-
-				// remove any previous elements:
-				$(".portfolio_big .pano",that.env.obj).remove();
-				var src = $(".portfolio_big .spip_doc_descriptif a.hd",that.env.obj).attr("href"),
-					panopict = $("<img />").attr({
-						"src":src
-					}).css({
-						'width': panowidth,
-						'height': panoheight,
-						'max-width': panowidth,
-						'visibility': 'visible'
-					}),
-					pano = $("<div/>").css({
-						'width': that._getWrapperWidth(),
-						'max-width': that._getWrapperWidth(),
-						'height': that._getScreenHeight()+20, // 20px for the scroll bar
-						'position':'absolute',
-						'background': '#fff',
-						'overflow-x': 'scroll'
-					}).addClass("pano").append(panopict);
-				that.env.bigImage.parent().append(pano)
-
-				that.env.bigImage.css({
-					"display":"none"
-				});
-
-				that.env.bigImage.parent().css({
-					'position': 'relative',
-					'height': that._getScreenHeight()+20 // same 20px for the scroll bar
-				})
-
-				that.callback()
-				return;
+			else{
+				that._makeBig();
 			}
 
 
-			that.env.bigImage.css({
-				'max-width': width,
-				'width': width,
-				'height': height,
-				'position':'absolute'
-			});
-
-			that.env.bigImage.parent().css({
-				'position': 'relative',
-				'height': height
-			})
-
-			that.env.bigImageWidth = width;
-			that.env.bigImageHeight = height;
 
 			that.callback()
 		});
+	},
+	_makePano: function() {
+		var that = this;
+		var panoheight = Math.min(that._getScreenHeight(), 700),
+			panowidth = Math.floor(that._getScreenHeight() * that.env.ratio);
+
+//				console.log("panoheight",panoheight,"panowidth",panowidth);
+
+		// remove any previous elements:
+		$(".portfolio_big .pano",that.env.obj).remove();
+		var src = $(".portfolio_big .spip_doc_descriptif a.hd",that.env.obj).attr("href"),
+			panopict = $("<img />").attr({
+				"src":src
+			}).css({
+				'width': panowidth,
+				'height': panoheight,
+				'max-width': panowidth,
+				'visibility': 'visible'
+			}),
+			pano = $("<div/>").css({
+				'width': that._getWrapperWidth(),
+				'max-width': that._getWrapperWidth(),
+				'height': that._getScreenHeight()+20, // 20px for the scroll bar
+				'position':'absolute',
+				'background': '#fff',
+				'overflow-x': 'scroll'
+			}).addClass("pano").append(panopict);
+		that.env.bigImage.parent().append(pano)
+
+		that.env.bigImage.css({
+			"display":"none"
+		});
+
+		that.env.bigImage.parent().css({
+			'position': 'relative',
+			'height': that._getScreenHeight()+20 // same 20px for the scroll bar
+		});
+	},
+	_makeBig: function() {
+		var that = this;
+		
+		var width = Math.min(that._getWrapperWidth(),that.env.imageObject.width),
+			height =  Math.ceil(width / that.env.ratio);
+
+		that.env.bigImage.css({
+			'max-width': width,
+			'width': width,
+			'height': height,
+			'position':'absolute'
+		});
+
+		that.env.bigImage.parent().css({
+			'position': 'relative',
+			'height': height
+		})
+
+		that.env.bigImageWidth = width;
+		that.env.bigImageHeight = height;
 	},
 	_makeRaquo: function () {
 		var env = this.env;
