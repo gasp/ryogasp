@@ -11,4 +11,9 @@ function myrand(){
 	return rand();
 }
 
+function image_ratio($im){
+	return largeur($im)/hauteur($im);
+
+}
+
 $GLOBALS['quota_cache'] = 1024;

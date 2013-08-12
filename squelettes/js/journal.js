@@ -33,8 +33,8 @@ var portfolio = {
 			(this.env.isActive) 
 				&& $(".portfolio_big img", this.env.obj)
 				|| null;
-
-
+		this.env.isPano = false;
+		this.env.screenHeight = null;
 		this.env.wrapperWidth = null;
 
 		// call after a short delay, don't block the threadt
@@ -53,6 +53,7 @@ var portfolio = {
 	},
 	refresh: function(){
 		this.env.wrapperWidth = null;
+		this.env.screenHeight = null;
 	},
 	
 	bind: function(){
@@ -78,7 +79,7 @@ var portfolio = {
 						|| false;
 
 					if(next)
-						that._makeRaquo()
+						!that.env.isPano && that._makeRaquo()
 
 					that.env.bigImage.on("click", function(){
 						if(next)
@@ -113,6 +114,10 @@ var portfolio = {
 			this.env.wrapperWidth = $("#main.wrapper").width();
 		return this.env.wrapperWidth;
 	},
+	_getScreenHeight : function () {
+		this.env.screenHeight = $(window).height() * .8;
+		return this.env.screenHeight;
+	},
 	_setBigImageSize : function (callback) {
 
 		var that = this;
@@ -125,11 +130,49 @@ var portfolio = {
 /*
 				todo later?
 				console.log(real.width,real.height,width,height);
-				
-				var ratio = real.width/real.height;
-				if(ratio > 3)
-					console.log('ratio w/h', ratio, 'panoramique ?');
 */
+			var ratio = real.width/real.height;
+			if(ratio >= 3){
+				that.env.isPano =  true;
+				// should be somewhere else...
+				// but bind is faster because it doesn't load all these images
+				$(".raquo",that.env.obj).hide()
+				console.log('ratio w/h', ratio, 'panoramique picture');
+				var panoheight = Math.min(that._getScreenHeight(), 700),
+					panowidth = that._getScreenHeight() * ratio;
+
+//				console.log("panoheight",panoheight,"panowidth",panowidth);
+
+				var src = $(".portfolio_big .spip_doc_descriptif a.hd",that.env.obj).attr("href"),
+					panopict = $("<img />").attr({
+						"src":src
+					}).css({
+						'width': panowidth,
+						'height': panoheight,
+						'max-width': panowidth
+					}),
+					pano = $("<div/>").css({
+						'width': that._getWrapperWidth(),
+						'max-width': that._getWrapperWidth(),
+						'height': that._getScreenHeight()+20, // 20px for the scroll bar
+						'position':'absolute',
+						'background': '#fff',
+						'overflow-x': 'scroll'
+					}).addClass("pano").append(panopict);
+				that.env.bigImage.parent().append(pano)
+
+				that.env.bigImage.css({
+					"display":"none"
+				});
+
+				that.env.bigImage.parent().css({
+					'position': 'relative',
+					'height': that._getScreenHeight()+20 // same 20px for the scroll bar
+				})
+
+				return;
+			}
+
 
 			that.env.bigImage.css({
 				'max-width': width,
