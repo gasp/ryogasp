@@ -45,6 +45,10 @@ var portfolio = {
 			console.dir(this.env)
 		}.bind(this),50);
 
+		// these can't wait
+		$(".portfolio_big img",this.env.obj).css({'visibility':'hidden'});
+
+
 		$(window).on("resize",function(){
 			portfolio.refresh();
 
@@ -100,9 +104,9 @@ var portfolio = {
 		var env = this.env;
 		// remove width and height
 		if(this.env.isActive){
-
 			this._setBigImageSize(function(){
-				window.scrollTo(0, Math.floor(this.env.activeDocument.offset().top))
+				window.scrollTo(0, Math.floor(this.env.activeDocument.offset().top));
+				$(".portfolio_big img",this.env.obj).css({'visibility':'visible'});
 			});
 
 		}
