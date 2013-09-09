@@ -24,7 +24,7 @@
 <BOUCLE_racine(RUBRIQUES){racine}><span class="c"><a class="s#ID_RUBRIQUE" href="#URL_RUBRIQUE">█</a> #TITRE</span> </BOUCLE_racine>
 </div>
 <BOUCLE_articles(ARTICLES){lang_select=non}{fusion DATE_FORMAT(date,'%Y-%m')}>
-<div>[(#DATE|affdate{Y-m})&nbsp;<span class="c">]<BOUCLE_mois(ARTICLES){mois_relatif=0}><a href="#URL_ARTICLE" class="s<BOUCLE_secteur(RUBRIQUES){racine}{id_secteur}>#ID_SECTEUR</BOUCLE_secteur>">█</a></BOUCLE_mois></span>&nbsp;(#TOTAL_BOUCLE)</B_mois></div>
+<div>[(#DATE|affdate{Y-m})&nbsp;<span class="c">]<BOUCLE_mois(ARTICLES){mois_relatif=0}><a href="#URL_ARTICLE"[ title="(#TITRE|couper{150}|attribut_html)"] class="s<BOUCLE_secteur(RUBRIQUES){racine}{id_secteur}>#ID_SECTEUR</BOUCLE_secteur>">█</a></BOUCLE_mois></span>&nbsp;(#TOTAL_BOUCLE)</B_mois></div>
 </BOUCLE_articles></div>
 </body>
 </html>
