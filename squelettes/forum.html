@@ -1,0 +1,24 @@
+[(#REM)
+	afficher les commentaires de l'article et un lien vers l'article.
+	http://ryogasp.com/spip.php?page=forum&id_forum=4079&id_objet=1553&objet=article&retour=ecrire%2F%3Fexec%3Dcontroler_forum%26amp%3Bdebut_forum%3D300%23forum4079
+]
+<BOUCLER_principale(FORUMS){id_forum}>
+[
+	<!--
+		(#OBJET|="article")
+		id_article: #ID_OBJET
+	-->
+]
+<BOUCLE_article(ARTICLES){id_article=#ID_OBJET}>
+	<h1>Commentaires de l'article <a href="#URL_ARTICLE">#TITRE</a></h1>
+	<BOUCLE_comments(FORUMS){id_article}>
+		<p>#AUTEUR</p>
+		<div>#TEXTE</div>
+	</BOUCLE_comments>
+</BOUCLE_article>
+
+[(#SESSION{auth}|?{' '})
+#FORMULAIRE_FORUM
+)]
+
+</BOUCLER_principale>
