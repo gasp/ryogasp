@@ -7,7 +7,7 @@
 <head>
 <title>
 	<BOUCLE_blogroot(RUBRIQUES){racine}{meme_parent}{branche}>
-	[(#DESCRIPTIF|textebrut)]
+	[(#DESCRIPTIF|textebrut)] [| (#ENV{date}|affdate_mois_annee)]
 	</BOUCLE_blogroot>
 </title>
 [<meta name="description" content="(#INTRODUCTION{150}|textebrut)" />]
@@ -16,7 +16,7 @@
 [(#REM) Lien vers le flux RSS des articles la rubrique ]
 <link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
 <link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss" />
-[<link rel="canonical" href="http://www.ryogasp.com/blog/archives/(#ENV{date}|affdate{Y-m})" />]
+[<link rel="canonical" href="http://ryogasp.com/blog/archives/(#ENV{date}|affdate{Y-m})" />]
 </head>
 
 <body class="blog">

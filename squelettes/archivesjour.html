@@ -1,19 +1,20 @@
 [(#REM) cette page, c'est une page d'archive du blog
-	on calcule une fois par semaine
-]#CACHE{604800}
+	on calcule une fois par mois
+]#CACHE{2592000}
 <BOUCLE_rubrique_principale_head(RUBRIQUES){id_rubrique}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
 <head>
-<title>#TITRE</title>
-[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{150}|textebrut)" />]
+<title>[(#DESCRIPTIF|textebrut)] [| (#ENV{date}|affdate)]</title>
+[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{100}|textebrut)[archives du (#ENV{date}|affdate)]" />]
 [<meta name-"date" content="(#ENV{date})">]
-</head>
 
 
 </BOUCLE_rubrique_principale_head>
 
-[<link rel="canonical" href="http://www.ryogasp.com/blog/archives/(#ENV{date}|affdate{Y-m-d})" />]
+[<link rel="canonical" href="http://ryogasp.com/spip.php?page=archivesjour&id_rubrique=#ID_RUBRIQUE&date=(#ENV{date}|affdate{Y-m-d})" />]
+</head>
+<body>
 
 <p class="soustitre">[Archives de (#ENV{date}|affdate_mois_annee)]</p>
 
