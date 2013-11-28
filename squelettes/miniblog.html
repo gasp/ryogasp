@@ -1,0 +1,121 @@
+[(#REM)
+	mini blog affiche tous les posts en miniature
+	super gourmand !
+	tous les sept jours, ça suffit
+]#CACHE{604800}
+<!DOCTYPE html>
+<head>
+<title>mini-blog</title>
+<meta charset="utf-8">
+<style type="text/css">
+body { 
+	margin:0;padding:0;
+	background-color:#eee;
+}
+.blog {
+	font-size:0.1em;
+	line-height:0.1em;
+	color:#333;
+	font-family:verdana, arial, sans-serif;
+	overflow:hidden;
+}
+.blog a {
+	color:#333;
+	text-decoration:none;
+}
+.blog h2 {
+	font-size:2em;
+	line-height:1.5em;
+	margin:3em 0 3em 0;
+
+}
+.blog article {
+	float:left;
+	width:90px;
+	border:1px solid #ccc;
+	padding:2px;
+	margin:2px;
+	background-color:#fff;
+
+}
+.blog article.hover {
+	float:left;
+	border:2px solid #ddd; /* #393 */
+	margin:1px;
+	padding:2px;
+}
+
+.helper {
+	position:absolute;
+	background-color:rgba(0,0,0,0.5);
+}
+
+.pagination {
+	clear:both;
+	font-size:0.5em;
+	line-height:0.5em;
+	font-family:verdana, arial, sans-serif;
+	
+}
+</style>
+
+
+</head>
+<body>
+<div class="blog">
+	<BOUCLE_article(ARTICLES){id_secteur=1}{!par date}{pagination 1500}>
+		<article class="post"
+			[id="art(#ID_ARTICLE)"]
+			[title="(#TITRE|attribut_html|couper{80})"]
+			[data-title="(#TITRE|attribut_html)"]
+			[data-link="(#URL_ARTICLE)"]
+			[data-date="(#DATE)"]>
+			<div class="content">
+				<h2>#TITRE</h2>
+				<div>[(#TEXTE|strip_tags{'<p><img><br><hr>'}|image_reduire{90,0})]</div>
+			</div>
+		</article>
+	</BOUCLE_article>
+</div>
+<div class="pagination">#PAGINATION</div>
+</B_article>
+
+
+<script src="#CHEMIN{js/libs/jquery-1.10.2.min.js}" type="text/javascript" charset="utf-8"></script>
+<script src="#CHEMIN{js/libs/masonry.pkgd.min.js}" type="text/javascript" charset="utf-8"></script>
+<script type="text/javascript" charset="utf-8">
+$(function(){
+	var $articles = $("article");
+	$articles.each(function(){
+
+		var that = this;
+		// create a link
+		var $a = $("<a>");
+
+		// put each article content into a <a>
+		$a.attr({'href':$(this).data('link')});
+		$(".content", $(this)).wrap($a)
+	});
+	$articles.on("mouseover", function() {
+		$(this).addClass('hover');
+		
+	}).on("mouseout", function() {
+		$(this).removeClass('hover');
+	});
+
+
+	// art854 = Les archives pour les nuls
+	// remove this (because it is ugly at the bottom)
+	$("#art854").remove();
+
+	//masonry
+	var container = document.querySelector('.blog');
+	var msnry = new Masonry( container, {
+		// options
+		columnWidth: 100,
+		itemSelector: 'article'
+	});
+});
+</script>
+</body>
+</html>
