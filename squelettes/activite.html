@@ -4,7 +4,8 @@
 <title>Publications activity ryogasp.com</title>
 <meta charset="utf-8">
 <style>
-.mono{ font-family: monospace; color:#222;}
+body {margin-top:0;}
+.mono{ font-family: monospace; color:#222;clear:both;}
 .legende{padding:1em;}
 .c{ color:#666;}
 .c a{ text-decoration:none;}
@@ -14,17 +15,26 @@
 .c a.s21{color:green;}
 .c a.s21{color:purple;}
 .c a.s32{color:red;}
+.graph .v{display:block;float:left; line-height:0px;}
+.graph .v:hover .dot{ background-color:#f92;}
+.graph .v .dot{width:2px; height:2px; background-color:#eee;}
+
 </style>
 </head>
 
 <body>
+
+<div class="graph">
+<BOUCLE_a(ARTICLES){lang_select=non}{fusion DATE_FORMAT(date,'%Y-%m')}>
+<a[ href="#(#DATE|affdate{Y-m})"] class="v[ s(#DATE|affdate{Y-m})]"><BOUCLE_m(ARTICLES){mois_relatif=0}><div class="dot s<BOUCLE_s(RUBRIQUES){racine}{id_secteur}>#ID_SECTEUR</BOUCLE_s>"></div></BOUCLE_m></a>
+</BOUCLE_a></div>
 
 <div class="mono">
 <div class="legende">
 <BOUCLE_racine(RUBRIQUES){racine}><span class="c"><a class="s#ID_RUBRIQUE" href="#URL_RUBRIQUE">█</a> #TITRE</span> </BOUCLE_racine>
 </div>
 <BOUCLE_articles(ARTICLES){lang_select=non}{fusion DATE_FORMAT(date,'%Y-%m')}>
-<div>[(#DATE|affdate{Y-m})&nbsp;<span class="c">]<BOUCLE_mois(ARTICLES){mois_relatif=0}><a href="#URL_ARTICLE"[ title="(#TITRE|couper{150}|attribut_html)"] class="s<BOUCLE_secteur(RUBRIQUES){racine}{id_secteur}>#ID_SECTEUR</BOUCLE_secteur>">█</a></BOUCLE_mois></span>&nbsp;(#TOTAL_BOUCLE)</B_mois></div>
+<div>[<a[ name="(#DATE|affdate{Y-m})"]>(#DATE|affdate{Y-m})</a>&nbsp;<span class="c">]<BOUCLE_mois(ARTICLES){mois_relatif=0}><a href="#URL_ARTICLE"[ title="(#TITRE|couper{150}|attribut_html)"] class="s<BOUCLE_secteur(RUBRIQUES){racine}{id_secteur}>#ID_SECTEUR</BOUCLE_secteur>">█</a></BOUCLE_mois></span>&nbsp;(#TOTAL_BOUCLE)</B_mois></div>
 </BOUCLE_articles></div>
 </body>
 </html>
