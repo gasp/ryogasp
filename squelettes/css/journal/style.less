@@ -101,6 +101,26 @@ a.badge{
 @import "helpers.less";
 @import "print.less";
 
+.search {
+	text-align:right;
+	width:100%;
+	position:fixed;
+	top:0;
+	left:0;
+	background-color:rgba(0,0,0,.2);
+	form {
+		display:block;
+		margin:0;
+		padding:2px;
+		label {
+			display:inline-block;
+			margin:0;
+			padding:0 10px;
+		}
+	}
+
+}
+
 #spip-admin{
 	.spip-admin-bloc, &.spip-admin-float {
 		bottom: 0;

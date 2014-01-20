@@ -41,6 +41,9 @@
 <div id="main-container">
 	<div id="main" class="wrapper clearfix">
 		<div class="content">
+[<h1>Résultats de la recherche de &ldquo;(#ENV{recherche})&rdquo;</h1>
+[(#INCLURE{fond=inclure/journal_recherche,env})]
+]
 [(#ENV{archive}|?{
 [(#INCLURE{fond=inclure/journal_archives}{date=#ENV{archive}})],
 [(#INCLURE{fond=inclure/journal_list,env})]

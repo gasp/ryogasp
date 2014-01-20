@@ -228,3 +228,54 @@ var portfolio = {
 		}).append(raquo);
 	}
 };
+
+var search = {
+	initialized: false,
+	opened: false,
+	init: function() {
+		this.create();
+		this.hide();
+		this.listen();
+		this.initialized = true;
+	},
+	listen: function() {
+		var that = this;
+		$(document).on("keypress", function(ev) {
+			if ($(ev.target).is('input, textarea'))
+				return;
+			if(ev.which==102 && (ev.ctrlKey || ev.metaKey)) {
+				that.show();
+				console.log(ev);
+				return false;
+			}
+		});
+		$("#search").on("keypress", function(ev) {
+			console.log(ev);
+			if(ev.keyCode == 27)
+				that.hide();
+		});
+	},
+	create: function() {
+		var div = document.createElement("div"), // fastest way
+			form = document.createElement("form"),
+			label = document.createElement("label"),
+			input = document.createElement("input");
+		$(input).attr({"type": "search", "id": "search", "name": "recherche","autocorrect":"off","autocapitalize":"off"});
+		$(label).attr("for","search").text("search");
+		$(form).attr("action","/journal/").append(label,input);
+		$(div).addClass("search").append(form)
+		$("body").append(div);
+	},
+	show: function() {
+		$(".search").show();
+		$("#search").focus();
+		this.opened = true;
+	},
+	hide: function() {
+		$(".search").hide();
+//		$(document).focus();
+		this.opened = false;
+	}
+};
+
+search.init();
