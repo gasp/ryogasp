@@ -235,7 +235,8 @@ var portfolio = {
 			}).css({
 				'width': that.env.mini.width,
 				'height': that.env.mini.height,
-				'visibility': 'visible'
+				'visibility': 'visible',
+				'cursor': 'crosshair'
 			}),
 			miniframe = $("<div/>").css({
 				'border': '1px solid #333',
