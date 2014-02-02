@@ -3,6 +3,9 @@ $(document).ready(function(){
 	// clear spip_photo size, let it be responsive
 	$('.spip_photo img, .journal_portfolio .portfolio_big img').attr({'width':'','height':'','style':''});
 
+	// clear spip_documents_center size, let it be responsive
+	$('.spip_photo img').attr({'width':'','height':'','style':''});
+
 	// reset form size
 	$('.formulaire_forum input, .formulaire_forum textarea').not('.boutons input').attr({'size':null,'cols':null}).css({'width':'100%'});
 	$('.formulaire_forum').show(); /// is hidden by css
@@ -34,21 +37,20 @@ var portfolio = {
 				&& $(".portfolio_big img", this.env.obj)
 				|| null;
 		this.env.isPano = false;
-		this.env.screenHeight = null;
 		this.env.wrapperWidth = null;
+		this.env.contentWidth = null;
+		this.env.screenHeight = null;
 
 		// call after a short delay, don't block the threadt
 		window.setTimeout(function(){
 			this.clean();
 			this.bind();
-
-//			console.dir(this.env)
 		}.bind(this),50);
 
 // debug
-		window.setTimeout(function(){
-			console.dir(this.env)
-		}.bind(this),350);
+//		window.setTimeout(function(){
+//			console.dir(this.env)
+//		}.bind(this),350);
 
 
 		$(window).on("resize",function(){
@@ -59,6 +61,7 @@ var portfolio = {
 	},
 	refresh: function(){
 		this.env.wrapperWidth = null;
+		this.env.contentWidth = null;
 		this.env.screenHeight = null;
 	},
 	
@@ -120,50 +123,71 @@ var portfolio = {
 			this.env.wrapperWidth = Math.floor($("#main.wrapper").width());
 		return this.env.wrapperWidth;
 	},
+	_getContentWidth : function () {
+		if(this.env.contentWidth == null)
+			this.env.contentWidth = Math.floor($("#main.wrapper > .content").width());
+		return this.env.contentWidth;
+	},
 	_getScreenHeight : function () {
 		this.env.screenHeight = Math.floor($(window).height() * .8);
 		return this.env.screenHeight;
 	},
+	// calculate ratio and call to display big image
 	_setBigImage : function (callback) {
 
 		var that = this;
 		that.callback = callback;
 
-		$('<img/>').attr('src', this.env.bigImage.attr('src')).on("load",function(){
-			that.env.imageObject = this;
-			that.env.real = {
-				width: that.env.imageObject.width,
-				height: that.env.imageObject.height
-			}
-			that.env.ratio = that.env.real.width / that.env.real.height;
+		// if there is no big image selected (ie we are not in an article page)
+		if(!this.env.bigImage) return;
 
-			if(that.env.ratio >= 3){
-				that.env.isPano =  true;
-				// should be somewhere else...
-				// but bind is faster because it doesn't load all these images
-				$(".raquo",that.env.obj).hide()
-				console.log('ratio w/h', that.env.ratio, 'panoramique picture');
-				that._makePano();
-			}
+		if(typeof(that.env.real) !== "undefined") { // should this be testing ratio instead of real ?
+			that._makeImage();
+			that.callback();
+		}
+		else {
+			$('<img/>').attr('src', this.env.bigImage.attr('src')).on("load",function(){
+				that.env.imageObject = this;
+				that.env.real = {
+					width: that.env.imageObject.width,
+					height: that.env.imageObject.height
+				}
+				that.env.ratio = that.env.real.width / that.env.real.height;
+				that._makeImage();
+				that.callback();
+			});
+		}
 
-			else{
-				that._makeBig();
-			}
+	},
+	// makes either Pano or Big
+	_makeImage: function() {
+		if(this.env.ratio >= 3){
+			this.env.isPano =  true;
+			// should be somewhere else...
+			// but bind is faster because it doesn't load all these images
+			$(".raquo",this.env.obj).hide()
+			console.log('ratio w/h', this.env.ratio, 'panoramic picture');
+			this._makePano();
+		}
 
-
-
-			that.callback()
-		});
+		else{
+			this._makeBig();
+		}
 	},
 	_makePano: function() {
 		var that = this;
 		var panoheight = Math.min(that._getScreenHeight(), 700),
 			panowidth = Math.floor(that._getScreenHeight() * that.env.ratio);
 
+		var miniwidth = 300;
+		var miniheight = miniwidth / that.env.ratio;
+
+		console.log(that.env);
 //				console.log("panoheight",panoheight,"panowidth",panowidth);
 
 		// remove any previous elements:
 		$(".portfolio_big .pano",that.env.obj).remove();
+		$(".portfolio_big .minimap",that.env.obj).remove();
 		var src = $(".portfolio_big .spip_doc_descriptif a.hd",that.env.obj).attr("href"),
 			panopict = $("<img />").attr({
 				"src":src
@@ -180,8 +204,48 @@ var portfolio = {
 				'position':'absolute',
 				'background': '#fff',
 				'overflow-x': 'scroll'
-			}).addClass("pano").append(panopict);
-		that.env.bigImage.parent().append(pano)
+			}).addClass("pano").append(panopict).on('scroll', function(ev) {
+
+				var scrollratio = $(this).scrollLeft() / panowidth ;
+
+
+				// change miniframe position
+				$(".minimap > div", that.env.obj).css({'left': scrollratio * miniwidth -1});
+			}),
+			minimap = $("<div/>").addClass('minimap').css({
+				'width': miniwidth,
+				'height': miniheight + 50,
+				'position': 'absolute',
+				'top': '-115px',
+				'left': that._getWrapperWidth() - miniwidth
+			}),
+			minipict = $("<img />").attr({
+				"src":src
+			}).css({
+				'width': miniwidth,
+				'height': miniheight,
+				'visibility': 'visible'
+			}),
+			miniframe = $("<div/>").css({
+				'border': '1px solid #333',
+				'background-color': 'rgba(255,255,255,.5)',
+				'position': 'absolute',
+				'top': '-1px',
+				'left': '-1px',
+				'height': miniheight,
+				'width': that._getWrapperWidth() / panowidth * miniwidth,
+				'cursor': 'move'
+			}),
+			minihelp = $("<div/>").text("Photo manoramique, scrollez ->");
+
+		that.env.bigImage.parent().append(pano);
+		minimap.append(minipict, minihelp, miniframe);
+
+		// if there is enough space to display it, append it
+		if(that._getContentWidth() + miniwidth < that._getWrapperWidth())
+			that.env.bigImage.parent().append(minimap);
+		else
+			that.env.bigImage.parent().append(minimap.css({'top':0}));
 
 		that.env.bigImage.css({
 			"display":"none"
