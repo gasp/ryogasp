@@ -151,7 +151,7 @@ var portfolio = {
 				that.env.real = {
 					width: that.env.imageObject.width,
 					height: that.env.imageObject.height
-				}
+				};
 				that.env.ratio = that.env.real.width / that.env.real.height;
 				that._makeImage();
 				that.callback();
@@ -176,14 +176,17 @@ var portfolio = {
 	},
 	_makePano: function() {
 		var that = this;
-		var panoheight = Math.min(that._getScreenHeight(), 700),
-			panowidth = Math.floor(that._getScreenHeight() * that.env.ratio);
 
-		var miniwidth = 300;
-		var miniheight = miniwidth / that.env.ratio;
+		that.env.pano = {}; // main panoramic container
+		that.env.pano.height = Math.min(that._getScreenHeight(), 700)
+		that.env.pano.width = Math.floor(that._getScreenHeight() * that.env.ratio);
+		that.env.mini = {}; // mini map
+		that.env.mini.width =  300; 
+		that.env.mini.height = that.env.mini.width / that.env.ratio;
+		that.env.frame = {}; // frame selector on the mini map
+		that.env.frame.width = that._getWrapperWidth() / that.env.pano.width * that.env.mini.width;
 
-		console.log(that.env);
-//				console.log("panoheight",panoheight,"panowidth",panowidth);
+//		console.log(that.env);
 
 		// remove any previous elements:
 		$(".portfolio_big .pano",that.env.obj).remove();
@@ -192,9 +195,9 @@ var portfolio = {
 			panopict = $("<img />").attr({
 				"src":src
 			}).css({
-				'width': panowidth,
-				'height': panoheight,
-				'max-width': panowidth,
+				'width': that.env.pano.width,
+				'height': that.env.pano.height,
+				'max-width': that.env.pano.width,
 				'visibility': 'visible'
 			}),
 			pano = $("<div/>").css({
@@ -206,24 +209,32 @@ var portfolio = {
 				'overflow-x': 'scroll'
 			}).addClass("pano").append(panopict).on('scroll', function(ev) {
 
-				var scrollratio = $(this).scrollLeft() / panowidth ;
+				var scrollratio = $(this).scrollLeft() / that.env.pano.width ;
 
 
 				// change miniframe position
-				$(".minimap > div", that.env.obj).css({'left': scrollratio * miniwidth -1});
+				$(".minimap > div", that.env.obj).css({'left': scrollratio * that.env.mini.width -1});
 			}),
 			minimap = $("<div/>").addClass('minimap').css({
-				'width': miniwidth,
-				'height': miniheight + 50,
+				'width': that.env.mini.width,
+				'height': that.env.mini.height + 50,
 				'position': 'absolute',
-				'top': '-115px',
-				'left': that._getWrapperWidth() - miniwidth
+				'top': that.env.pano.height + 20, // want the map up ?'-115px',
+				'left': that._getWrapperWidth() - that.env.mini.width,
+			}).on("click", function(ev) {
+				var map = this;
+				// click pos = cursor pos - left of the click area - the half of the frame
+				var clickpos = ev.clientX - $(map).offset().left - that.env.frame.width/2;
+				var clickratio = clickpos / that.env.mini.width;
+
+				// console.log("clicked",ev.clientX, $(map).offset().left,that.env.mini.width,clickratio, '%', clickratio * that.env.pano.width, that.env.frame.width/2);
+				$(".pano").scrollLeft(clickratio * that.env.pano.width);
 			}),
 			minipict = $("<img />").attr({
 				"src":src
 			}).css({
-				'width': miniwidth,
-				'height': miniheight,
+				'width': that.env.mini.width,
+				'height': that.env.mini.height,
 				'visibility': 'visible'
 			}),
 			miniframe = $("<div/>").css({
@@ -232,17 +243,20 @@ var portfolio = {
 				'position': 'absolute',
 				'top': '-1px',
 				'left': '-1px',
-				'height': miniheight,
-				'width': that._getWrapperWidth() / panowidth * miniwidth,
-				'cursor': 'move'
+				'height': that.env.mini.height,
+				'width': that.env.frame.width,
+				'cursor': 'ew-resize'
 			}),
-			minihelp = $("<div/>").text("Photo manoramique, scrollez ->");
+			minihelp = $("<div/>").html("Photo panoramique, scrollez &rarr;").css({
+				'text-shadow': '0 1px 0 #fff',
+				'text-shadow': '0 1px 0 rgba(255,255,255,0.5)'
+			});
 
 		that.env.bigImage.parent().append(pano);
 		minimap.append(minipict, minihelp, miniframe);
 
 		// if there is enough space to display it, append it
-		if(that._getContentWidth() + miniwidth < that._getWrapperWidth())
+		if(that._getContentWidth() + that.env.mini.width < that._getWrapperWidth())
 			that.env.bigImage.parent().append(minimap);
 		else
 			that.env.bigImage.parent().append(minimap.css({'top':0}));
