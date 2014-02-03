@@ -4,20 +4,23 @@
 <title>Publications activity ryogasp.com</title>
 <meta charset="utf-8">
 <style>
-body {margin-top:0;}
-.mono{ font-family: monospace; color:#222;clear:both;}
+body {margin-top:0;background-color:rgb(53,60,65); ;}
+.mono{ font-family: monospace; color:rgb(98,104,105);clear:both;}
 .legende{padding:1em;}
 .c{ color:#666;}
-.c a{ text-decoration:none;}
-.c a.:hover{ color:#000 !important;}
-.c a.s1{ color:yellow;}
-.c a.s20{color:blue;}
-.c a.s21{color:green;}
-.c a.s21{color:purple;}
-.c a.s32{color:red;}
+.c a,.f a{ text-decoration:none;}
+.c a.:hover,.f a.:hover{ color:#000 !important;}
+.c a.s1,.f a.s1{ color:rgb(255,218,0);}
+.c a.s20,.f a.s20{color:rgb(0,166,255);}
+.c a.s29,.f a.s29{color:rgb(129,219,0);}
+.c a.s21,.f a.s21{color:rgb(247,147,21);}
+.c a.s32,.f a.s32{color:rgb(251,88,58);}
+.a,.f {float:left;width:50%;}
+.f { clear:both; font-size:.30em;line-height:1em;text-align:right;}
+.f a {}
 .graph .v{display:block;float:left; line-height:0px;height:60px;}
-.graph .v:hover .dot{ background-color:#f92;}
-.graph .v .dot{width:1px; height:1px; background-color:#eee;}
+.graph .v:hover .dot{ background-color:rgb(51,238,255);}
+.graph .v .dot{width:1px; height:1px; background-color:rgb(32,32,32);} /*246,245,249 32,32,32 or 54,59,57*/
 
 </style>
 </head>
@@ -29,12 +32,19 @@ body {margin-top:0;}
 <a[ href="#(#DATE|affdate{Y-m})"] class="v[ s(#DATE|affdate{Y-m})]"><BOUCLE_m(ARTICLES){mois_relatif=0}><div class="dot s<BOUCLE_s(RUBRIQUES){racine}{id_secteur}>#ID_SECTEUR</BOUCLE_s>"></div></BOUCLE_m></a>
 </BOUCLE_a></div>
 
+
 <div class="mono">
 <div class="legende">
 <BOUCLE_racine(RUBRIQUES){racine}><span class="c"><a class="s#ID_RUBRIQUE" href="#URL_RUBRIQUE">█</a> #TITRE</span> </BOUCLE_racine>
 </div>
 <BOUCLE_articles(ARTICLES){lang_select=non}{fusion DATE_FORMAT(date,'%Y-%m')}>
-<div>[<a[ name="(#DATE|affdate{Y-m})"]>(#DATE|affdate{Y-m})</a>&nbsp;<span class="c">]<BOUCLE_mois(ARTICLES){mois_relatif=0}><a href="#URL_ARTICLE"[ title="(#TITRE|couper{150}|attribut_html)"] class="s<BOUCLE_secteur(RUBRIQUES){racine}{id_secteur}>#ID_SECTEUR</BOUCLE_secteur>">█</a></BOUCLE_mois></span>&nbsp;(#TOTAL_BOUCLE)</B_mois></div>
+
+<div class="f">&nbsp;
+#SET{total_com,0}
+<BOUCLE_forums_mois(ARTICLES){mois_relatif=0}><a class="s<BOUCLE_forums_secteur(RUBRIQUES){racine}{id_secteur}>#ID_SECTEUR</BOUCLE_forums_secteur>" href="#URL_ARTICLE"><BOUCLE_forums_qt(FORUMS){id_article}><span data-forum-id="#ID_FORUM" data-article-id="#ID_ARTICLE">█</span> </BOUCLE_forums_qt><!-- #TOTAL_BOUCLE commentaires + [(#GET{total_com})] [(#SET{total_com,#TOTAL_BOUCLE|plus{#GET{total_com}}})]--></B_forums_qt></a></BOUCLE_forums_mois>
+[<!--(#GET{total_com}) commentaires-->]
+</div><!--/.f-->
+<div class="a">[<a[ name="(#DATE|affdate{Y-m})"]>&nbsp;(#DATE|affdate{Y-m})</a>&nbsp;<span class="c">]<BOUCLE_mois(ARTICLES){mois_relatif=0}><a href="#URL_ARTICLE"[ title="(#TITRE|couper{150}|attribut_html)"] class="s<BOUCLE_secteur(RUBRIQUES){racine}{id_secteur}>#ID_SECTEUR</BOUCLE_secteur>">█</a></BOUCLE_mois></span>&nbsp;(#TOTAL_BOUCLE)</B_mois></div>
 </BOUCLE_articles></div>
 </body>
 </html>
