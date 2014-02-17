@@ -26,6 +26,7 @@ var portfolio = {
 		this.env.isArticle = $("body").hasClass("article");
 		this.env.activeDocument = $(".spip_documents",this.env.obj);
 		this.env.isActive = (this.env.activeDocument.length > 0);
+		this.env.thumbs = $('.portfolio_thumbs a',this.env.obj);
 
 		// id is a number or null
 		this.env.id = 
@@ -47,6 +48,15 @@ var portfolio = {
 			this.bind();
 		}.bind(this),50);
 
+		if(this.env.isActive) {
+			this.env.active = $('.portfolio_thumbs .active',this.env.obj).get(0);
+			this.env.next = this.get.next(this.env.active);
+			this.env.previous = this.get.previous(this.env.active);
+
+			// listen to key press
+			this.listen();
+		}
+
 // debug
 //		window.setTimeout(function(){
 //			console.dir(this.env)
@@ -57,52 +67,75 @@ var portfolio = {
 			portfolio.refresh();
 
 			portfolio._setBigImage(function(){});
-		})
+		});
 	},
 	refresh: function(){
 		this.env.wrapperWidth = null;
 		this.env.contentWidth = null;
 		this.env.screenHeight = null;
 	},
-	
+	listen: function() {
+		var that = this;
+		var previous = that.get.previous(this.env.active);
+		var next = that.get.next(this.env.active);
+
+		$(document).on("keypress", function(ev) {
+			if ($(ev.target).is('input, textarea'))
+				return;
+			if(ev.keyCode==37) {
+				if(previous)
+					window.location.href = previous;
+			}
+			if(ev.keyCode==39) {
+				if(next)
+					window.location.href = next;
+			}
+		});
+	},
 	bind: function(){
 		var that = this;
 
-		// bind thumbnails 
-		$("a.thumb",this.env.obj).on("click", function(e){
-
+		// bind links
+		this.env.thumbs.on("click", function(e){
 			location.href = $(this).data("redirect");
 			e.preventDefault();
 		});
 
-		if(this.env.isArticle){
-		}
+		// apply css
+		this.env.thumbs.css({'opacity':'0.8'});
+		// bind mouse over
+		this.env.thumbs.on('mouseover',function(){
+			$(this).animate({'opacity':'1'},'fast')
+		}).on('mouseout',function(){
+			$(this).animate({'opacity':'0.8'},'fast')
+		});
+
+
+		// special behavior for the active thumbnail
 		if(this.env.isActive){
-			var active = $('.portfolio_thumbs .active',this.env.obj).get(0);
-			this.env.thumbs = $('.portfolio_thumbs a');
-			this.env.thumbs.each(function(){
+			// get the value of "next" link
+			var next = that.env.next;
 
-				if(this == active){
+			// this should not be a Pano and raquo should be added
+			if(next)
+				!that.env.isPano && that._makeRaquo();
 
-					var next = $($('a',$(active).parent().next())[0]).data("redirect") 
-						|| false;
-
-					if(next)
-						!that.env.isPano && that._makeRaquo()
-
-					that.env.bigImage.on("click", function(){
-						if(next)
-							window.location.href = next;
-					});
-				}
-				else{ // this is not the active thumbnail
-					$(this).css({'opacity':'0.8'}).on('mouseover',function(){
-						$(this).animate({'opacity':'1'},'fast')
-					}).on('mouseout',function(){
-						$(this).animate({'opacity':'0.8'},'fast')
-					})
-				}
+			// when click on the bigImage, proceed
+			that.env.bigImage.on("click", function(){
+				if(next)
+					window.location.href = next;
 			});
+
+			// active thumb does not fade
+			$(that.env.active).off('mouseover mouseout').css({'opacity':'1'});
+		}
+	},
+	get: {
+		next: function(active) {
+			return $($('a',$(active).parent().next())[0]).data("redirect") || false;
+		},
+		previous: function(active) {
+			return $($('a',$(active).parent().prev())[0]).data("redirect") || false;
 		}
 	},
 	clean: function(){
