@@ -10,6 +10,7 @@ RewriteBase /
 #pages speciales
 RewriteRule ^plan$	spip.php?page=plan [QSA,L]
 RewriteRule ^rss$	spip.php?page=backend [QSA,L]
+RewriteRule ^activite$	spip.php?page=activite [QSA,L]
 
 
 #anciens sites
