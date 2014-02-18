@@ -96,9 +96,8 @@ var portfolio = {
 		var that = this;
 
 		// bind links
-		this.env.thumbs.on("click", function(e){
-			location.href = $(this).data("redirect");
-			e.preventDefault();
+		this.env.thumbs.each(function() {
+			$(this).attr("href", $(this).data("redirect"));
 		});
 
 		// apply css
