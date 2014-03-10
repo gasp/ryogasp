@@ -19,6 +19,9 @@
 	<link[ rel="stylesheet" href="(#CHEMIN{css/journal/style.css}|compacte)"]>
 	<link rel="alternate" type="application/rss+xml" 
 		title="[(#DESCRIPTIF|textebrut)en ]RSS" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+	<!--[if IE]>
+[	<script src="(#CHEMIN{js/polyfill.js}|compacte)"></script>]
+	<![endif]-->
 	<!--[if lt IE 9]>
 [	<script src="(#CHEMIN{js/libs/html5-3.4-respond-1.1.0.min.js})"></script>]
 	<![endif]-->
