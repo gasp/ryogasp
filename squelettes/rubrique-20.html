@@ -23,9 +23,9 @@
 		<div id="main">
 	
 	[(#REM) Contenu principal : contenu de l'article ]
-    <div class="wrapper hfeed">
-    <div class="content hentry" id="content">
-        <p class="arbo"><a href="#URL_SITE_SPIP/">ryogasp</a><BOUCLE_ariane(HIERARCHIE){id_article}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</p>
+	<div class="wrapper hfeed">
+	<div class="content hentry" id="content">
+		<p class="arbo"><a href="#URL_SITE_SPIP/">ryogasp</a><BOUCLE_ariane(HIERARCHIE){id_article}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</p>
 
 		<div class="cartouche">
 			[(#LOGO_ARTICLE_RUBRIQUE|image_reduire{40,*})]
@@ -35,42 +35,45 @@
 	
 			<p class="info-publi">[(#DESCRIPTIF|strip_tags)]</p>
 		</div>
-		
-		[<div class="#EDIT{chapo} chapo surlignable">(#CHAPO|image_reduire{500,*})</div>]
-		[<div class="#EDIT{texte} texte surlignable">(#TEXTE|image_reduire{500,*})</div>]
-	
+		[(#ENV{debut_articles_rubrique}|non)
+			[<div class="#EDIT{chapo} chapo surlignable">(#CHAPO|image_reduire{500,*})</div>]
+			[<div class="#EDIT{texte} texte surlignable">(#TEXTE|image_reduire{500,*})</div>]
+		]
+		<B_articles_rubrique>
 		<dl>
-		<BOUCLE_articles_rubrique(ARTICLES){id_rubrique}{par date}{inverse}>
-		<dt><a href="#URL_ARTICLE">[(#TITRE|SINON{'Sans titre'})]</a></dt>
+		<BOUCLE_articles_rubrique(ARTICLES){id_rubrique}{par date}{inverse}{pagination 10}>
+			<dt><a href="#URL_ARTICLE">[(#TITRE|SINON{'Sans titre'})]</a></dt>
 		[<dd>(#INTRODUCTION)</dd>]
 		</BOUCLE_articles_rubrique>
 		</dl>
+		<p class="pagination">#PAGINATION</p>
+		</B_articles_rubrique>
 
 	</div><!--.content-->
 	</div><!--.wrapper-->
 
 
-    <div class="aside">
+	<div class="aside">
 	
-        <INCLURE{fond=inclure/navsub, id_rubrique} />
+		<INCLURE{fond=inclure/navsub, id_rubrique} />
 
-        [(#REM) Articles dans la meme rubrique ]
-        <B_breves_rubrique>
-        <div class="menu">
-            <h2>Ephémérides</h2>
-            <ul>
-                <BOUCLE_breves_rubrique(BREVES) {id_secteur} {!par date} {0,10}>
-                <li><a href="#URL_BREVE">#TITRE</a></li>
-                </BOUCLE_breves_rubrique>
-            </ul>
-        </div>
-        </B_breves_rubrique>
+		[(#REM) Articles dans la meme rubrique ]
+		<B_breves_rubrique>
+		<div class="menu">
+			<h2>Ephémérides</h2>
+			<ul>
+				<BOUCLE_breves_rubrique(BREVES) {id_secteur} {!par date} {0, 100}>
+				<li>&raquo; <a href="#URL_BREVE" title="[(#TITRE|attribut_html)][ - (#DATE|annee)]">#TITRE</a> [(#LOGO_BREVE|image_reduire{30,10}|image_nb{330,330,330}|inserer_attribut{class,inline})]</li>
+				</BOUCLE_breves_rubrique>
+			</ul>
+		</div>
+		</B_breves_rubrique>
 
 
 		#FORMULAIRE_RECHERCHE
 
-        
-    </div><!--.aside-->
+		
+	</div><!--.aside-->
 		<div class="clearfix"></div>
 
 		</div><!--#main-->
