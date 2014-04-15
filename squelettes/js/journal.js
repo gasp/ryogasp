@@ -223,6 +223,7 @@ var portfolio = {
 		// remove any previous elements:
 		$(".portfolio_big .pano",that.env.obj).remove();
 		$(".portfolio_big .minimap",that.env.obj).remove();
+		$(".portfolio_big .swipe_helper",that.env.obj).remove();
 		var src = $(".portfolio_big .spip_doc_descriptif a.hd",that.env.obj).attr("href"),
 			panopict = $("<img />").attr({
 				"src":src
@@ -283,6 +284,14 @@ var portfolio = {
 			minihelp = $("<div/>").html("Photo panoramique, scrollez &rarr;").css({
 				'text-shadow': '0 1px 0 #fff',
 				'text-shadow': '0 1px 0 rgba(255,255,255,0.5)'
+			}),
+			swipe_helper = $("<div/>").addClass('swipe_helper').css({
+				'position': 'absolute',
+				'height': '70px',
+				'width': '160px',
+				'top': '10px',
+				'right': '10px',
+				'background': 'transparent url(/squelettes/css/img/journal/swipe_helper.svg) no-repeat top right'
 			});
 
 		that.env.bigImage.parent().append(pano);
@@ -291,10 +300,11 @@ var portfolio = {
 		// if there is enough space to display it, append it
 		if(that._getContentWidth() + that.env.mini.width < that._getWrapperWidth())
 			that.env.bigImage.parent().append(minimap);
-        /*
-		else // it could be appened over the image but this is ugly
-			that.env.bigImage.parent().append(minimap.css({'top':0}));
-        */
+		else
+			that.env.bigImage.parent().append(swipe_helper);
+			// it could be appened over the image but this is ugly
+			// that.env.bigImage.parent().append(minimap.css({'top':0}));
+
 		that.env.bigImage.css({
 			"display":"none"
 		});
