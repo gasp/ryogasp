@@ -198,7 +198,7 @@ var portfolio = {
 			// should be somewhere else...
 			// but bind is faster because it doesn't load all these images
 			$(".raquo",this.env.obj).hide()
-			console.log('ratio w/h', this.env.ratio, 'panoramic picture');
+			// console.log('ratio w/h', this.env.ratio, 'panoramic picture');
 			this._makePano();
 		}
 
@@ -291,9 +291,10 @@ var portfolio = {
 		// if there is enough space to display it, append it
 		if(that._getContentWidth() + that.env.mini.width < that._getWrapperWidth())
 			that.env.bigImage.parent().append(minimap);
-		else
+        /*
+		else // it could be appened over the image but this is ugly
 			that.env.bigImage.parent().append(minimap.css({'top':0}));
-
+        */
 		that.env.bigImage.css({
 			"display":"none"
 		});
