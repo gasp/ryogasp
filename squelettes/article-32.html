@@ -95,32 +95,37 @@
 				[<div class="#EDIT{texte} chapo">(#TEXTE|sinon{"Journal de bord, on y note des choses au fur et à mesure, ou pas."})</div>]
 				</BOUCLE_rubrique_aside>
 			</section>
-			<section class="nav">
+			<section class="nav" role="navigation">
 				<h2>Lire aussi</h2>
-				<!-- le lien vers l'article précédent, par ordre chronologique} -->
-				<BOUCLE_precedent(ARTICLES){id_rubrique}{age_relatif>=0}{par date}{inverse}{1,1}{doublons nav}>
-				<div>
-					&laquo;
-					<a href='#URL_ARTICLE'>#TITRE</a>
-					[<span class="light">&ndash; <time datetime="#DATE">(#DATE|affdate_jourcourt)</time></span>]
-				</div>
-				</BOUCLE_precedent>
+				<!-- le lien vers les articles précédents, par ordre chronologique} -->
+				#SET{precedents, #ARRAY}
+				<BOUCLE_precedents(ARTICLES){id_rubrique}{age_relatif>=0}{par date}{inverse}{0,2}{doublons nav}>
+					#SET{precedents,#GET{precedents}|push{#ID_ARTICLE}}
+				</BOUCLE_precedents>
+				<BOUCLE_precedents_affiche(ARTICLES){id_article IN #GET{precedents}}{par date}>
+					<div>
+						&laquo;
+						<a href='#URL_ARTICLE'>#TITRE</a>
+						[<span class="light">&ndash; <time datetime="#DATE">(#DATE|affdate_jourcourt)</time></span>]
+					</div>
+				</BOUCLE_precedents_affiche>
 
-				<!-- le lien vers l'article suivant, par ordre chronologique-->
-				<BOUCLE_suivant(ARTICLES){id_rubrique}{age_relatif<0}{par date}{0,1}{doublons nav}>
+				<BOUCLE_self(ARTICLES){id_article}>
+					<div>
+						&bull;
+						<a href="#URL_ARTICLE">#TITRE</a>
+						[<span class="light">&ndash; <time datetime="#DATE">(#DATE|affdate_jourcourt)</time></span>]
+					</div>
+				</BOUCLE_self>
+
+				<!-- le lien vers les articles suivants, par ordre chronologique-->
+				<BOUCLE_suivants(ARTICLES){id_rubrique}{age_relatif<0}{par date}{0,5}{doublons nav}>
 				<div>
 					&raquo;
-					<a href='#URL_ARTICLE'>#TITRE</a>
-					[<span class="light">&ndash; <time datetime="#DATE">(#DATE|affdate_jourcourt)</time></span>]
-				</div>
-				</BOUCLE_suivant>
-				<BOUCLE_autres(ARTICLES){id_rubrique}{!par date}{0,5}{doublons nav}>
-				<div>
-					&bull;
 					<a href="#URL_ARTICLE">#TITRE</a>
 					[<span class="light">&ndash; <time datetime="#DATE">(#DATE|affdate_jourcourt)</time></span>]
 				</div>
-				</BOUCLE_autres>
+				</BOUCLE_suivants>
 			</section>
 
 		</aside>
