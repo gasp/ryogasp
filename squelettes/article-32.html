@@ -3,7 +3,7 @@
 	Un cache d'une journee
 	
 ]#CACHE{86400}
-<BOUCLE_principale(ARTICLES) {id_article}{doublons nav}>
+<BOUCLE_principale(ARTICLES) {id_article}>
 <!doctype html>
 
 <head>
@@ -110,7 +110,7 @@
 					</div>
 				</BOUCLE_precedents_affiche>
 
-				<BOUCLE_self(ARTICLES){id_article}>
+				<BOUCLE_self(ARTICLES){id_article}{doublons nav}>
 					<div>
 						&bull;
 						<a href="#URL_ARTICLE">#TITRE</a>
