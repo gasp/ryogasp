@@ -29,14 +29,7 @@
 		}
 
 		a{text-decoration:none;}
-		a.c{font-family: monospace;}
-		a.c:visited{color:#000;font-weight:bold;}
-<?php
-for ($i=0; $i < 25; $i++) {
-	$c = dechex(155-$i*5);
-	echo '		a.p'.$i.'{color:#'.$c.$c.$c.'}'."\n";
-}
-?>
+
 	</style>
 </head>
 <body>
@@ -48,12 +41,6 @@ for ($i=0; $i < 25; $i++) {
 
 <h1>Recherchez</h1>
 #FORMULAIRE_RECHERCHE
-<B_touslesarticles>
-<h1>Tous les articles</h1>
-<p>Ce que vous recherchez, c'est certainement là dedans</p>
-<BOUCLE_touslesarticles(ARTICLES){', '}{par date}{inverse}>
-<a class="c p#POPULARITE" href="#URL_ARTICLE">#TITRE</a>
-</BOUCLE_touslesarticles>
-</B_touslesarticles>
+<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
 </body>
 </html>
