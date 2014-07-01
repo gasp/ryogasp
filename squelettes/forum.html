@@ -13,7 +13,7 @@
 	<h1>Commentaires de l'article <a href="#URL_ARTICLE">#TITRE</a></h1>
 	<BOUCLE_comments(FORUMS){id_article}>
 		<p>#AUTEUR</p>
-		<div>#TEXTE</div>
+		<div>[(#TEXTE|image_reduire{500})]</div>
 	</BOUCLE_comments>
 </BOUCLE_article>
 
