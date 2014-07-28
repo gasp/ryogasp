@@ -1,0 +1,13 @@
+<BOUCLE_article(ARTICLES){id_secteur=1}{!par date}{#DEBUT,#STEP}>
+	<article class="post"
+		[id="art(#ID_ARTICLE)"]
+		[title="(#TITRE|attribut_html|couper{80})"]
+		[data-title="(#TITRE|attribut_html)"]
+		[data-link="(#URL_ARTICLE)"]
+		[data-date="(#DATE)"]>
+		<div class="content">
+			<h2>#TITRE</h2>
+			<div>[(#TEXTE|strip_tags{'<p><img><br><hr>'}|image_reduire{90,0})]</div>
+		</div>
+	</article>
+</BOUCLE_article>
