@@ -102,7 +102,7 @@ a.badge{
 @import "helpers.less";
 @import "print.less";
 
-.search {
+.search-bar {
 	text-align:right;
 	width:100%;
 	position:fixed;
@@ -130,5 +130,18 @@ a.badge{
 		z-index: 100;
 		right:auto;
 		top:auto;
+		@media only screen and (max-width: 800px) {
+			.spip-admin-boutons {
+				clear:both;
+				float:none;
+				color:#fc0;
+				display:block;
+				border-radius:0;
+				&#statistiques {
+					display:none;
+				}
+			}
+		}
+
 	}
 }

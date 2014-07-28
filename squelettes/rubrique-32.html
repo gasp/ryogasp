@@ -31,7 +31,7 @@
 <div id="main-container">
 	<div id="main" class="wrapper clearfix">
 		<div class="content">
-[<h1>Résultats de la recherche de &ldquo;(#ENV{recherche})&rdquo;</h1>
+[<h2>Résultats de la recherche de &ldquo;(#ENV{recherche})&rdquo;</h2>
 [(#INCLURE{fond=inclure/journal_recherche,env})]
 ]
 [(#ENV{archive}|?{
@@ -41,13 +41,12 @@
 		</div><!-- /.content-->
 		<aside>
 			<section>
-			<h2>A propos</h2>
-			[<div class="#EDIT{texte} chapo">(#TEXTE|sinon{"Journal de bord, on y note des choses au fur et à mesure, ou pas."})</div>]
+				<h2>A propos</h2>
+				[<div class="#EDIT{texte} chapo">(#TEXTE|sinon{"Journal de bord, on y note des choses au fur et à mesure, ou pas."})</div>]
 			</section>
 
 			<BOUCLE_archives_rubrique(RUBRIQUES){id_rubrique}>
 			<section class="archives">
-
 				<h2>Archives</h2>
 				<ul>
 				<BOUCLE_archives(ARTICLES){id_secteur ?}
@@ -63,12 +62,22 @@
 				</ul>
 			</section>
 			</BOUCLE_archives_rubrique>
-			
+
+			<section class="search">
+				<h2><label for="search">Recherche</label></h2>
+				<form action="#URL_RUBRIQUE" method="get" accept-charset="utf-8">
+					<input type="text" name="recherche"[ value="(#ENV{recherche})"] id="search">
+				</form>
+			</section>
+
 			<section class="feeds">
+				<h2>Abonnements</h2>
 				<div class="rss">
 					<a class="badge rss" href="http://ryogasp.com/spip.php?page=backend&id_rubrique=32">RSS</a>
+					<small><a href="http://www.commoncraft.com/video/rss">comment ça marche ?</p></small>
 				</div>
 			</section>
+
 		</aside>
 		
 	</div> <!-- #main -->

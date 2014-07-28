@@ -20,9 +20,20 @@ $(document).ready(function(){
 	// portfolio
 	portfolio.init();
 
+	// search
+	// activate only if touch is not enabled
+	// this could be moved to Modernizr if used
+	if(!app.isTouch())
+		$("aside section.search").hide();
+	else
+		search.init();
+
+	if(app.isTouch())
+		$("aside section.feeds").hide();
+
 });
 
-
+var app = window.app || {};
 
 var portfolio = {
 	env: {},
@@ -285,7 +296,7 @@ var portfolio = {
 				'top': '-1px',
 				'left': '-1px',
 				'height': that.env.mini.height,
-				'width': that.env.frame.width,
+				'width': Math.min(that.env.frame.width,that.env.mini.width),
 				'cursor': 'ew-resize'
 			}),
 			minihelp = $("<div/>").html("Photo panoramique, scrollez &rarr;").css({
@@ -294,8 +305,8 @@ var portfolio = {
 			}),
 			swipe_helper = $("<div/>").addClass('swipe_helper').css({
 				'position': 'absolute',
-				'height': '70px',
-				'width': '160px',
+				'height': '40px',
+				'width': '70px',
 				'top': '10px',
 				'right': '10px',
 				'background': 'transparent url(/squelettes/css/img/journal/swipe_helper.svg) no-repeat top right'
@@ -378,7 +389,7 @@ var search = {
 				return false;
 			}
 		});
-		$("#search").on("keypress", function(ev) {
+		$("#search-bar-field").on("keypress", function(ev) {
 			console.log(ev);
 			if(ev.keyCode == 27)
 				that.hide();
@@ -389,22 +400,20 @@ var search = {
 			form = document.createElement("form"),
 			label = document.createElement("label"),
 			input = document.createElement("input");
-		$(input).attr({"type": "search", "id": "search", "name": "recherche","autocorrect":"off","autocapitalize":"off"});
-		$(label).attr("for","search").text("search");
+		$(input).attr({"type": "search", "id": "search-bar-field", "name": "recherche","autocorrect":"off","autocapitalize":"off"});
+		$(label).attr("for","search-bar-field").text("search");
 		$(form).attr("action","/journal/").append(label,input);
-		$(div).addClass("search").append(form)
+		$(div).addClass("search-bar").append(form)
 		$("body").append(div);
 	},
 	show: function() {
-		$(".search").show();
-		$("#search").focus();
+		$(".search-bar").show();
+		$("#search-bar-field").focus();
 		this.opened = true;
 	},
 	hide: function() {
-		$(".search").hide();
+		$(".search-bar").hide();
 //		$(document).focus();
 		this.opened = false;
 	}
 };
-
-search.init();

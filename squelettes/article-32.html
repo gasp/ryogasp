@@ -83,6 +83,7 @@
 				[<div class="#EDIT{texte} chapo">(#TEXTE|sinon{"Journal de bord, on y note des choses au fur et à mesure, ou pas."})</div>]
 				</BOUCLE_rubrique_aside>
 			</section>
+
 			<section class="nav" role="navigation">
 				<h2>Lire aussi</h2>
 				<!-- le lien vers les articles précédents, par ordre chronologique} -->
@@ -116,8 +117,23 @@
 				</BOUCLE_suivants>
 			</section>
 
+			<section class="search">
+				<h2><label for="search">Recherche</label></h2>
+				<form action="#URL_RUBRIQUE" method="get" accept-charset="utf-8">
+					<input type="text" name="recherche" id="search">
+				</form>
+			</section>
+
+			<section class="feeds">
+				<h2>Abonnements</h2>
+				<div class="rss">
+					<a class="badge rss" href="http://ryogasp.com/spip.php?page=backend&id_rubrique=32">RSS</a>
+					<small><a href="http://www.commoncraft.com/video/rss">comment ça marche ?</p></small>
+				</div>
+			</section>
+
 		</aside>
-		
+
 	</div> <!-- #main -->
 </div> <!-- #main-container -->
 
