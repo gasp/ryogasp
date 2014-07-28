@@ -1,5 +1,12 @@
 $(document).ready(function(){
 
+	app.isTouch = function () {
+		if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch)
+			return true;
+		else return false;
+	};
+
+
 	// clear spip_photo size, let it be responsive
 	$('.spip_photo img, .journal_portfolio .portfolio_big img').attr({'width':'','height':'','style':''});
 
