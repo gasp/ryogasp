@@ -8,7 +8,7 @@ $(document).ready(function(){
 
 
 	// clear spip_photo size, let it be responsive
-	$('.spip_photo img, .journal_portfolio .portfolio_big img').attr({'width':'','height':'','style':''});
+	$('.spip_photo img, .spip_documents img, .journal_portfolio .portfolio_big img').attr({'width':'','height':'','style':''});
 
 	// clear spip_documents_center size, let it be responsive
 	$('.spip_photo img').attr({'width':'','height':'','style':''});
