@@ -15,8 +15,8 @@
 <ul>
 <BOUCLE_recherche_commentaires(FORUMS) {id_secteur=32}{recherche} {!par points}>
 	<li>
-		<a href="<BOUCLE_article_lie(ARTICLES){id_article = #ID_OBJET}>#URL_ARTICLE</BOUCLE_article_lie>">[(#TEXTE|strip_tags|couper{120})]</a>
-		#AUTEUR 
+		<a href="<BOUCLE_article_lie(ARTICLES){id_article = #ID_OBJET}>#URL_ARTICLE</BOUCLE_article_lie>">[(#TEXTE|strip_tags|couper{120})]
+		- #AUTEUR </a>
 	</li>
 </BOUCLE_recherche_commentaires>
 </ul>
