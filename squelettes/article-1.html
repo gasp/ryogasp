@@ -76,38 +76,20 @@
 	[(#REM) Menu de navigation laterale ]
 	<div id="extra">
 		<div class="menu">
-		[(#REM) Articles dans la meme rubrique ]
-		<BOUCLE_rubrique(RUBRIQUES){id_rubrique}>
-		<h3 class="accessibility">#TITRE</h3>
-		</BOUCLE_rubrique>
 
-			<BOUCLE_compteur_precedents(ARTICLES){id_rubrique}{id_article != #ID_ARTICLE}{age_relatif>=0}{!par date}> </BOUCLE_compteur_precedents>
-				#SET{precedents,#TOTAL_BOUCLE}
-			</B_compteur_precedents>
+			<BOUCLE_article(ARTICLES) {id_article}>
 
-				#SET{precedents_start,#GET{precedents}|moins{5}}
-				#SET{suivants,#GET{precedents}|plus{1}}
+				<ul>
+				<BOUCLE_deux_avant(ARTICLES) {id_rubrique}{!id_article} {date < #DATE}{par date, id_article}{n-2,n-1}>
+				<li><a href="#URL_ARTICLE">#TITRE</a></li>
+				</BOUCLE_deux_avant>
+				<li class="on">#TITRE</li>
+				<BOUCLE_cinq_apres(ARTICLES) {id_rubrique}{!id_article} {date >= #DATE}{par date, id_article}{0,6}>
+				<li><a href="#URL_ARTICLE">#TITRE</a></li>
+				</BOUCLE_cinq_apres>
+				</ul>
 
-<!--
-precedents #TOTAL_BOUCLE
-precedents_start #GET{precedents_start}
-suivants #GET{suivants}
--->
-			<ul>
-				<BOUCLE_historique_precedents(ARTICLES){si #GET{precedents_start}|>{0}}{par date}{id_rubrique}{#GET{precedents_start},5}>
-					<li><a href="#URL_ARTICLE">#TITRE</a></li>
-				</BOUCLE_historique_precedents>
-				</B_historique_precedents>
-					[(#REM) si precedents_start est négatif, alors on liste tous depuis le début]
-					<BOUCLE_historique_precedents_tous(ARTICLES){id_rubrique}{id_article != #ID_ARTICLE}{age_relatif>=0}>
-						<li><a href="#URL_ARTICLE">#TITRE</a></li>
-					</BOUCLE_historique_precedents_tous>
-				<//B_historique_precedents>
-					<li class="on">#TITRE</li>
-				<BOUCLE_historique_suivants(ARTICLES){par date}{id_rubrique}{#GET{suivants},5}>
-					<li><a href="#URL_ARTICLE">#TITRE</a></li>
-				</BOUCLE_historique_suivants>
-			</ul>
+			</BOUCLE_article>
 
 			<INCLURE{fond=_blog_nuls} />
 		</div>
