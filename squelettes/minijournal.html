@@ -1,0 +1,26 @@
+[(#REM)
+	mini journal affiche toutes les photos en miniatures
+	super gourmand !
+	tous les sept jours, ça suffit
+]#CACHE{604800}
+<!DOCTYPE html>
+<head>
+<title>images</title>
+<meta charset="utf-8">
+<style type="text/css">
+body { margin:0;padding:0;line-height:0.1em;}
+</style>
+</head>
+<body>
+<!--
+enhance display ?
+  fitting screen width with a small pretty snap ?
+  better help box ?
+enhance loading experience ?
+  grouping images ?
+  smooth loading : displaying as faded ?
+  loading 1px color first ?
+-->
+<BOUCLE_article(ARTICLES){id_secteur=32}{!par date}><B_images><a href="#URL_ARTICLE"[ title="(#TITRE|attribut_html|couper{80})"]><BOUCLE_images(DOCUMENTS){distant=non}{extension IN png,jpg,gif}{id_article}{doublons}{par num titre}>[(#FICHIER|image_passe_partout{90,90}|image_recadre{90,90})]</BOUCLE_images></a></B_images></BOUCLE_article>
+</body>
+</html>
