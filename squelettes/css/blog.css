@@ -26,6 +26,12 @@ h1,h2,h3,h4{
 	width:960px;
 }
 
+#entete {
+	height: 4em;
+	border:none;
+	position:relative;
+}
+
 #conteneur{
 	width:500px;
 	float:left;
@@ -51,7 +57,7 @@ h1,h2,h3,h4{
 	font-size:8pt;
 }
 #hierarchie a{
-	
+	/* a bas la hierarchie !*/
 }
 
 .post{margin:2em 0;clear:both;}
@@ -64,10 +70,12 @@ h1,h2,h3,h4{
 	font: 75% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
 	text-decoration:none;
 }
-#entete{
-	border:none;
-	position:relative;
+
+#entete #peas a {
+	text-decoration: none;
+	color: #ccc;
 }
+
 .menu{
 	padding:5px;
 }
