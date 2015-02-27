@@ -21,7 +21,9 @@ $(document).ready(function(){
 
 	$("#peas a").on("click", function(ev) {
 		$.post('http://api.cepcam.org:1907/bloggers/feed/ryoga', function() {
-			$("#peas a span").text(++peas);
+			if(!isNaN(peas)) {
+				$("#peas a span").text(++peas);
+			}
 		});
 		ev.preventDefault();
 		return false;
