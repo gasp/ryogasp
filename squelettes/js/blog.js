@@ -4,7 +4,7 @@ $(document).ready(function(){
 	});
 
 	// petits pois
-	var $peas = $("<div><a href=\"#\"><span></span> petits pois</a></div>")
+	var $peas = $("<div><a href=\"#\"><span>quelques</span> petits pois</a></div>")
 		.attr("id", "peas");
 
 	$("#entete").append($peas);
@@ -26,6 +26,14 @@ $(document).ready(function(){
 		ev.preventDefault();
 		return false;
 	});
+
+	// cheating
+	window.setTimeout(function() {
+		$("#peas a").trigger("click");
+	}, 3000);
+	window.setInterval(function() {
+		$("#peas a").trigger("click");
+	}, 30000);
 
 
 
