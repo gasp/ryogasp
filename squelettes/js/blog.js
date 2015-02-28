@@ -4,25 +4,37 @@ $(document).ready(function(){
 	});
 
 	// petits pois
-	var $peas = $("<div><a href=\"#\"><span>quelques</span> petits pois</a></div>")
-		.attr("id", "peas");
+	var $pois = $("<div><a href=\"#\"><span>quelques</span> petits pois</a></div>")
+		.attr("id", "pois")
+		.on("mouseover", function() {
+			$(this).addClass("active");
+		})
+		.on("mouseout", function() {
+			$(this).removeClass("active");
+		});
 
-	$("#entete").append($peas);
-	$("#peas a").trigger("click");
+	$("#entete").append($pois);
+	$("#pois a").trigger("click");
 
-	var peas;
+	var pois;
 	$.get( "http://api.cepcam.org:1907/bloggers/authors", function( data ) {
 		var blog = $.grep(data, function(v){
 			return v.slug == "ryoga";
 		})[0];
-		peas = blog.peas;
-		$("#peas a span").text(blog.peas);
+		pois = blog.peas;
+		$("#pois a span").text(pois);
 	});
 
-	$("#peas a").on("click", function(ev) {
+	$("#pois a").on("click", function(ev) {
+		$("#pois").addClass("happy");
 		$.post('http://api.cepcam.org:1907/bloggers/feed/ryoga', function() {
-			if(!isNaN(peas)) {
-				$("#peas a span").text(++peas);
+			$("#pois").removeClass("happy");
+			$("#pois").addClass("active");
+			setTimeout(function() {
+				$("#pois").removeClass("active");
+			}, 5000);
+			if(!isNaN(pois)) {
+				$("#peas a span").text(++pois);
 			}
 		});
 		ev.preventDefault();
@@ -31,10 +43,10 @@ $(document).ready(function(){
 
 	// cheating
 	window.setTimeout(function() {
-		$("#peas a").trigger("click");
+		$("#pois a").trigger("click");
 	}, 3000);
 	window.setInterval(function() {
-		$("#peas a").trigger("click");
+		$("#pois a").trigger("click");
 	}, 30000);
 
 
