@@ -196,3 +196,22 @@ ul .forum-chapo {
 #footer .tech{
 	float:right;
 }
+
+
+@media
+only screen and (-webkit-min-device-pixel-ratio: 2),
+only screen and (   min--moz-device-pixel-ratio: 2),
+only screen and (     -o-min-device-pixel-ratio: 2/1),
+only screen and (        min-device-pixel-ratio: 2),
+only screen and (                min-resolution: 192dpi),
+only screen and (                min-resolution: 2dppx) {
+
+	#entete #pois.active {
+		background-image:url('img/blog/pois_visage@2x.png');
+		background-size: 24px 24px;
+	}
+	#entete #pois.happy {
+		background-image:url('img/blog/pois_yeux@2x.png');
+		background-size: 24px 24px;
+	}
+}

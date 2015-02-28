@@ -34,7 +34,7 @@ $(document).ready(function(){
 				$("#pois").removeClass("active");
 			}, 5000);
 			if(!isNaN(pois)) {
-				$("#peas a span").text(++pois);
+				$("#pois a span").text(++pois);
 			}
 		});
 		ev.preventDefault();
@@ -48,7 +48,5 @@ $(document).ready(function(){
 	window.setInterval(function() {
 		$("#pois a").trigger("click");
 	}, 30000);
-
-
 
 });
