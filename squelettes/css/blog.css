@@ -40,10 +40,7 @@ img {
 }
 #navigation,#extra{
 	font: 10.5pt "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
-	width:220px;
-	float:left;
 	margin:0;
-	display: none;
 }
 #navigation h3, #extra h3{
 	font-size:14.5pt;
@@ -188,6 +185,10 @@ ul .forum-chapo {
 	margin-top:1em;
 }
 
+.pagination {
+	display:none;
+}
+
 #footer{
 	border-top: 1px solid #ddd;
 	clear:both;
@@ -211,7 +212,11 @@ ul .forum-chapo {
 		width:500px;
 		float:left;
 	}
-	#navigation, #extra, #pois {
+	#navigation, #extra {
+		width:220px;
+		float:left;
+	}
+	#pois, .pagination {
 		display: block;
 	}
 	.formulaire_recherche {
