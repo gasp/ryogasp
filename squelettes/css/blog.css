@@ -69,32 +69,6 @@ img {
 	font: 75% "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
 	text-decoration:none;
 }
-
-#entete #pois {
-	display: none;
-	float: right;
-	width: 300px;
-	margin: 15px 30px 0 0;
-	text-align: right;
-	background-image: url('img/blog/pois_vert.png');
-	background-repeat: no-repeat;
-	background-attachment: scroll;
-	background-position: 50%;
-}
-
-#entete #pois.active {
-	background-image: url('img/blog/pois_visage.png');
-}
-
-#entete #pois.happy {
-	background-image: url('img/blog/pois_yeux.png');
-}
-
-#entete #pois a {
-	text-decoration: none;
-	color: #ccc;
-}
-
 .menu{
 	padding:5px;
 }
@@ -216,7 +190,7 @@ ul .forum-chapo {
 		width:220px;
 		float:left;
 	}
-	#pois, .pagination {
+	.pagination {
 		display: block;
 	}
 	.formulaire_recherche {
@@ -232,12 +206,5 @@ only screen and (        min-device-pixel-ratio: 2),
 only screen and (                min-resolution: 192dpi),
 only screen and (                min-resolution: 2dppx) {
 
-	#entete #pois.active {
-		background-image:url('img/blog/pois_visage@2x.png');
-		background-size: 24px 24px;
-	}
-	#entete #pois.happy {
-		background-image:url('img/blog/pois_yeux@2x.png');
-		background-size: 24px 24px;
-	}
+	/* hdpi */
 }
