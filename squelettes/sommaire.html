@@ -10,7 +10,7 @@
 <head>
 <title>ryogasp.com</title>
 <meta name="description" content="Ryogasp .com est le site commun de Gaspard Beernaert et Richard Cornu" />
-<meta name="google-site-verification" content="MUYTTi2fvh9fXwCao6f4HST5f_Xg1YndmVT3vs4u1c0" /> 
+<meta name="google-site-verification" content="MUYTTi2fvh9fXwCao6f4HST5f_Xg1YndmVT3vs4u1c0" />
 
 <link rel="canonical" href="http://www.ryogasp.com" />
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
@@ -22,7 +22,6 @@
 		text-align:center;
 		background: #dedbc5 url(#CHEMIN{css/img/sommaire/bg.png}) repeat-x scroll top left;
 		margin:0; padding:0;
-		
 		font: normal normal normal 12pt "Lucida Grande", Lucida, "MS Trebuchet", Arial,sans-serif
 	}
 	h2{
@@ -34,23 +33,20 @@
 		text-decoration:none;
 	}
 	#page{
-		background: transparent url(#CHEMIN{css/img/sommaire/header.png}) no-repeat scroll top center;
+		background: transparent no-repeat scroll top center;
 	}
-	#page{background-image:url('#CHEMIN{.}/css/img/sommaire/[(#DATE|annee)]-[(#DATE|saison|translitteration)]/header.png');}
- 
+
 	h1{display:none;}
+
 	#top{
-		
 		margin:auto;
 		height:500px;
 		text-align:left;
 		width:960px;
-/*		border:1px solid pink;*/
 	}
 	#une{
 		padding:350px 0 0 50px;
 		width:720px;
-/*		border:1px solid yellow;*/
 	}
 	#une h2{
 		font-size:36pt;
@@ -64,33 +60,29 @@
 	#une div{
 		font-size:12pt;
 	}
-	
+
 	#content{
 		margin:auto;
 		text-align:left;
 		width:930px;
-/*		border:1px solid white;*/
 	}
 	#apropos{
 		float:left;
 		width:330px;
-/*		border:1px solid blue;*/
 	}
 
 	#articles{
 		float:left;
 		width:340px;
-/*		border:1px solid orange;*/
 	}
 	#ephemerides{
 		float:left;
 		width:250px;
-/*		border:1px solid red;*/
 	}
 
 	.footer {
 		clear:both;
-		background: transparent url(#CHEMIN{css/img/sommaire/footer.png}) no-repeat scroll top center;
+		background: transparent no-repeat scroll top center;
 		height:63px;
 		text-align:center;
 	}
@@ -124,7 +116,7 @@
 		<div id="une">
 			<BOUCLE_une_recente(ARTICLES){age_relatif<45}{par date}{inverse}{0,1}{doublons une}>
 				[<h2><a href="#URL_ARTICLE">(#TITRE|couper{250})</a></h2>]
-				<div class="post-info">par #LESAUTEURS[, le 
+				<div class="post-info">par #LESAUTEURS[, le
 					<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_jourcourt)</abbr>]
 					<B_quelsecteur>
 					dans
@@ -151,7 +143,7 @@
 			<h2>Derniers articles</h2>
 			<ul>
 			<BOUCLE_articles(ARTICLES){par date}{inverse}{0,5}{doublons une}>
-				<li class="hentry">[<a class="entry-title" href="#URL_ARTICLE">(#TITRE)</a>][ - 
+				<li class="hentry">[<a class="entry-title" href="#URL_ARTICLE">(#TITRE)</a>][ -
 					<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_court)</abbr>]</li>
 			</BOUCLE_articles>
 			</ul>
@@ -163,7 +155,7 @@
 			<h2>Ephémerides</h2>
 			<ul>
 			<BOUCLE_ephemerides(BREVES){par date}{inverse}{0,3}>
-				<li>[<a href="#URL_BREVE">(#TITRE)</a>][ - 
+				<li>[<a href="#URL_BREVE">(#TITRE)</a>][ -
 					<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_court)</abbr>]</li>
 			</BOUCLE_ephemerides>
 			</ul>
