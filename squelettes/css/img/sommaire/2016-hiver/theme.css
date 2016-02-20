@@ -1,2 +1,13 @@
-.footer {
+body {
+	background-color: #c3de45;
+	color: #90a629;
+}
+#une a, a {
+	color: #6f811c;
+	background-color: rgb(25, 210, 226);
+
+}
+
+.footer .colophon {
+	color: #89a713;
 }
