@@ -18,41 +18,44 @@
 <meta name="generator" content="SPIP" />
 
 <style type="text/css" media="screen">
-	body{
-		text-align:center;
+	body {
+		text-align: center;
 		background: #dedbc5 url(#CHEMIN{css/img/sommaire/bg.png}) repeat-x scroll top left;
-		margin:0; padding:0;
+		margin: 0;
+		padding: 0;
 		font: normal normal normal 12pt "Lucida Grande", Lucida, "MS Trebuchet", Arial,sans-serif
 	}
-	h2{
+	h2 {
 		font: normal normal normal 26pt Georgia, "Times New Roman", Times, serif;
-		margin:0.5em;
+		margin: 0.5em 0;
 	}
-	a{
-		color:#b25431;
-		text-decoration:none;
+	a {
+		color: #b25431;
+		text-decoration: none;
 	}
-	#page{
+	#page {
 		background: transparent no-repeat scroll top center;
 	}
 
-	h1{display:none;}
+	h1 {
+		display:none;
+	}
 
-	#top{
+	#top {
 		margin:auto;
-		height:500px;
+		height: 250px;
 		text-align:left;
-		width:960px;
+		max-width: 960px;
 	}
-	#une{
-		padding:350px 0 0 50px;
-		width:720px;
+	#une {
+		padding: 100px 0 0 0;
+		width: 75%;
 	}
-	#une h2{
-		font-size:36pt;
-		margin:0;
+	#une h2 {
+		font-size: 36pt;
+		margin: 0;
 	}
-	#une a{
+	#une a {
 		color:#000;
 		text-decoration:none;
 		text-shadow: 1px 1px 3px rgba(255,255,255,0.3);
@@ -62,22 +65,28 @@
 	}
 
 	#content{
-		margin:auto;
-		text-align:left;
-		width:930px;
-	}
-	#apropos{
-		float:left;
-		width:330px;
+		margin: auto;
+		text-align: left;
+		max-width: 960px;
 	}
 
-	#articles{
-		float:left;
-		width:340px;
-	}
-	#ephemerides{
-		float:left;
-		width:250px;
+
+	@media (min-width: 600px) {
+		#apropos{
+			float: left;
+			width: 33%;
+		}
+
+		#articles{
+			float:left;
+			width: 37%;
+			margin-left: 5%;
+		}
+		#ephemerides{
+			float:left;
+			width: 20%;
+			margin-left: 5%;
+		}
 	}
 
 	.footer {
@@ -89,14 +98,14 @@
 	.footer .tech{
 		float: auto;
 		height:20px;
-		width:900px;
+		width: 80%;
 		text-align:right;
 		margin:0 auto;
 	}
 	.footer .colophon {
 		float: auto;
 		height: 40px;
-		width:900px;
+		width: 80%;
 		text-align:left;
 		margin:0 auto;
 		color:#bbb;
