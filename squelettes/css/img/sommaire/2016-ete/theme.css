@@ -1,0 +1,8 @@
+body {
+	background-image: url('./sommaire_ciel_thailande.jpg');
+	background-size: cover;
+}
+
+a {
+	color: rgb(100,100,150);
+}
