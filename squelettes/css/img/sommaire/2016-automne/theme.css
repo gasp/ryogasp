@@ -1,0 +1,17 @@
+body {
+	background-color: #e2def0;
+	background-image: url('./sommaire_miyajima.jpg');
+	background-size: cover;
+	color: #333;
+}
+
+a {
+	color: #555;
+}
+
+.footer .colophon {
+	color: #666;
+}
+.footer a {
+	color: #888;
+}
