@@ -1,0 +1,17 @@
+body {
+	background-color: #3873b9;
+	background-image: url('./sommaire_boca.jpg');
+	background-size: cover;
+	color: #f2f2f2;
+}
+
+a {
+	color: #fff;
+}
+
+.footer .colophon {
+	color: #c9c9c9;
+}
+.footer a {
+	color: #c9c9c9;
+}
