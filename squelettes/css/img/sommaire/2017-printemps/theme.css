@@ -1,11 +1,14 @@
 body {
-	background-color: #3873b9;
+	background-color: #f2e5d5;
 	background-image: url('./sommaire_boca.jpg');
 	background-size: cover;
 	color: #f2f2f2;
 	text-shadow: 0 0 25px #000;
 }
 
+#top {
+	height: auto;
+}
 #une a, a {
 	color: #fff;
 	text-shadow: 0 0 25px #000;
