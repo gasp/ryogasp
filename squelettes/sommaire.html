@@ -1,177 +1,119 @@
 [(#REM) home page, cache de 1 jour]
 #CACHE{86400}
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-
-<!--[if lt IE 7 ]> <html dir="ltr" lang="fr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" class="ltr fr no-js ie ie6"> <![endif]-->
-<!--[if IE 7 ]> <html dir="ltr" lang="fr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" class="ltr fr no-js ie ie7"> <![endif]-->
-<!--[if IE 8 ]> <html dir="ltr" lang="fr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" class="ltr fr no-js ie ie8"> <![endif]-->
-<!--[if IE 9 ]> <html dir="ltr" lang="fr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" class="ltr fr no-js ie ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html dir="ltr" lang="fr" xmlns="http://www.w3.org/1999/xhtml" xml:lang="fr" class="ltr fr no-js"> <!--<![endif]-->
+<!DOCTYPE html>
+<html>
 <head>
+<meta charset="utf-8">
 <title>ryogasp.com</title>
-<meta name="description" content="Ryogasp .com est le site commun de Gaspard Beernaert et Richard Cornu" />
-<meta name="google-site-verification" content="MUYTTi2fvh9fXwCao6f4HST5f_Xg1YndmVT3vs4u1c0" />
-
-<link rel="canonical" href="http://www.ryogasp.com" />
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-<link rel="alternate" type="application/rss+xml" title="Syndiquer tout le site" href="spip.php?page=backend" />
-<meta name="generator" content="SPIP" />
-
-<style type="text/css" media="screen">
+<meta name="description" content="Ryogasp .com est le site commun de Gaspard Beernaert et Richard Cornu">
+<meta name="google-site-verification" content="MUYTTi2fvh9fXwCao6f4HST5f_Xg1YndmVT3vs4u1c0">
+<link rel="canonical" href="http://ryogasp.com">
+<link rel="alternate" type="application/rss+xml" title="Syndiquer tout le site" href="spip.php?page=backend">
+<meta name="generator" content="SPIP">
+<style>
 	body {
-		text-align: center;
-		background: #dedbc5 url(#CHEMIN{css/img/sommaire/bg.png}) repeat-x scroll top left;
-		margin: 0;
-		padding: 0;
-		font: normal normal normal 12pt "Lucida Grande", Lucida, "MS Trebuchet", Arial,sans-serif
+		font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
+		color: #212529;
+		font-weight: 400;
+		line-height: 1.5;
+		text-align: left;
+	}
+	h1 {
+		font-weight: normal;
 	}
 	h2 {
 		font: normal normal normal 26pt Georgia, "Times New Roman", Times, serif;
-		margin: 0.5em 0;
+		margin: 0.5em 0 0.1em 0;
 	}
 	a {
-		color: #b25431;
+		color: #3165b3;
 		text-decoration: none;
 	}
-	#page {
-		background: transparent no-repeat scroll top center;
+	a:hover {
+		text-decoration: underline;
 	}
+	abbr {
+		text-decoration: none;
+	}
+	.lead {
+		font-size: 1.25rem;
+		font-weight: 300;
 
-	h1 {
-		display:none;
 	}
-
-	#top {
-		margin:auto;
-		height: 250px;
-		text-align:left;
-		max-width: 960px;
+	.low {
+		color: #bbb;
+		margin: 1em 0 0 0;
 	}
-	#une {
-		padding: 100px 0 0 0;
-		width: 75%;
+	#apropos {
+		max-width: 600px;
+		padding-bottom: 1em;
+		border-bottom: 1px solid #e1e2dc;
 	}
-	#une h2 {
-		font-size: 36pt;
-		margin: 0;
-	}
-	#une a {
-		color:#000;
-		text-decoration:none;
-		text-shadow: 1px 1px 3px rgba(255,255,255,0.3);
-	}
-	#une div{
-		font-size:12pt;
-	}
-
-	#content{
-		margin: auto;
-		text-align: left;
-		max-width: 960px;
-	}
-
-
-	@media (min-width: 1000px) {
-		#apropos{
-			float: left;
-			width: 33%;
-		}
-
-		#articles{
-			float:left;
-			width: 37%;
-			margin-left: 5%;
-		}
-		#ephemerides{
-			float:left;
-			width: 20%;
-			margin-left: 5%;
-		}
-	}
-
 	.footer {
+		margin: 1em;
 		clear:both;
-		background: transparent no-repeat scroll top center;
-		height:63px;
-		text-align:center;
+		border-top: 1px solid #e1e2dc;
 	}
 	.footer .tech{
-		float: auto;
 		height:20px;
-		width: 80%;
-		text-align:right;
-		margin:0 auto;
+		position: absolute;
+		right: 20px;
 	}
 	.footer .colophon {
-		float: auto;
-		height: 40px;
-		width: 80%;
-		text-align:left;
-		margin:0 auto;
 		color:#bbb;
+		margin: .2em;
 	}
 </style>
-<link rel="stylesheet" href="#CHEMIN{.}/css/img/sommaire/[(#DATE|annee)]-[(#DATE|saison|translitteration)]/theme.css"
-	type="text/css" media="screen" charset="utf-8">
-
-</head>
 
 <body id="sommaire">
-<div id="page">
 
 	<div id="top">
-		<h1>Ryogasp</h1>
+		<h1>ryogasp.com</h1>
 
-		<div id="une">
-			<BOUCLE_une_recente(ARTICLES){age_relatif<45}{par date}{inverse}{0,1}{doublons une}>
-				[<h2><a href="#URL_ARTICLE">(#TITRE|couper{250})</a></h2>]
-				<div class="post-info">par #LESAUTEURS[, le
-					<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_jourcourt)</abbr>]
-					<B_quelsecteur>
+	<div id="apropos" class="lead">
+		[(#DESCRIPTIF_SITE_SPIP|strip_tags)]
+		<BOUCLE_secteurs(RUBRIQUES){racine}{descriptif ?}{par num titre, titre}{', '}>
+		[<a href="#URL_RUBRIQUE">(#DESCRIPTIF|strip_tags)</a>]</BOUCLE_secteurs>, <a href="http://cellulo.ryogasp.com" title="Cellulo">Cellulo</a> et <a href="http://babel.ryogasp.com" title="Babel, Bibliothèque critique">Babel</a>.
+	</div>
+
+	<p class="low">&Agrave; la une:</p>
+	<div id="une">
+		<BOUCLE_une_recente(ARTICLES){age_relatif<45}{par date}{inverse}{0,1}{doublons une}>
+			[<h2><a href="#URL_ARTICLE">(#TITRE|couper{250})</a></h2>]
+			<div class="post-info">par #LESAUTEURS[, le
+				<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_jourcourt)</abbr>]
+				<B_une_secteur>
+				dans
+				<BOUCLE_une_secteur(RUBRIQUES){id_secteur}{0,1}>
+				<a href="#URL_RUBRIQUE" [title="(#DESCRIPTIF|attribut_html)"]>#TITRE</a>
+				</BOUCLE_une_secteur>
+			</div>
+		</BOUCLE_une_recente>
+	</div>
+
+	<p class="low">Derniers articles:</p>
+	<ul>
+		<BOUCLE_articles_recents(ARTICLES){par date}{inverse}{0,5}{doublons une}>
+			<li class="hentry">[<a class="entry-title" href="#URL_ARTICLE">(#TITRE)</a>][ -
+				<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_court)</abbr>]
+				<B_articles_secteur>
 					dans
-					<BOUCLE_quelsecteur(RUBRIQUES){id_secteur}{0,1}>
-					<a href="#URL_RUBRIQUE" [title="(#DESCRIPTIF|attribut_html)"]>#TITRE</a>
-					</BOUCLE_quelsecteur>
-				</div>
-			</BOUCLE_une_recente>
-		</div>
+				<BOUCLE_articles_secteur(RUBRIQUES){id_secteur}{0,1}>
+				<a href="#URL_RUBRIQUE" [title="(#DESCRIPTIF|attribut_html)"]>#TITRE</a>
+			</BOUCLE_articles_secteur>
+			</li>
+		</BOUCLE_articles_recents>
+		<BOUCLE_articles_anterieurs(ARTICLES){par date}{inverse}{6,10}{doublons une}>
+			<li class="hentry">[<a class="entry-title" href="#URL_ARTICLE">(#TITRE)</a>]</li>
+		</BOUCLE_articles_anterieurs>
+		<B_ephemerides>
+			[(#REM) des breves s'il y en a des récentes]
+		<BOUCLE_ephemerides(BREVES){par date}{inverse}{0,3}{age < 31}>
+			<li>[<a href="#URL_BREVE">(#TITRE)</a>]</li>
+		</BOUCLE_ephemerides>
+		</B_ephemerides>
+	</ul>
 
-	</div>
-	<div id="content" class="hfeed">
-		<div id="apropos">
-			<h2>&Agrave; propos</h2>
-			<ul>
-			<li>[(#DESCRIPTIF_SITE_SPIP|strip_tags)]
-			<BOUCLE_secteurs(RUBRIQUES){racine}{descriptif ?}{par num titre, titre}{', '}>
-			[<a href="#URL_RUBRIQUE">(#DESCRIPTIF|strip_tags)</a>]</BOUCLE_secteurs>, <a href="http://cellulo.ryogasp.com" title="Cellulo">Cellulo</a> et <a href="http://babel.ryogasp.com" title="Babel, Bibliothèque critique">Babel</a>.</li>
-			</ul>
-		</div>
-
-		<div id="articles">
-			<B_articles>
-			<h2>Derniers articles</h2>
-			<ul>
-			<BOUCLE_articles(ARTICLES){par date}{inverse}{0,5}{doublons une}>
-				<li class="hentry">[<a class="entry-title" href="#URL_ARTICLE">(#TITRE)</a>][ -
-					<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_court)</abbr>]</li>
-			</BOUCLE_articles>
-			</ul>
-			</B_articles>
-		</div>
-
-		<div id="ephemerides">
-			<B_ephemerides>
-			<h2>Ephémerides</h2>
-			<ul>
-			<BOUCLE_ephemerides(BREVES){par date}{inverse}{0,3}>
-				<li>[<a href="#URL_BREVE">(#TITRE)</a>][ -
-					<abbr class="published" title="[(#DATE|date_iso)]">(#DATE|affdate_court)</abbr>]</li>
-			</BOUCLE_ephemerides>
-			</ul>
-			</B_ephemerides>
-		</div>
-
-	</div>
 	<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
 
 </div>
