@@ -1,7 +1,7 @@
 [(#REM)
 	article-32 : le journal de bord
 	Un cache d'une journee
-	
+
 ]#CACHE{86400}
 <BOUCLE_principale(ARTICLES) {id_article}>
 <!doctype html>
@@ -11,7 +11,7 @@
 	<title>[(#TITRE|textebrut)]</title>
 [	<meta name="description" content="(#INTRODUCTION{150}|textebrut)">]
 [	<meta name="author" content="(#LESAUTEURS|strip_tags)">]
-	<link rel="alternate" type="application/rss+xml" 
+	<link rel="alternate" type="application/rss+xml"
 		title="[(#DESCRIPTIF|textebrut)en ]RSS" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
 </head>
 
@@ -58,10 +58,10 @@
 				<hr>
 				[<div class="notes">(#NOTES)</div>]
 				[<div class="ps">(#PS)</div>]
-				
+
 				[<div class="notes"><hr />(#NOTES)</div>]
 			</footer>
-			
+
 			<section>
 				[(#REM) Forum de l'article ]
 				<a href="#forum" name="forum" id="forum"></a>
@@ -71,7 +71,7 @@
 					#FORMULAIRE_FORUM
 				</BOUCLE_age>
 			</section>
-			
+
 		</article>
 	</section>
 	</div><!-- /.content-->
@@ -143,7 +143,8 @@
 	</footer>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
 <script>window.jQuery || document.write('<script[ src="(#CHEMIN{js/libs/jquery-1.10.2.min.js})"]><\/script>')</script>
 [<script src="(#CHEMIN{js/journal.js}|compacte)"></script>]
 

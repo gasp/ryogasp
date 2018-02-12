@@ -1,4 +1,4 @@
-$(document).ready(function(){
+$(function(){
 
 	app.isTouch = function () {
 		if (('ontouchstart' in window) || window.DocumentTouch && document instanceof DocumentTouch)
@@ -47,12 +47,12 @@ var portfolio = {
 		this.env.thumbs = $('.portfolio_thumbs a',this.env.obj);
 
 		// id is a number or null
-		this.env.id = 
-			(this.env.isActive) 
+		this.env.id =
+			(this.env.isActive)
 				&& $(".portfolio_big", this.env.obj).data("id")
 				|| null;
-		this.env.bigImage = 
-			(this.env.isActive) 
+		this.env.bigImage =
+			(this.env.isActive)
 				&& $(".portfolio_big img", this.env.obj)
 				|| null;
 		this.env.isPano = false;
@@ -122,9 +122,9 @@ var portfolio = {
 		this.env.thumbs.css({'opacity':'0.8'});
 		// bind mouse over
 		this.env.thumbs.on('mouseover',function(){
-			$(this).animate({'opacity':'1'},'fast')
+			$(this).css({'opacity':'1'},'fast')
 		}).on('mouseout',function(){
-			$(this).animate({'opacity':'0.8'},'fast')
+			$(this).css({'opacity':'0.8'},'fast')
 		});
 
 
@@ -166,7 +166,7 @@ var portfolio = {
 
 		}
 	},
-	
+
 	// utils
 	_getWrapperWidth : function () {
 		if(this.env.wrapperWidth == null)
@@ -231,7 +231,7 @@ var portfolio = {
 		that.env.pano.height = Math.min(that._getScreenHeight(), 700)
 		that.env.pano.width = Math.floor(that._getScreenHeight() * that.env.ratio);
 		that.env.mini = {}; // mini map
-		that.env.mini.width =  300; 
+		that.env.mini.width =  300;
 		that.env.mini.height = that.env.mini.width / that.env.ratio;
 		that.env.frame = {}; // frame selector on the mini map
 		that.env.frame.width = that._getWrapperWidth() / that.env.pano.width * that.env.mini.width;
@@ -334,7 +334,7 @@ var portfolio = {
 	},
 	_makeBig: function() {
 		var that = this;
-		
+
 		var width = Math.min(that._getWrapperWidth(),that.env.imageObject.width),
 			height =  Math.ceil(width / that.env.ratio);
 

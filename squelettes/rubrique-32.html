@@ -1,7 +1,7 @@
 [(#REM)
 	rubrique-32 : le journal de bord
 	Un cache d'une journee
-	
+
 ]#CACHE{86400}
 <BOUCLE_principale(RUBRIQUES) {id_rubrique}>
 <!doctype html>
@@ -14,7 +14,7 @@
 	#INCLURE{fond=inclure/journal_head}
 	<title>[(#DESCRIPTIF|textebrut)][(#ENV{archive}|?{' – Archives',''})]</title>
 [	<meta name="description" content="(#INTRODUCTION{150}|textebrut)">]
-	<link rel="alternate" type="application/rss+xml" 
+	<link rel="alternate" type="application/rss+xml"
 		title="[(#DESCRIPTIF|textebrut)en ]RSS" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
 </head>
 
@@ -79,7 +79,7 @@
 			</section>
 
 		</aside>
-		
+
 	</div> <!-- #main -->
 </div> <!-- #main-container -->
 
@@ -89,7 +89,7 @@
 	</footer>
 </div>
 
-<script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
 <script>window.jQuery || document.write('<script[ src="(#CHEMIN{js/libs/jquery-1.10.2.min.js})"]><\/script>')</script>
 [<script src="(#CHEMIN{js/journal.js}|compacte)"></script>]
 
