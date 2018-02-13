@@ -1,12 +1,11 @@
 <!-- Piwik -->
-<script>
-var pkBaseURL = "//stats.freelancis.net/";
-document.write(unescape("%3Cscript src='" + pkBaseURL + "piwik.js' type='text/javascript'%3E%3C/script%3E"));
-</script><script>
-try {
-var piwikTracker = Piwik.getTracker(pkBaseURL + "piwik.php", 3);
-piwikTracker.trackPageView();
-piwikTracker.enableLinkTracking();
-} catch( err ) {}
-</script><noscript><p><img src="https://stats.freelancis.net/piwik.php?idsite=3" style="border:0" alt="" /></p></noscript>
-<!-- End Piwik Tag -->
+<script type="text/javascript">
+  var _paq = _paq || [];
+  _paq.push(['trackPageView'],['enableLinkTracking']);
+  (function() {var u="//stats.freelancis.net/";
+    _paq.push(['setTrackerUrl', u+'piwik.php'],['setSiteId', '3']);
+    var d=document, g=d.createElement('script'), s=d.getElementsByTagName('script')[0];
+    g.type='text/javascript'; g.async=true; g.defer=true; g.src=u+'piwik.js'; s.parentNode.insertBefore(g,s);
+  })();
+</script><noscript><img src="https://stats.freelancis.net/piwik.php?idsite=3&rec=1" style="border:0" alt=""></noscript>
+<!-- End Piwik Code -->
