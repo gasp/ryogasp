@@ -4,9 +4,9 @@
 #CACHE{2592000}
 <BOUCLE_principale(RUBRIQUES) {id_rubrique}>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR" class="h-feed">
 <head>
-<title>[(#TITRE|textebrut) - ]
+<title class="p-name">[(#TITRE|textebrut) - ]
 	<BOUCLE_blogroot(RUBRIQUES){id_rubrique=1}>
 	[(#DESCRIPTIF|textebrut)]
 	</BOUCLE_blogroot>
@@ -39,16 +39,16 @@
 
 		[(#REM) Articles de la rubrique ]
 		<B_articles>
-			<div class="menu articles hfeed">
+			<div class="menu articles">
 				#ANCRE_PAGINATION
 				<BOUCLE_articles(ARTICLES) {id_rubrique} {par date}{inverse} {pagination}>
-					<div class="hentry post">
+					<div class="h-entry post">
 						<div class="post-info">
-							[<h2 id="p#ID_ARTICLE"><a href="#URL_ARTICLE">(#TITRE)</a></h2>]
-							[<span class="day-date">(#DATE|affdate_jourcourt)</span>]
-							[<span class="author"><:par_auteur:> (#LESAUTEURS)</span>]
+							[<h2 id="p#ID_ARTICLE" class="entry-title"><a href="#URL_ARTICLE">(#TITRE)</a></h2>]
+							[<span class="day-date"><time class="dt-published" datetime="[(#DATE|date_iso)]">(#DATE|affdate_jourcourt)</time></span>]
+							[<span class="author p-author"><:par_auteur:> (#LESAUTEURS)</span>]
 						</div>
-						[<div>(#TEXTE|image_reduire{500,0})</div>]
+						[<div class="e-content">(#TEXTE|image_reduire{500,0})</div>]
 
 						<BOUCLE_commentaires(FORUMS){id_article}{plat}> </BOUCLE_commentaires>
 						<div><a href="#URL_ARTICLE">#TOTAL_BOUCLE [(#TOTAL_BOUCLE|=={1}|?{commentaire,commentaires})]</a></div>

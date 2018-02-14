@@ -10,7 +10,7 @@
 <head>
 <title>[(#TITRE|textebrut) - ]
 	<BOUCLE_blogroot(RUBRIQUES){id_rubrique=21}>
-	[(#DESCRIPTIF|textebrut)]
+		[(#DESCRIPTIF|textebrut)]
 	</BOUCLE_blogroot>
 </title>
 [<meta name="description" content="(#INTRODUCTION{150}|attribut_html)" />]
@@ -26,95 +26,91 @@
 	<INCLURE{fond=_blog_entete}{id_rubrique}>
 
 	[(#REM) Contenu principal : contenu de l'article ]
-    <div class="hfeed" id="conteneur">
-    <div class="hentry post" id="contenu">
-    
-        [(#REM) Fil d'Ariane ]
-        <div id="hierarchie"><BOUCLE_ariane(HIERARCHIE){id_article}{' &gt; '}><a href="#URL_RUBRIQUE">[(#TITRE|couper{80}|supprimer_numero)]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</div>
+		<div class="hfeed" id="conteneur">
+		<div class="h-entry post" id="contenu">
 
-        <div class="cartouche">
-            <div class="surlignable">
-				[(#LOGO_ARTICLE|image_reduire{200,200})]
-				[<p class="#EDIT{surtitre} surtitre">(#SURTITRE)</p>]
-				<h1 class="#EDIT{titre} entry-title">#TITRE</h1>
-				[<p class="#EDIT{soustitre} soustitre">(#SOUSTITRE)</p>]
-            </div>
+			[(#REM) Fil d'Ariane ]
+			<div id="hierarchie"><BOUCLE_ariane(HIERARCHIE){id_article}{' &gt; '}><a href="#URL_RUBRIQUE">[(#TITRE|couper{80}|supprimer_numero)]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</div>
 
-            <p><small><abbr class="published" title="[(#DATE|date_iso)]">[(#DATE|nom_jour) ][(#DATE|affdate)]</abbr>[, <:par_auteur:> (#LESAUTEURS)][ (<:texte_date_publication_anterieure:> (#DATE_REDAC|affdate)).]</small></p>
+			<div class="cartouche">
+				<div class="surlignable">
+					[(#LOGO_ARTICLE|image_reduire{200,200})]
+					[<p class="#EDIT{surtitre} surtitre">(#SURTITRE)</p>]
+					<h1 class="#EDIT{titre} entry-title">#TITRE</h1>
+					[<p class="#EDIT{soustitre} soustitre">(#SOUSTITRE)</p>]
+				</div>
 
-            [(#REM) Inclure le modele des liens de traductions ]
-            #MODELE{article_traductions}
-        </div>
-		
-        <div class="surlignable">
-			[<div class="#EDIT{chapo} chapo">(#CHAPO|image_reduire{500,*})</div>]
-			[<div class="#EDIT{texte} texte entry-content">(#TEXTE|image_reduire{500,0})</div>]
-		</div>
+				<p><small><time class="dt-published" datetime="[(#DATE|date_iso)]">[(#DATE|nom_jour) ][(#DATE|affdate)]</time>[, <:par_auteur:> (#LESAUTEURS)][ (<:texte_date_publication_anterieure:> (#DATE_REDAC|affdate)).]</small></p>
 
+				[(#REM) Inclure le modele des liens de traductions ]
+				#MODELE{article_traductions}
+			</div>
 
-		[<p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
-        
-		[<div class="ps surlignable"><h2 class="pas_surlignable"><:info_ps:></h2><div class="#EDIT{ps}">(#PS|image_reduire{500,0})</div></div>]
+			<div class="surlignable">
+				[<div class="#EDIT{chapo} chapo p-summary">(#CHAPO|image_reduire{500,*})</div>]
+				[<div class="#EDIT{texte} texte e-content">(#TEXTE|image_reduire{500,0})</div>]
+			</div>
 
 
+			[<p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)" class="spip_out">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+			[<div class="ps surlignable"><h2 class="pas_surlignable"><:info_ps:></h2><div class="#EDIT{ps}">(#PS|image_reduire{500,0})</div></div>]
+			[<div class="notes surlignable"><h2 class="pas_surlignable"><:info_notes:></h2>(#NOTES)</div>]
 
-        [<div class="notes surlignable"><h2 class="pas_surlignable"><:info_notes:></h2>(#NOTES)</div>]
+	[(#REM) Forum de l'article ]
+	<a href="#forum" name="forum" id="forum"></a>
 
-		[(#REM) Forum de l'article ]
-		<a href="#forum" name="forum" id="forum"></a>
-		
-		[(#INCLURE{fond=inclure/forum_blog}{id_article})]
-		
-		
-		[(#REM) au bout de 31 jours on ne peut plus ajouter de commentaires]
-		<BOUCLE_age(ARTICLES){id_article}{age < 31}>
+	[(#INCLURE{fond=inclure/forum_blog}{id_article})]
 
-		#FORMULAIRE_FORUM
 
-		</BOUCLE_age>
+	[(#REM) au bout de 31 jours on ne peut plus ajouter de commentaires]
+	<BOUCLE_age(ARTICLES){id_article}{age < 31}>
+
+	#FORMULAIRE_FORUM
+
+	</BOUCLE_age>
 
 	</div><!--#contenu-->
 	</div><!--#conteneur-->
 
 
 
-    [(#REM) Menu de navigation laterale ]
-    <div id="extra">
-		<div class="menu">
-        [(#REM) Articles dans la meme rubrique ]
-		<BOUCLE_rubrique(RUBRIQUES){id_rubrique}>
-		<h3 class="accessibility">#TITRE</h3>
-		</BOUCLE_rubrique>
+		[(#REM) Menu de navigation laterale ]
+		<div id="extra">
+	<div class="menu">
+				[(#REM) Articles dans la meme rubrique ]
+	<BOUCLE_rubrique(RUBRIQUES){id_rubrique}>
+	<h3 class="accessibility">#TITRE</h3>
+	</BOUCLE_rubrique>
 
-			<BOUCLE_compteur_precedents(ARTICLES){id_rubrique}{id_article != #ID_ARTICLE}{age_relatif>=0}{!par date}> </BOUCLE_compteur_precedents>
-				#SET{precedents,#TOTAL_BOUCLE}
-			</B_compteur_precedents>
+	<BOUCLE_compteur_precedents(ARTICLES){id_rubrique}{id_article != #ID_ARTICLE}{age_relatif>=0}{!par date}> </BOUCLE_compteur_precedents>
+	#SET{precedents,#TOTAL_BOUCLE}
+	</B_compteur_precedents>
 
-				#SET{precedents_start,#GET{precedents}|moins{5}}
-				#SET{suivants,#GET{precedents}|plus{1}}
+	#SET{precedents_start,#GET{precedents}|moins{5}}
+	#SET{suivants,#GET{precedents}|plus{1}}
 
 <!--
 precedents #TOTAL_BOUCLE
 precedents_start #GET{precedents_start}
 suivants #GET{suivants}
 -->
-			<ul>
-				<BOUCLE_historique_precedents(ARTICLES){si #GET{precedents_start}|>{0}}{par date}{id_rubrique}{#GET{precedents_start},5}>
-					<li><a href="#URL_ARTICLE">#TITRE</a></li>
-				</BOUCLE_historique_precedents>
-				</B_historique_precedents>
-					[(#REM) si precedents_start est négatif, alors on liste tous depuis le début]
-					<BOUCLE_historique_precedents_tous(ARTICLES){id_rubrique}{id_article != #ID_ARTICLE}{age_relatif>=0}>
-						<li><a href="#URL_ARTICLE">#TITRE</a></li>
-					</BOUCLE_historique_precedents_tous>
-				<//B_historique_precedents>
-					<li class="on">#TITRE</li>
-				<BOUCLE_historique_suivants(ARTICLES){par date}{id_rubrique}{#GET{suivants},5}>
-					<li><a href="#URL_ARTICLE">#TITRE</a></li>
-				</BOUCLE_historique_suivants>
-			</ul>
+	<ul>
+		<BOUCLE_historique_precedents(ARTICLES){si #GET{precedents_start}|>{0}}{par date}{id_rubrique}{#GET{precedents_start},5}>
+		<li><a href="#URL_ARTICLE">#TITRE</a></li>
+		</BOUCLE_historique_precedents>
+		</B_historique_precedents>
+		[(#REM) si precedents_start est négatif, alors on liste tous depuis le début]
+		<BOUCLE_historique_precedents_tous(ARTICLES){id_rubrique}{id_article != #ID_ARTICLE}{age_relatif>=0}>
+		<li><a href="#URL_ARTICLE">#TITRE</a></li>
+		</BOUCLE_historique_precedents_tous>
+		<//B_historique_precedents>
+		<li class="on">#TITRE</li>
+		<BOUCLE_historique_suivants(ARTICLES){par date}{id_rubrique}{#GET{suivants},5}>
+		<li><a href="#URL_ARTICLE">#TITRE</a></li>
+		</BOUCLE_historique_suivants>
+	</ul>
 
-		</div>
+	</div>
 	</div><!--#extra-->
 
 	[(#REM) Menu de navigation laterale ]
