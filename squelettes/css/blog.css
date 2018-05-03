@@ -173,7 +173,8 @@ ul .forum-chapo {
 }
 
 
-@media only screen and (min-width: 460px) {
+
+@media only screen and (min-width: 980px) {
 	#page {
 		width: 960px;
 		margin:1em auto;
