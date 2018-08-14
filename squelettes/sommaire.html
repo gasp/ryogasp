@@ -1,7 +1,7 @@
 [(#REM) home page, cache de 1 jour]
 #CACHE{86400}
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
 <meta charset="utf-8">
 <title>ryogasp.com</title>
@@ -80,6 +80,7 @@
 		[<a href="#URL_RUBRIQUE">(#DESCRIPTIF|strip_tags)</a>]</BOUCLE_secteurs>, <a href="http://cellulo.ryogasp.com" title="Cellulo">Cellulo</a> et <a href="http://babel.ryogasp.com" title="Babel, Bibliothèque critique">Babel</a>.
 	</div>
 
+<B_une_recente>
 	<p class="low">&Agrave; la une:</p>
 	<div id="une">
 		<BOUCLE_une_recente(ARTICLES){age_relatif<45}{par date}{inverse}{0,1}{doublons une}>
@@ -94,6 +95,7 @@
 			</div>
 		</BOUCLE_une_recente>
 	</div>
+</B_une_recente>
 
 	<p class="low">Derniers articles:</p>
 	<ul>
