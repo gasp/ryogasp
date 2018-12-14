@@ -6,7 +6,6 @@
 <meta charset="utf-8">
 <title>ryogasp.com</title>
 <meta name="description" content="Ryogasp .com est le site commun de Gaspard Beernaert et Richard Cornu">
-<meta name="google-site-verification" content="MUYTTi2fvh9fXwCao6f4HST5f_Xg1YndmVT3vs4u1c0">
 <link rel="canonical" href="http://ryogasp.com">
 <link rel="alternate" type="application/rss+xml" title="Syndiquer tout le site" href="spip.php?page=backend">
 <meta name="generator" content="SPIP">
@@ -68,7 +67,10 @@
 		margin: .2em;
 	}
 </style>
-
+<BOUCLE_une_prefetch(ARTICLES){age_relatif<45}{par date}{inverse}{0,1}>
+	<link rel="prefetch" href="#URL_ARTICLE" as="html">
+</BOUCLE_une_prefetch>
+</head>
 <body id="sommaire">
 
 	<div id="top">
