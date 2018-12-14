@@ -1,0 +1,85 @@
+
+#FILTRE{compacte_head}
+[(#REM)
+	Eviter les boutons d'admin sur la page de login
+]
+#HTTP_HEADER{Content-Type: text/html; charset=#CHARSET}
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<head>
+<title>[(#NOM_SITE_SPIP|textebrut)]</title>
+<meta http-equiv="Content-Type" content="text/html; charset=#CHARSET" />
+<meta name="robots" content="none" />
+<meta name="viewport" content="width=device-width" />
+<link rel="stylesheet" href="[(#VAL{reset.css}|find_in_theme|direction_css)]" type="text/css" />
+<link rel="stylesheet" href="[(#VAL{clear.css}|find_in_theme|direction_css)]" type="text/css" />
+<link rel="stylesheet" href="[(#VAL{minipres.css}|find_in_theme|direction_css)]" type="text/css" />
+#INSERT_HEAD
+<script type='text/javascript'>
+jQuery(function(){ jQuery('input#var_login').focus();
+jQuery('a#spip_pass').click(function(){window.open(this.href, 'spip_pass', 'scrollbars=yes, resizable=yes, width=480, height=380'); return false;});
+});
+
+document.addEventListener('DOMContentLoaded', function() {
+  if (self.location.protocol !== 'https:') {
+    document.getElementById('minipres').style.display = 'none';
+    document.getElementById('redirect_notice').style.display = 'block';
+    document.getElementById('safety').href = 'https://' + self.location.host + '/ecrire';
+    document.querySelector('#dangerous').addEventListener('click', function(ev) {
+      ev.preventDefault();
+      document.getElementById('minipres').style.display = 'block';
+      document.getElementById('redirect_notice').style.display = 'none';
+    });
+  }
+});
+</script>
+<meta name="generator" content="SPIP[ (#SPIP_VERSION)]" />
+</head>
+<body class="page_login">
+
+<div id="redirect_notice" style="display: none; max-width: 500px; background: #fff; padding: 2em; margin: auto; border: 1px solid orange">
+  <p>Depuis quelques temps, ryogasp.com est également disponible en https.</p>
+  <p>
+    Tant qu'à faire, je préfèrerais qu'on accède à l'espace privé avec https,
+    ça permet d'éviter que les mots de passe se balandent en clair sur le réseau
+    le risque est limité vu qu'on se connecte de chez nous vers notre propre
+    serveur, mais bon.
+  </p>
+  <p>
+    <a style="font-size: 1.3em; color: green" id="safety" href="https://ryogasp.com/ecrire">
+      Accéder à l'espace privé de manière sécurisée.
+    </a>
+  </p>
+  <p>
+    ou sinon, <a id="dangerous" href="http://ryogasp.com/ecrire">afficher le
+    formulaire</a> et se connecter sans accès sécurisé.
+  </p>
+
+</div>
+
+
+<div id="minipres">
+
+	<h1>#NOM_SITE_SPIP</h1>
+	[(#REM)
+		Est-ce qu'on se connecte a l'espace prive ou pas ?
+	][
+	(#ENV**{url}|non
+	|ou{[(#ENV**{url}|match{^/?(.*/)?#EVAL{_DIR_RESTREINT_ABS}})]})
+	<h3 class="spip"><:login_acces_prive:></h3>
+	#MENU_LANG_ECRIRE
+	]
+
+	[(#FORMULAIRE_LOGIN{#ENV{url}|sinon{#URL_ECRIRE{accueil}}})]
+	<p class="retour">
+		[<a href="#URL_PAGE{identifiants,focus=nom_inscription}&amp;mode=(#URL_SITE_SPIP|tester_config{1comite})"><:login_sinscrire:></a> | ]
+		<a href="#URL_SITE_SPIP/"><:login_retoursitepublic:></a>
+	</p>
+	[<p class="generator">
+		<a href="http://www.spip.net/" title="<:site_realise_avec_spip:>">(#CHEMIN_IMAGE{spip.png}|balise_img)</a>
+	</p>]
+
+</div><!--#minipres-->
+
+</body>
+</html>
