@@ -21,7 +21,7 @@
 <div id="page">
 	<div id="container">
 		<div id="main">
-	
+
 	[(#REM) Contenu principal : contenu de l'article ]
 	<div class="wrapper hfeed">
 	<div class="content hentry" id="content">
@@ -32,7 +32,7 @@
 			[<p class="#EDIT{surtitre} surtitre">(#SURTITRE)</p>]
 			<h1 class="h1 #EDIT{titre}">#TITRE</h1>
 			[<p class="#EDIT{soustitre} soustitre">(#SOUSTITRE)</p>]
-	
+
 			<p class="info-publi">[(#DESCRIPTIF|strip_tags)]</p>
 		</div>
 		[(#ENV{debut_articles_rubrique}|non)
@@ -54,7 +54,7 @@
 
 
 	<div class="aside">
-	
+
 		<INCLURE{fond=inclure/navsub, id_rubrique} />
 
 		[(#REM) Breves dans la meme rubrique ]
@@ -62,7 +62,7 @@
 		<div class="menu">
 			<h2>Ephémérides</h2>
 			<ul>
-				<BOUCLE_breves_rubrique(BREVES) {id_secteur} {!par date} {0, 100}>
+				<BOUCLE_breves_rubrique(BREVES) {id_secteur} {!par date} {0, 10}>
 				<li>&raquo; <a href="#URL_BREVE" title="[(#TITRE|attribut_html)][ - (#DATE|annee)]">#TITRE</a> [(#LOGO_BREVE|image_reduire{30,10}|image_nb{330,330,330}|inserer_attribut{class,inline})]</li>
 				</BOUCLE_breves_rubrique>
 			</ul>
@@ -72,7 +72,7 @@
 
 		#FORMULAIRE_RECHERCHE
 
-		
+
 	</div><!--.aside-->
 		<div class="clearfix"></div>
 
