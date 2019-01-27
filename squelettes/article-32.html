@@ -5,7 +5,7 @@
 ]#CACHE{86400}
 <BOUCLE_principale(ARTICLES) {id_article}>
 <!doctype html>
-
+<html lang="#LANG">
 <head>
 	#INCLURE{fond=inclure/journal_head}
 	<title>[(#TITRE|textebrut)]</title>
@@ -143,9 +143,7 @@
 	</footer>
 </div>
 
-
-<script src="//ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.slim.min.js"></script>
-<script>window.jQuery || document.write('<script[ src="(#CHEMIN{js/libs/jquery-1.10.2.min.js})"]><\/script>')</script>
+<script[ src="(#CHEMIN{js/libs/jquery-1.10.2.min.js})"]><\/script>
 [<script src="(#CHEMIN{js/journal.js}|compacte)"></script>]
 
 </body>
