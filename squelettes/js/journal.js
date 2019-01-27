@@ -120,13 +120,6 @@ var portfolio = {
 
 		// apply css
 		this.env.thumbs.css({'opacity':'0.8'});
-		// bind mouse over
-		this.env.thumbs.on('mouseover',function(){
-			$(this).css({'opacity':'1'},'fast')
-		}).on('mouseout',function(){
-			$(this).css({'opacity':'0.8'},'fast')
-		});
-
 
 		// special behavior for the active thumbnail
 		if(this.env.isActive){

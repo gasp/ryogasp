@@ -1,3 +1,8 @@
+/*
+	ryogasp
+	journal
+	main style.less
+*/
 /* =============================================================================
    HTML5 Boilerplate CSS: h5bp.com/css
    ========================================================================== */
@@ -55,13 +60,13 @@ body {
   text-shadow: none;
 }
 a {
-  color: #224488;
+  color: #248;
 }
 a:visited {
   color: #551a8b;
 }
 a:hover {
-  color: #0066ee;
+  color: #06e;
 }
 a:focus {
   outline: thin dotted;
@@ -249,10 +254,10 @@ td {
   margin: 0.2em 0;
   background: #ccc;
   color: black;
-  padding: 0.2em 0;
+  padding: 0.2em 1em;
 }
 .wrapper {
-  width: 90%;
+  width: 85%;
   margin: 0 5%;
 }
 ::-moz-selection {
@@ -277,15 +282,28 @@ td {
 #main aside {
   padding: 0px 5% 10px;
 }
-#footer-container footer {
-  border-top: 1px solid #eeeeee;
-  padding: 20px;
+#main aside section {
+  display: none;
 }
-#footer-container footer a {
+#main aside section.nav {
+  display: block;
+}
+#footer-container footer {
+  border-top: 1px solid #eee;
+}
+#footer-container footer .colophon a {
   text-decoration: none;
-  color: #555555;
+  color: #555;
+  display: none;
+}
+#footer-container footer .colophon a.login_modal {
+  display: inline;
+}
+#footer-container footer .colophon .sep {
+  display: none;
 }
 #footer-container footer .tech {
+  display: none;
   float: right;
 }
 /* ===============
@@ -294,9 +312,6 @@ td {
 .ie7 #title {
   padding-top: 20px;
 }
-/* ===== Primary Styles ========================================================
-   Author:	gaspard
-   ========================================================================== */
 @font-face {
   font-family: 'AdelleBasicBold';
   src: url('adellebasic_bold-adelle.eot');
@@ -318,27 +333,28 @@ h2 {
   font-weight: bold;
 }
 .light {
-  color: #777777;
+  color: #777;
 }
 #header-container {
-  color: #555555;
+  color: #555;
 }
 #header-container h1#title {
-  font-size: 3em;
-  margin-bottom: .1em;
+  font-size: 2.1em;
+  margin-bottom: 0.1em;
 }
 #header-container h1#title a {
-  color: #555555;
+  color: #555;
   text-decoration: none;
 }
 #header-container h1#title a:visited {
-  color: #555555;
+  color: #555;
 }
 #header-container h1#title a:hover {
-  color: #0066ee;
+  color: #06e;
 }
 #header-container .last_pubdate,
 #header-container .ariane {
+  display: none;
   color: #ccc;
 }
 #header-container .last_pubdate a,
@@ -352,20 +368,20 @@ h2 {
 }
 article header h1,
 article header h2 {
-  margin-bottom: .1em;
+  margin-bottom: 0.1em;
 }
 article header h1 a,
 article header h2 a {
   text-decoration: none;
-  color: #444444;
+  color: #444;
 }
 article header h1 a:visited,
 article header h2 a:visited {
-  color: #444444;
+  color: #444;
 }
 article header h1 a:hover,
 article header h2 a:hover {
-  color: #0066ee;
+  color: #06e;
 }
 article header h1 {
   font-size: 1.8em;
@@ -378,38 +394,44 @@ article header p {
 article section.chapo {
   font-size: 1.1em;
   padding-left: 1em;
-  color: #555555;
-  border-left: 0.5em solid #eeeeee;
+  color: #555;
+  border-left: 0.5em solid #eee;
 }
 article section h2 {
   font-size: 1.6em;
 }
 article section blockquote.spip_poesie {
-  color: #777777;
+  color: #777;
 }
 article figure {
-  margin: .3em 0 1em 0;
+  margin: 0.3em 0 1em 0;
 }
 article figure figcaption {
-  margin: .3em 0;
+  margin: 0.3em 0;
 }
 article figure figcaption .title {
   font-weight: normal;
-  font-size: .8em;
+  font-size: 0.8em;
   line-height: 1.2em;
-  padding: .4em;
+  padding: 0.4em;
 }
 article figure figcaption .legend {
   font-weight: normal;
-  font-size: .7em;
+  font-size: 0.7em;
   line-height: 1.1em;
-  padding: .4em;
+  padding: 0.4em;
+}
+article .spip_documents_left {
+  margin: 1em 1em 1em 0;
+}
+article .spip_documents_right {
+  margin: 1em 0 1em 1em;
 }
 article footer hr {
   clear: both;
 }
 aside {
-  font-size: .8em;
+  font-size: 0.8em;
 }
 aside ul,
 aside ol {
@@ -418,7 +440,7 @@ aside ol {
 /* reponse formulaire et messages d'erreur (vient de spip.css) */
 .erreur_message {
   display: block;
-  color: #ff0000;
+  color: red;
 }
 .reponse_formulaire {
   margin-bottom: 1.5em;
@@ -492,8 +514,13 @@ li.erreur textarea {
 }
 /* Formulaire de forum */
 .formulaire_forum {
+  display: none;
   padding: 1em 0;
   margin-top: 1em;
+}
+.formulaire_forum form,
+.formulaire_forum textarea {
+  width: 100%;
 }
 .formulaire_forum ul,
 .formulaire_forum li {
@@ -511,7 +538,7 @@ li.erreur textarea {
   display: none;
 }
 .formulaire_forum .saisie_texte .explication {
-  font-size: .9em;
+  font-size: 0.9em;
   font-style: italic;
 }
 .formulaire_forum input.text,
@@ -562,19 +589,43 @@ ul .forum-chapo {
   font-size: 0.8em;
   height: 60px;
 }
-.portfolio ul,
-.portfolio li {
+.journal_portfolio .portfolio_thumbs ul,
+.journal_portfolio .portfolio_thumbs li {
   padding: 0;
   margin: 0;
 }
-.portfolio li {
+.journal_portfolio .portfolio_thumbs li {
   list-style-type: none;
 }
-.portfolio .spip_logos {
+.journal_portfolio .portfolio_thumbs a {
+  opacity: 0.8;
+}
+.journal_portfolio .portfolio_thumbs a:hover {
+  opacity: 1;
+}
+.journal_portfolio .portfolio_thumbs .spip_logos {
   float: left;
   margin: 0 10px 10px 0;
   padding: 0;
   border: none;
+}
+.journal_portfolio .portfolio_big img {
+  visibility: hidden;
+}
+.journal_portfolio .portfolio_big .spip_doc_titre,
+.journal_portfolio .portfolio_big .spip_doc_descriptif {
+  margin: 0.5em 0;
+}
+.journal_portfolio .raquo {
+  position: absolute;
+  visibility: hidden;
+  right: 5%;
+  height: 300px;
+  font-size: 4em;
+  background-color: rgba(0, 0, 0, 0.2);
+  width: 10%;
+  z-index: 3;
+  color: #fff;
 }
 a.badge {
   text-decoration: none;
@@ -610,27 +661,44 @@ a.badge:hover {
   background-repeat: repeat-x;
   border-color: #0044cc #0044cc #002a80;
   border-color: rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.1) rgba(0, 0, 0, 0.25);
-  filter: progid:dximagetransform.microsoft.gradient(startColorstr='#ff0088cc', endColorstr='#ff0044cc', GradientType=0);
-  filter: progid:dximagetransform.microsoft.gradient(enabled=false);
 }
-.raquo {
-  position: absolute;
-  visibility: hidden;
-  right: 5%;
-  height: 300px;
-  font-size: 4em;
-  background-color: rgba(0, 0, 0, 0.2);
-  width: 10%;
-  z-index: 3;
-  color: #fff;
+/* Media Queries
+ */
+@media only screen and (min-width: 321px) {
+  body {
+    background: #ffffff;
+    /* Old browsers */
+    background: -moz-linear-gradient(top, #ffffff 0%, #fefefe 100%);
+    /* FF3.6+ */
+    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #fefefe));
+    /* Chrome,Safari4+ */
+    background: -webkit-linear-gradient(top, #ffffff 0%, #fefefe 100%);
+    /* Chrome10+,Safari5.1+ */
+    background: -o-linear-gradient(top, #ffffff 0%, #fefefe 100%);
+    /* Opera 11.10+ */
+    background: -ms-linear-gradient(top, #ffffff 0%, #fefefe 100%);
+    /* IE10+ */
+    background: linear-gradient(to bottom, #ffffff 0%, #fefefe 100%);
+    /* W3C */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@fakewhitelight', endColorstr='@fakewhitedark', GradientType=0);
+    /* IE6-9 */
+  }
+  #header-container h1#title {
+    font-size: 3em;
+  }
+  #header-container .last_pubdate,
+  #header-container .ariane {
+    display: block;
+  }
+  #footer-container footer .colophon a,
+  #footer-container footer .colophon .sep {
+    display: inline;
+  }
+  #main aside section {
+    display: block;
+  }
 }
-/* =============================================================================
-   Media Queries
-   ========================================================================== */
-@media only screen and (min-width: 480px) {
-  
-}
-@media only screen and (min-width: 768px) {
+@media only screen and (min-width: 901px) {
   #main .content {
     float: left;
     width: 57%;
@@ -639,15 +707,14 @@ a.badge:hover {
     float: right;
     width: 28%;
   }
+  #footer-container footer .tech {
+    display: block;
+  }
 }
 @media only screen and (min-width: 1140px) {
-  /* ===============
-      Maximal Width
-     =============== */
   .wrapper {
-    width: 1026px;
+    width: 1024px;
     /* 1140px - 10% for margins */
-  
     margin: 0 auto;
   }
 }
@@ -722,18 +789,20 @@ a.badge:hover {
   a:visited {
     text-decoration: underline;
   }
-  a[href]:after {
+  article p a[href]:after {
     content: " (" attr(href) ")";
   }
-  abbr[title]:after {
+  article p abbr[title]:after {
     content: " (" attr(title) ")";
   }
+  header a[href]:after,
+  .comment-meta a[href]:after,
   .ir a:after,
   a[href^="javascript:"]:after,
   a[href^="#"]:after {
     content: "";
   }
-  /* Don't show links for images, or javascript/internal links */
+  /* Don't show links for images,  links */
   pre,
   blockquote {
     border: 1px solid #999;
@@ -750,7 +819,7 @@ a.badge:hover {
   img {
     max-width: 100% !important;
   }
-  @page  {
+  @page {
     margin: 0.5cm;
   }
   p,
@@ -762,5 +831,50 @@ a.badge:hover {
   h2,
   h3 {
     page-break-after: avoid;
+  }
+  aside,
+  footer {
+    display: none;
+  }
+}
+.search-bar {
+  text-align: right;
+  width: 100%;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+.search-bar form {
+  display: block;
+  margin: 0;
+  padding: 2px;
+}
+.search-bar form label {
+  display: inline-block;
+  margin: 0;
+  padding: 0 10px;
+}
+#spip-admin .spip-admin-bloc,
+#spip-admin.spip-admin-float {
+  bottom: 0;
+  position: fixed;
+  white-space: nowrap;
+  z-index: 100;
+  right: auto;
+  top: auto;
+}
+@media only screen and (max-width: 800px) {
+  #spip-admin .spip-admin-bloc .spip-admin-boutons,
+  #spip-admin.spip-admin-float .spip-admin-boutons {
+    clear: both;
+    float: none;
+    color: #fc0;
+    display: block;
+    border-radius: 0;
+  }
+  #spip-admin .spip-admin-bloc .spip-admin-boutons#statistiques,
+  #spip-admin.spip-admin-float .spip-admin-boutons#statistiques {
+    display: none;
   }
 }
