@@ -5,9 +5,9 @@
 		<a rel="contents" href="/plan"><:plan_site:></a>[
 		(#SESSION{id_auteur}|oui) <span class="sep">|</span> <a href="#URL_LOGOUT" rel="nofollow"><:icone_deconnecter:></a>
 		][(#SESSION{id_auteur}|non) <span class="sep">|</span> <a href="[(#URL_PAGE{login}|parametre_url{url,#SELF})]" rel="nofollow" class='login_modal'><:lien_connecter:></a>][
-		(#AUTORISER{ecrire})<span class="sep">|</span> <a rel="nofollow" href="#EVAL{_DIR_RESTREINT_ABS}"><:espace_prive:></a>][(#ENV{skel}|=={"squelettes/sommaire.html"}|oui) <span class="sep">|</span> 
+		(#AUTORISER{ecrire})<span class="sep">|</span> <a rel="nofollow" href="#EVAL{_DIR_RESTREINT_ABS}"><:espace_prive:></a>][(#ENV{skel}|=={"squelettes/sommaire.html"}|oui) <span class="sep">|</span>
 		<a href="#URL_PAGE{backend}" rel="alternate" title="<:syndiquer_site:>">RSS</a> ]
-		<!-- version [(#VAL|myrand)] -->
+		| <a href="/1293">mentions légales</a>
 	</p>
 
 </div>
