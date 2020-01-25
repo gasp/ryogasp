@@ -66,13 +66,15 @@
 		color:#bbb;
 		margin: .2em;
 	}
-	body.black {
-  	background-color: #202124;
-    color: #adadad;
-  }
-  body.black a {
-    color: #4891fd;
-  }
+	@media (prefers-color-scheme: dark) {
+		body {
+			background-color: #202124;
+			color: #adadad;
+		}
+		body.black a {
+			color: #4891fd;
+		}
+	}
 </style>
 <BOUCLE_une_prefetch(ARTICLES){age_relatif<45}{par date}{inverse}{0,1}>
 	<link rel="prefetch" href="#URL_ARTICLE" as="html">
@@ -130,19 +132,6 @@
 	</ul>
 
 	<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
-
 </div>
-<script>
-	document.addEventListener("DOMContentLoaded", function(event) {
-		const b = document.createElement('a')
-		b.innerHTML = 'switch off'
-		b.style = 'position:absolute; right: 10px; top: 5px; cursor: pointer'
-		b.addEventListener('click', function() {
-			document.body.className = document.body.className.length ? '' : 'black'
-			b.innerHTML = document.body.className.length ? 'switch on' : 'switch off'
-		})
-		document.body.appendChild(b)
-  });
-</script>
 </body>
 </html>
