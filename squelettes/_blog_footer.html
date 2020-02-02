@@ -2,7 +2,8 @@
 	<p class="tech"><a href="#ENV{skel}" title="<:voir_squelette:>" rel="nofollow"><img src="#CHEMIN{css/img/general/squelette.png}" alt="<:squelette:>" /></a></p>
 	<p class="colophon">
 		RYoGA &ndash; #NOM_SITE_SPIP [(#DATE|annee)]
-<!-- 
+		[(#ENV{mentions}|=={"silvousplait"}|oui) <span class="sep">|</span> <a href="/a-propos/article/mentions-legales">Mentions légales</a>]
+<!--
 	ici on devrait faire une requete sur la rubrique et mesurer l'auteur le plus actif
 	mais il faudrait qu'on ait l'id_rubrique dans le contexte
 

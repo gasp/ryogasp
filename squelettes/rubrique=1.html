@@ -24,7 +24,7 @@
 	[(#REM) Contenu principal : contenu de la rubrique ]
 	<div id="conteneur">
 	<div id="contenu">
-    
+
 		[(#REM) Fil d'Ariane ]
 		<div id="hierarchie"><a href="#URL_SITE_SPIP/"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_rubrique}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</div>
 
@@ -46,7 +46,7 @@
 							[<span class="author"><:par_auteur:> (#LESAUTEURS)</span>]
 						</div>
 						[<div>(#TEXTE|image_reduire{500,0})</div>]
-					
+
 						<BOUCLE_commentaires(FORUMS){id_article}{plat}> </BOUCLE_commentaires>
 						<div><a href="#URL_ARTICLE">#TOTAL_BOUCLE [(#TOTAL_BOUCLE|=={1}|?{commentaire,commentaires})]</a></div>
 						</B_commentaires>
@@ -75,9 +75,9 @@
 
 	[(#REM) Menu de navigation laterale ]
  	<INCLURE{fond=_blog_nav,env} />
-    
+
 	[(#REM) Pied de page ]
-	<INCLURE{fond=_blog_footer, skel=#SQUELETTE} />
+	<INCLURE{fond=_blog_footer, skel=#SQUELETTE, mentions=silvousplait} />
 
 </div><!--#page-->
 </body>
