@@ -1,3 +1,21 @@
+document.addEventListener("DOMContentLoaded", function() {
+	// clear spip_photo size, let it be responsive
+	[
+		'.spip_photo img',
+		'.spip_documents img',
+		'.journal_portfolio',
+		'.portfolio_big img'
+	].forEach(function(selector) {
+		var nodes = document.querySelectorAll(selector);
+		Array.from(nodes).forEach(function(element) {
+			element.removeAttribute("width");
+			element.removeAttribute("height");
+			console.log(element)
+		});
+	});
+});
+
+
 $(function(){
 
 	app.isTouch = function () {
@@ -5,13 +23,6 @@ $(function(){
 			return true;
 		else return false;
 	};
-
-
-	// clear spip_photo size, let it be responsive
-	$('.spip_photo img, .spip_documents img, .journal_portfolio .portfolio_big img').attr({'width':'','height':'','style':''});
-
-	// clear spip_documents_center size, let it be responsive
-	$('.spip_photo img').attr({'width':'','height':'','style':''});
 
 	// reset form size
 	$('.formulaire_forum input, .formulaire_forum textarea').not('.boutons input').attr({'size':null,'cols':null}).css({'width':'100%'});
