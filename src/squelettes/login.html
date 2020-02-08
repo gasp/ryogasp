@@ -14,6 +14,17 @@
 <link rel="stylesheet" href="[(#VAL{reset.css}|find_in_theme|direction_css)]" type="text/css" />
 <link rel="stylesheet" href="[(#VAL{clear.css}|find_in_theme|direction_css)]" type="text/css" />
 <link rel="stylesheet" href="[(#VAL{minipres.css}|find_in_theme|direction_css)]" type="text/css" />
+<style media="screen">
+	body {
+		background:
+			radial-gradient(circle, transparent 20%, #eee 20%, #eee 80%, transparent 80%, transparent),
+			radial-gradient(circle, transparent 20%, #eee 20%, #eee 80%, transparent 80%, transparent) 50px 50px,
+			linear-gradient(#ccc 8px, transparent 8px) 0 -4px,
+			linear-gradient(90deg, #ccc 8px, transparent 8px) -4px 0;
+		background-color: #eee;
+		background-size:100px 100px, 100px 100px, 50px 50px, 50px 50px;
+	}
+</style>
 #INSERT_HEAD
 <script type='text/javascript'>
 jQuery(function(){ jQuery('input#var_login').focus();

@@ -10,11 +10,9 @@ document.addEventListener("DOMContentLoaded", function() {
 		Array.from(nodes).forEach(function(element) {
 			element.removeAttribute("width");
 			element.removeAttribute("height");
-			console.log(element)
 		});
 	});
 });
-
 
 $(function(){
 
