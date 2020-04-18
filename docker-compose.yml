@@ -12,6 +12,7 @@ services:
     links:
       - mariadb:mysql
     volumes:
+      - ./src/IMG:/var/www/html/IMG:rw
       - ./src/squelettes:/var/www/html/squelettes:rw
       - ./src/plugins:/var/www/html/plugins:rw
       - ./src/tmp/dump:/var/www/html/tmp/dump:rw
