@@ -12,12 +12,9 @@ services:
     links:
       - mariadb:mysql
     volumes:
-      # TODO: ignore main folder
-      - ./src:/var/www/html:rw
-      # instead, load specific folders
-      # - ./ryogasp/squelettes:/var/www/html/squelettes:rw
-      # - ./plugins:/var/www/html/plugins:rw
-      # - ./dump:/var/www/html/tmp/dump:rw
+      - ./src/squelettes:/var/www/html/squelettes:rw
+      - ./src/plugins:/var/www/html/plugins:rw
+      - ./src/tmp/dump:/var/www/html/tmp/dump:rw
   mariadb:
     image: mariadb:latest
     volumes:
