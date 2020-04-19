@@ -16,6 +16,7 @@ services:
       - ./src/squelettes:/var/www/html/squelettes:rw
       - ./src/plugins:/var/www/html/plugins:rw
       - ./src/tmp/dump:/var/www/html/tmp/dump:rw
+    restart: unless-stopped
   mariadb:
     image: mariadb:latest
     volumes:
@@ -28,3 +29,4 @@ services:
       - MYSQL_USER=spip
       - MYSQL_PASSWORD=spip
       - MYSQL_DATABASE=spip
+    restart: unless-stopped
