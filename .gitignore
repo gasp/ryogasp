@@ -1,15 +1,15 @@
 /src/config/
 /src/ecrire/
 /src/IMG/*
+/src/plugins/*
+/src/tmp/*
 /src/media/
 /src/local/
-/src/plugins/
 /src/custom_plugins/
 /src/plugins-dist/
 /src/squelettes-dist/
 /src/prive/
-/src/tmp/*
-!/ecrire/CHANGELOG.txt
+
 /src/rien.gif
 /src/spip.php
 /src/index.php
@@ -29,6 +29,9 @@
 
 /maria/*
 !/maria/.gitkeep
+!/maria/database/.gitkeep
+!/maria/logs/.gitkeep
 
 !/src/tmp/dump
 !/src/IMG/.gitkeep
+!/src/plugins/.gitkeep
