@@ -1,0 +1,32 @@
+# integrate ipeos/spip + mariadb + create network (based on wordpress)
+
+version: '3'
+services:
+  spip:
+    image: ipeos/spip:latest
+    environment:
+      - PHP_TIMEZONE=Europe/Paris
+      - LANG='fr_FR.UTF-8'
+    ports:
+      - 9000:80
+    links:
+      - mariadb:mysql
+    volumes:
+      - ./src/IMG:/var/www/html/IMG:rw
+      - ./src/squelettes:/var/www/html/squelettes:rw
+      - ./src/plugins:/var/www/html/plugins:rw
+      - ./src/tmp/dump:/var/www/html/tmp/dump:rw
+    restart: unless-stopped
+  mariadb:
+    image: mariadb:latest
+    volumes:
+      - ./maria/database:/var/lib/mysql
+      - ./maria/logs:/var/log/mysql/:rw
+    ports:
+      - 3306:3306
+    environment:
+      - MYSQL_ROOT_PASSWORD=mypassword
+      - MYSQL_USER=spip
+      - MYSQL_PASSWORD=spip
+      - MYSQL_DATABASE=spip
+    restart: unless-stopped
