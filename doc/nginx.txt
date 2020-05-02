@@ -1,0 +1,136 @@
+# https://framagit.org/Parinux/premier-samedi/blob/01d8f4dfb82075021450957d48d1d4f551fea533/etc/nginx/sites-available/spip
+# https://www.nginx.com/resources/wiki/start/topics/recipes/spip/
+# https://www.nginx.com/blog/creating-nginx-rewrite-rules/
+# https://winginx.com/en/htaccess
+# https://www.digitalocean.com/community/tutorials/how-to-setup-fastcgi-caching-with-nginx-on-your-vps
+# nginx & php https://serversforhackers.com/c/php-fpm-and-nginx
+
+# remove 'www' and force https
+server {
+	listen 80;
+	listen 443 ssl;
+	server_name www.ryogasp.com;
+	return 301 https://ryogasp.com$request_uri;
+}
+# force https
+server {
+	listen 80;
+	server_name ryogasp.com;
+	return 301 https://ryogasp.com$request_uri;
+}
+
+server {
+		# listen 217.146.225.29:443;
+		listen 443;
+		ssl on;
+		# ssl_certificate /etc/nginx/ssl/certificate.pem;
+		# ssl_certificate_key /etc/nginx/ssl/private.pem;
+		ssl_certificate /etc/letsencrypt/live/ryogasp.com/fullchain.pem;
+		ssl_certificate_key /etc/letsencrypt/live/ryogasp.com/privkey.pem;
+
+		server_name  ryogasp.com;
+		access_log  /var/log/nginx/ryogasp.com;
+		error_log  /var/log/nginx/error.log;
+
+		# location ~ (index|spip|ecrire.*)\.php$ {
+		location ~* \.php$ {
+
+
+			fastcgi_pass unix:/run/php/php7.0-fpm.sock;
+			include         fastcgi_params;
+			fastcgi_param   SCRIPT_FILENAME    $document_root$fastcgi_script_name;
+			fastcgi_param   SCRIPT_NAME        $fastcgi_script_name;
+		}
+
+		# location / {
+		# 		proxy_pass http://192.168.1.55/;
+		# 		proxy_set_header Host      $host;
+		# 		proxy_http_version 1.1;
+		# }
+}
+
+############# migration du htaccess
+error_page 404 /spip.php?page=404;
+error_page 403 /spip.php?page=403;
+
+
+location = / {
+	# pages speciales
+	rewrite ^/plan$ /spip.php?page=plan break;
+	rewrite ^/rss$ /spip.php?page=backend break;
+	rewrite ^/activite$ /spip.php?page=activite break;
+	rewrite ^/miniblog$ /spip.php?page=miniblog break;
+
+	# anciens sites
+	rewrite ^/babel$ http://babel.ryogasp.com redirect;
+	rewrite ^/ryoga/ryoga.htm$ http://richardcornu.com redirect;
+	rewrite ^/ryoga(.*)$ http://archives.ryogasp.com/ryoga/$1 redirect;
+	rewrite ^/bikoko(.*)$ http://archives.ryogasp.com/bikoko/$1 redirect;
+	rewrite ^/onedayonearth(.*)$ http://archives.ryogasp.com/onedayonearth/$1 redirect;
+
+}
+
+
+location /blog {
+	rewrite ^/blog\/rss\.php$ /spip.php?page=backend&id_rubrique=1 break;
+	rewrite ^/blog\/rss$ /spip.php?page=backend&id_rubrique=1 break;
+}
+
+location / {
+	rewrite "^/blog\/archives\/([0-9-]{4})-([0-9]{2})$" /spip.php?page=archives&id_rubrique=1&date=$1-$2 break;
+	rewrite "^/blog\/archives\/([0-9-]{4})-([0-9]{2})-([0-9]{2})$" /spip.php?page=archivesjour&id_rubrique=1&date=$1-$2-$3 break;
+	rewrite "^/gameover\/archives\/([0-9-]{4})-([0-9]{2})$" /spip.php?page=archives&id_rubrique=21&date=$1-$2 break;
+	rewrite "^/gameover\/archives\/([0-9-]{4})-([0-9]{2})-([0-9]{2})$" /spip.php?page=archivesjour&id_rubrique=21&date=$1-$2-$3 break;
+	if ($query_string ~ "action=rss"){
+		rewrite spip.php /spip.php?page=rss break;
+	}
+	if ($query_string ~ "action=ical"){
+		rewrite spip.php /spip.php?page=ical_prive break;
+	}
+	if (-e $request_filename){
+		rewrite ^/rubrique([0-9]+)(\.html)?$ /spip.php?page=rubrique&id_rubrique=$1 break;
+	}
+	rewrite ^/([1-9][0-9]*)$ /spip.php?action=redirect&type=article&status=301&id=$1 break;
+	rewrite ^/[^\.]+(\.html)?$ /spip.php;
+}
+
+location /gameover {
+	rewrite ^/gameover\/rss\.php$ /spip.php?page=backend&id_rubrique=21 break;
+	rewrite ^/gameover\/rss$ /spip.php?page=backend&id_rubrique=21 break;
+}
+
+location /article {
+	rewrite ^/article([0-9]+)(\.html)?$ /spip.php?page=article&id_article=$1 break;
+}
+
+location /breve {
+	rewrite ^/breve([0-9]+)(\.html)?$ /spip.php?page=breve&id_breve=$1 break;
+}
+
+location /mot {
+	rewrite ^/mot([0-9]+)(\.html)?$ /spip.php?page=mot&id_mot=$1 break;
+}
+
+location /auteur {
+	rewrite ^/auteur([0-9]+)(\.html)?$ /spip.php?page=auteur&id_auteur=$1 break;
+}
+
+location /site {
+	rewrite ^/site([0-9]+)(\.html)?$ /spip.php?page=site&id_syndic=$1 break;
+}
+
+location /robots {
+	rewrite ^/robots[.]txt$ /spip.php?page=robots.txt break;
+}
+
+location /humans {
+	rewrite ^/humans[.]txt$ /spip.php?page=humans.txt break;
+}
+
+location /favicon {
+	rewrite ^/favicon[.]ico$ /spip.php?page=favicon.ico break;
+}
+
+location /sitemap {
+	rewrite ^/sitemap[.]xml$ /spip.php?page=sitemap.xml break;
+}

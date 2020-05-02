@@ -1,0 +1,28 @@
+server {
+  server_name ryogasp.com;
+  access_log /var/log/nginx/ryogasp.vhost.ping.access.log;
+  error_log /var/log/nginx/ryogasp.vhost.ping.error.log;
+
+  listen 80;
+  listen [::]:80;
+
+  location / {
+    proxy_pass http://localhost:9000;
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+  }
+}
+
+server {
+  if ($host = www.ryogasp.com) {
+    return 301 https://ryogasp.com$request_uri;
+  }
+  listen 80;
+  listen [::]:80;
+
+  server_name www.ryogasp.com;
+  return 404;
+}
