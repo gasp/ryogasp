@@ -7,6 +7,7 @@ services:
     environment:
       - PHP_TIMEZONE=Europe/Paris
       - LANG='fr_FR.UTF-8'
+      - SPIP_DB_PASS=spippassword
     ports:
       - 9000:80
     links:
@@ -22,11 +23,11 @@ services:
     volumes:
       - ./maria/database:/var/lib/mysql
       - ./maria/logs:/var/log/mysql/:rw
-    ports:
-      - 3306:3306
+    expose:
+      - 3306
     environment:
-      - MYSQL_ROOT_PASSWORD=mypassword
+      - MYSQL_ROOT_PASSWORD=superrootpassword
       - MYSQL_USER=spip
-      - MYSQL_PASSWORD=spip
+      - MYSQL_PASSWORD=spippassword
       - MYSQL_DATABASE=spip
     restart: unless-stopped
