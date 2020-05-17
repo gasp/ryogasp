@@ -1,4 +1,4 @@
-/src/config/
+/src/config/*
 /src/ecrire/
 /src/IMG/*
 /src/plugins/*
@@ -35,3 +35,4 @@
 !/src/tmp/dump
 !/src/IMG/.gitkeep
 !/src/plugins/.gitkeep
+!/src/config/mes_options.php

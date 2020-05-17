@@ -17,6 +17,7 @@ services:
       - ./src/squelettes:/var/www/html/squelettes:rw
       - ./src/plugins:/var/www/html/plugins:rw
       - ./src/tmp/dump:/var/www/html/tmp/dump:rw
+      - ./src/config:/var/www/html/config:rw
     restart: unless-stopped
   mariadb:
     image: mariadb:latest
