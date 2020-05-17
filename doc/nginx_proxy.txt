@@ -1,10 +1,15 @@
+# proxy pass
 server {
   server_name ryogasp.com;
   access_log /var/log/nginx/ryogasp.vhost.ping.access.log;
   error_log /var/log/nginx/ryogasp.vhost.ping.error.log;
 
-  listen 80;
-  listen [::]:80;
+  listen [::]:443 ssl; # managed by Certbot
+  listen 443 ssl; # managed by Certbot
+  ssl_certificate /etc/letsencrypt/live/.../fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/.../privkey.pem; # managed by Certbot
+  include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
 
   location / {
     proxy_pass http://localhost:9000;
@@ -16,12 +21,27 @@ server {
   }
 }
 
+# force https
 server {
+  listen 80;
+  listen [::]:80;
+
+  server_name ryogasp.com www.ryogasp.com;
+  return 301 https://ryogasp.com$request_uri;
+}
+
+# force no www
+server {
+  listen [::]:443 ssl; # managed by Certbot
+  listen 443 ssl; # managed by Certbot
+  ssl_certificate /etc/letsencrypt/live/.../fullchain.pem; # managed by Certbot
+  ssl_certificate_key /etc/letsencrypt/live/.../privkey.pem; # managed by Certbot
+  include /etc/letsencrypt/options-ssl-nginx.conf; # managed by Certbot
+  ssl_dhparam /etc/letsencrypt/ssl-dhparams.pem; # managed by Certbot
+
   if ($host = www.ryogasp.com) {
     return 301 https://ryogasp.com$request_uri;
   }
-  listen 80;
-  listen [::]:80;
 
   server_name www.ryogasp.com;
   return 404;
