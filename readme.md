@@ -40,9 +40,14 @@ scp -r ryogasp.com:/home/ryogasp/ryogasp.com/www/plugins ./plugins
 
 ### connect to docker and import
 
+```
 docker exec -it ryogasp_spip_1 bash
 cd tmp/dump
-spip sql:dump:restore --name ryogasp_20200418
+spip sql:dump:restore --name ryogasp_20200428
+```
+
+you can check if everything went fine into mariadb
+`docker exec -it ryogasp_mariadb_1 bash`
 
 if this does not work, create a temporary superadmin
 `spip auteurs:superadmin` if lang is fucked up, set spip_lang=fr into cookies
@@ -50,36 +55,7 @@ if this does not work, create a temporary superadmin
 # configure nginx
 ## nginx as a proxy to docker container
 
-```
-server {
-  server_name ryogasp.com;
-  access_log /var/log/nginx/ryogasp.vhost.ping.access.log;
-  error_log /var/log/nginx/ryogasp.vhost.ping.error.log;
-
-  listen 80;
-  listen [::]:80;
-
-  location / {
-    proxy_pass http://localhost:9000;
-    proxy_http_version 1.1;
-    proxy_set_header Upgrade $http_upgrade;
-    proxy_set_header Connection 'upgrade';
-    proxy_set_header Host $host;
-    proxy_cache_bypass $http_upgrade;
-  }
-}
-
-server {
-  if ($host = www.ryogasp.com) {
-    return 301 https://ryogasp.com$request_uri;
-  }
-  listen 80;
-  listen [::]:80;
-
-  server_name www.ryogasp.com;
-  return 404;
-}
-```
+check file doc/nginx_proxy.txt
 
 ## nginx with fastcgi to php-fpm
 

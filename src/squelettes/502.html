@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="fr" dir="ltr">
+<!--
+	this static page is called directly by ngnix reverse-proxy
+	when apache container is down
+	it can be a 501, 502 or 503 error
+
+	it could be great to have a whale illustration,
+	but it should be embedded in page because apache server
+	is not running (remember?)
+-->
+	<head>
+		<meta charset="utf-8">
+		<title>ryogasp-50X</title>
+		<meta name="author" content="gaspard from freelancis">
+		<style type="text/css" media="screen">
+			body {
+				padding: 0;
+				margin: 0;
+				margin: 10px;
+				color: #666;
+				font: normal normal normal 1em "Lucida Grande", "Trebuchet MS", Verdana, sans-serif;
+			}
+			.aouch {
+				height: 480px;
+				width: 640px;
+				background-color: #2279ff;
+			}
+			.aouch h1, .aouch p {
+				color: #fff;
+				font: normal normal normal 2em Georgia, serif;
+				padding: 1em;
+				margin: 0;
+				width: 400px;
+			}
+			a {
+				text-decoration: none;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="aouch">
+			<h1>Aouch, erreur 501, 502 ou 503 !</h1>
+			<p>Le conteneur n'est plus accessible, quelque chose à dû casser.</p>
+		</div>
+	</body>
+</html>
