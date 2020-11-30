@@ -5,16 +5,18 @@ how to migrate from remote spip to docker spip
 
 ## on remote
 
+```
 install spip-cli
 ~/.local/bin/spip sql:dump:create
-
+```
 copy on local
-
+```
 scp ryogasp.com:/home/ryogasp/ryogasp.com/www/tmp/dump/ryogasp_20200201.sqlite .
 
 copy plugins
 from `/src/` dir
 scp -r ryogasp.com:/home/ryogasp/ryogasp.com/www/plugins ./plugins
+```
 
 ## on local
 
@@ -68,6 +70,14 @@ use certbot to en able https via letsencrypt
 ```
 apt-get install certbot python-certbot-nginx
 certbot --nginx
+```
+## on apache
+
+get rid of default .htaccess and get the custom one
+
+(from inside the container `docker exec -it ryogasp_spip_1 bash`)
+```
+curl -0 https://raw.githubusercontent.com/gasp/ryogasp/master/src/.htaccess > .htaccess
 ```
 
 # reorganize folders
