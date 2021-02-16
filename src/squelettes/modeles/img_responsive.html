@@ -14,7 +14,11 @@
 #SET{fichier,#URL_DOCUMENT}
 
 [<!--(#REM) générer le doc avant loading-->]
-#SET{pico_fichier,#GET{fichier}|image_reduire{7,0}}
+#SET{pico_fichier,#GET{fichier}|image_reduire{7,0}|extraire_attribut{src}}
+#SET{s_fichier,#GET{fichier}|image_reduire{400,0}|extraire_attribut{src}}
+#SET{m_fichier,#GET{fichier}|image_reduire{800,0}|extraire_attribut{src}}
+#SET{l_fichier,#GET{fichier}|image_reduire{1200,0}|extraire_attribut{src}}
+#SET{xl_fichier,#GET{fichier}|image_reduire{2000,0}|extraire_attribut{src}}
 
 #SET{url,#ENV{lien}}
 [<!--(#REM)
@@ -34,13 +38,26 @@
 	#SET{url,#ENV{lien,#URL_DOCUMENT}}
 ]
 
-<figure class='spip_photo spip_img_responsive spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
-[<a href="(#GET{url})"[
-	class="(#ENV{lien_class})"] title='#TYPE_DOCUMENT - [(#TAILLE|taille_en_octets|texte_backend)]'[
-	(#ENV{lien}|?{'',type="#MIME_TYPE"})]>]
-		<img src='#GET{fichier}'[ alt="(#TITRE)"] width="" height="" style="" />
-	[(#GET{url}|?{</a>})]
+<!--
+	small fichier #GET{s_fichier}<br>
+	medium fichier #GET{m_fichier}<br>
+	large fichier #GET{l_fichier}<br>
+	large fichier #GET{xl_fichier}<br>
+-->
 
+<figure class='spip_photo spip_img_responsive spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
+	<img
+		[ alt="(#TITRE)"]
+		src='#GET{pico_fichier}'
+		style="width:100%"
+		width="100%"
+		height="auto"
+		data-small="#GET{s_fichier}"
+		data-medium="#GET{m_fichier}"
+		data-large="#GET{l_fichier}"
+		data-xlarge="#GET{xl_fichier}"
+		data-lazy="yes"
+	>
 [<figcaption>
 	<div class='#EDIT{titre} title'>(#TITRE)</div>
 	[<div class='#EDIT{descriptif} legend'>(#DESCRIPTIF|PtoBR)[(#NOTES|PtoBR)]</div>]
