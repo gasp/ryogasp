@@ -1,7 +1,7 @@
-
-var fiximg = function() {
+var fixImg = function() {
 	// clear spip_photo size, let it be responsive
 	// display lazy loaded images
+	var pxlratio = window.devicePixelRatio || 1;
 	[
 		'.spip_photo img',
 		'.spip_documents img',
@@ -11,7 +11,6 @@ var fiximg = function() {
 		var nodes = document.querySelectorAll(selector);
 		Array.from(nodes).forEach(function(element) {
 			if (element.dataset.lazy) {
-				console.log(element.dataset.locked !== 'yes', localStorage.getItem('unlockImages'))
 				if (element.dataset.locked !== 'yes' || localStorage.getItem('unlockImages')) {
 					var sources = [element.dataset.small, element.dataset.medium, element.dataset.large, element.dataset.xlarge];
 					var sizes = [400, 800, 1200, 2000];
@@ -25,9 +24,9 @@ var fiximg = function() {
 							i++;
 						}
 						return sizes.length - 1; // the last iteration
-					})()]
-					element.src = src
-					element.dataset.lazy = false
+					})()];
+					element.src = src;
+					element.dataset.lazy = false;
 				}
 			} else {
 				element.removeAttribute("width");
@@ -37,14 +36,70 @@ var fiximg = function() {
 	});
 }
 
-var pxlratio = window.devicePixelRatio || 1
+var unlockOverlay = function(pos, callback) {
+	// TODO: use hyperapp for this
+	var main = document.createElement('div');
+	main.classList.add('lockedImageOverlay');
+	main.style.position = 'absolute';
+	main.style.backgroundColor = 'rgba(255,255,255,.2)';
+	main.style.color = '#222';
+	main.style.width = pos.width + 'px';
+	main.style.height = pos.height + 'px';
+	main.style.top = pos.top + window.scrollY + 'px';
+	main.style.left = pos.left + window.scrollX + 'px';
+	main.style.zIndex = 2;
+	var explanation = document.createElement('p');
+	explanation.style.padding = '2em';
+	explanation.style.textAlign = 'center';
+	explanation.innerHTML = "Ces images sont bloquées<br /> pour ne pas être indexées "
+	+ "dans les moteurs de recherche.<br />";
+	var link = document.createElement('a')
+	link.innerHTML = 'Cliquez pour afficher'
+	link.style.color = 'blue'
+	link.style.cursor = 'pointer'
+
+	main.addEventListener('click', callback);
+	explanation.appendChild(link)
+	main.appendChild(explanation);
+	return main;
+}
+
+var displayUnlockForm = function() {
+	if (localStorage.getItem('unlockImages')) return;
+	var nodes = document.querySelectorAll('img[data-locked="yes"]');
+	Array.from(nodes).forEach(function(element) {
+		var pos = element.getBoundingClientRect();
+		var overlay = unlockOverlay(pos, function() {
+			localStorage.setItem('unlockImages', 'true');
+			document.querySelectorAll('div.lockedImageOverlay').forEach(el => el.remove());
+			fixImg();
+		});
+		document.body.appendChild(overlay);
+	});
+}
+
+
+var ruler = function() {
+	var main = document.createElement('div');
+	main.style.position = 'absolute';
+	main.style.top = '0px';
+	main.style.right = '0px';
+	main.style.zIndex = 3;
+	main.style.border = '1px solid #ccc'
+	main.style.overflow = "hidden"
+	for (var i = 0; i < 1000; i++) {
+		var height = document.createElement('div')
+		height.style.height = '100px'
+		height.innerHTML = i * 100 + 'px';
+		main.appendChild(height);
+	}
+	return main;
+}
+
 document.addEventListener("DOMContentLoaded", function() {
-	fiximg();
-
+	fixImg();
+	window.setTimeout(displayUnlockForm, 5000)
 });
-
-
-
 
 $(function(){
 
