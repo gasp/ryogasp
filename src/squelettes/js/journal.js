@@ -1,7 +1,7 @@
 
-var pxlratio = window.devicePixelRatio || 1
-document.addEventListener("DOMContentLoaded", function() {
+var fiximg = function() {
 	// clear spip_photo size, let it be responsive
+	// display lazy loaded images
 	[
 		'.spip_photo img',
 		'.spip_documents img',
@@ -11,14 +11,14 @@ document.addEventListener("DOMContentLoaded", function() {
 		var nodes = document.querySelectorAll(selector);
 		Array.from(nodes).forEach(function(element) {
 			if (element.dataset.lazy) {
-
-					var sources = [element.dataset.small, element.dataset.medium, element.dataset.large, element.dataset.xlarge ];
+				console.log(element.dataset.locked !== 'yes', localStorage.getItem('unlockImages'))
+				if (element.dataset.locked !== 'yes' || localStorage.getItem('unlockImages')) {
+					var sources = [element.dataset.small, element.dataset.medium, element.dataset.large, element.dataset.xlarge];
 					var sizes = [400, 800, 1200, 2000];
 					var minsize = element.width * pxlratio;
-					var src = sources[(function(){
+					var src = sources[(function() {
 						var i = 0; // let
 						while (i < sizes.length) {
-							console.log(minsize,sizes[i])
 							if (minsize < sizes[i]) {
 								return i;
 							}
@@ -26,17 +26,24 @@ document.addEventListener("DOMContentLoaded", function() {
 						}
 						return sizes.length - 1; // the last iteration
 					})()]
-
 					element.src = src
 					element.dataset.lazy = false
+				}
 			} else {
 				element.removeAttribute("width");
 				element.removeAttribute("height");
 			}
-			// console.log(element)
 		});
 	});
+}
+
+var pxlratio = window.devicePixelRatio || 1
+document.addEventListener("DOMContentLoaded", function() {
+	fiximg();
+
 });
+
+
 
 
 $(function(){
