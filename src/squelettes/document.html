@@ -1,111 +1,49 @@
 [(#REM) document, gourmand, un peu de volume cache d'un mois]
 #CACHE{2592000}
 <BOUCLE_principale(DOCUMENTS) {id_document}>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-[(#REM) Cf.: http://paulirish.com/2008/conditional-stylesheets-vs-css-hacks-answer-neither/ ]
-<!--[if lt IE 7 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie6"> <![endif]-->
-<!--[if IE 7 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie7"> <![endif]-->
-<!--[if IE 8 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie8"> <![endif]-->
-<!--[if IE 9 ]> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js ie ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <html dir="#LANG_DIR" lang="#LANG" xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" class="[(#LANG_DIR)][ (#LANG)] no-js"> <!--<![endif]-->
+<html dir="#LANG_DIR" lang="#LANG">
 <head>
-<script type='text/javascript'>/*<![CDATA[*/(function(H){H.className=H.className.replace(/\bno-js\b/,'js')})(document.documentElement);/*]]>*/</script>
 <title>[(#TITRE|couper{80}|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
 [<meta name="description" content="(#DESCRIPTIF|attribut_html)" />]
-[<!--<link rel="canonical" href="(#URL_RUBRIQUE|url_absolue)" />-->]
-<INCLURE{fond=inclure/head} />
-
 </head>
+<body class="document">
+<h1 class="h1 #EDIT{titre}">#TITRE</h1>
+<dl>
+	[<dt>Document ID</dt><dd>#(#ID_DOCUMENT)</dd>]
+	[<dt>Crédits</dt><dd>(#CREDITS)</dd>]
+	[<dt>Descriptif</dt><dd>(#DESCRIPTIF|image_reduire{10,*})</dd>]
+	<BOUCLE_portfolio(DOCUMENTS){id_document}{extension==jpg|png|gif}>
+		#SET{pico_fichier,#FICHIER|image_reduire{10,0}|extraire_attribut{src}}
+		<dt>Miniature</dt>
+		<dd>
+			<img alt="document thumbnail" src='#GET{pico_fichier}' style="width: 400px" width="100px" height="auto">
+		</dd>
+		[<dt>Type</dt>
+		<dd>(#MIME_TYPE)</dd>]
 
-<body class="pas_surlignable page_article">
-<div id="page">
-	<div id="container">
-		<div id="main">
-	
-	
-	
-	
-	[(#REM) Contenu principal : contenu de l'article ]
-    <div class="wrapper hfeed">
-    <div class="content hentry" id="content">
-        <p class="arbo"><a href="#URL_SITE_SPIP/">ryogasp</a> &gt; Documents[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</p>
+		[<dt>Dimensions</dt>
+		<dd>#LARGEUR x (#HAUTEUR) px</dd>]
 
-		<div class="cartouche">
-					[(#LOGO_DOCUMENT|#URL_DOCUMENT)]
-			<h1 class="h1 #EDIT{titre}">#TITRE</h1>	
-			[<p class="info-publi">Crédits : (#CREDITS)</p>]
-		</div>
-		
-		[<div class="#EDIT{texte} texte surlignable">(#DESCRIPTIF|image_reduire{500,*})</div>]
-	
-		<BOUCLE_portfolio(DOCUMENTS){id_document}{extension==jpg|png|gif}>
-		
-			<dl float:left>
-				[<dt>Document id</dt>
-				<dd>#(#ID_DOCUMENT)</dd>]
+		[<dt>Poids</dt>
+		<dd>(#TAILLE|taille_en_octets)</dd>]
 
-				[<dt>Type</dt>
-				<dd>(#MIME_TYPE)</dd>]
+		<!-- avoid being referenced by search engines
+		[<dt>Fichier</dt>
+		<dd><a href="#URL_DOCUMENT[(#DISTANT|=={oui}|oui)|parametre_url{nom,valeur}]">(#FICHIER)</a></dd>]
+		-->
+	</BOUCLE_portfolio>
+	<B_articles_lies>
+		<dt>Articles liés</dt>
+		<dd>
+			<ul>
+			<BOUCLE_articles_lies(ARTICLES){id_document}>
+				<li><a href="#URL_ARTICLE">#TITRE</a></li>
+			</BOUCLE_articles_lies>
+			</ul>
+		</dd>
+	</B_articles_lies>
 
-				[<dt>Dimensions</dt>
-				<dd>#LARGEUR x (#HAUTEUR) px</dd>]
-
-				[<dt>Poids</dt>
-				<dd>(#TAILLE|taille_en_octets)</dd>]
-
-				[<dt>Fichier</dt>
-				<dd><a href="#URL_DOCUMENT[(#DISTANT|=={oui}|oui)|parametre_url{nom,valeur}]">(#FICHIER)</a></dd>]
-
-
-			</dl>
-
-
-		</BOUCLE_portfolio>
-
-		[<p>(#FICHIER
-		|image_reduire{500,*}
-		|inserer_attribut{class,moyennedef}
-		|inserer_attribut{alt,[(#TITRE|attribut_html|couper{80})]})</p>]
-		
-
-	</div><!--.content-->
-	</div><!--.wrapper-->
-
-
-    <div class="aside">
-	
-        <B_articles_lies>
-		<h2>Articles liés</h2>
-		<ul>
-		<BOUCLE_articles_lies(ARTICLES){id_document}>
-			<li><a href="#URL_ARTICLE">#TITRE</a></li>
-		</BOUCLE_articles_lies>
-		</ul>
-		</B_articles_lies>
-
-        [(#REM) Articles dans la meme rubrique ]
-        <B_breves_rubrique>
-        <div class="menu">
-            <h2>Ephémérides</h2>
-            <ul>
-                <BOUCLE_breves_rubrique(BREVES) {id_secteur} {!par date} {0,10}>
-                <li><a href="#URL_BREVE">#TITRE</a></li>
-                </BOUCLE_breves_rubrique>
-            </ul>
-        </div>
-        </B_breves_rubrique>
-
-
-		#FORMULAIRE_RECHERCHE
-
-        
-    </div><!--.aside-->
-		<div class="clearfix"></div>
-
-		</div><!--#main-->
-	</div><!--#container-->
-	<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
-</div><!--#page-->
+</dl>
 </body>
 </html>
 </BOUCLE_principale>[(#INCLURE{fond=404, erreur=<:aucun_document:>})]
