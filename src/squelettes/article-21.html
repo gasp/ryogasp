@@ -8,12 +8,12 @@
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
 <head>
-<title>[(#TITRE|textebrut) - ]
+<title>[(#TITRE|attribut_html) - ]
 	<BOUCLE_blogroot(RUBRIQUES){id_rubrique=21}>
-		[(#DESCRIPTIF|textebrut)]
+		[(#DESCRIPTIF|attribut_html)]
 	</BOUCLE_blogroot>
 </title>
-[<meta name="description" content="(#INTRODUCTION{150}|attribut_html)" />]
+[<meta name="description" content="(#INTRODUCTION{150}|textebrut)" />]
 <INCLURE{fond=inclure/head} />
 <INCLURE{fond=inclure/head_blog} />
 <link rel="alternate" type="application/rss+xml" title="RSS" href="/gameover/rss" />
