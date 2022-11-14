@@ -5,7 +5,7 @@
   "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-		"build": "gulp less"
+    "build": "gulp less"
   },
   "repository": {
     "type": "git",
@@ -16,9 +16,9 @@
   "bugs": {
     "url": "https://github.com/gasp/ryogasp/issues"
   },
-  "homepage": "https://github.com/gasp/ryogasp#readme",
+  "homepage": "https://forge.freelancis.net/gasp/ryogasp",
   "devDependencies": {
     "gulp": "^4.0.2",
-    "gulp-less": "^4.0.1"
+    "gulp-less": "^5.0.0"
   }
 }
