@@ -1,11 +1,9 @@
-[(#REM)
-	c'est la page d'accueil du blog
-	cache 1 jour
-]#CACHE{86400}
+[(#REM) page d'accueil du blog, cache 1 jour]#CACHE{86400}
 <BOUCLE_principale(RUBRIQUES) {id_rubrique}>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+	<!DOCTYPE html>
+	<html lang="#LANG" dir="#LANG_DIR">
 <head>
+<meta charset="utf-8">
 <title>[(#DESCRIPTIF|textebrut)]</title>
 [<meta name="description" content="(#INTRODUCTION{150}|textebrut)" />]
 <INCLURE{fond=inclure/head} />
@@ -17,13 +15,12 @@
 
 <body class="blog">
 <div id="page">
-
 	[(#REM) Entete de la page + titre du site ]
 	<INCLURE{fond=_blog_entete}{id_rubrique}>
 
 	[(#REM) Contenu principal : contenu de la rubrique ]
 	<div id="conteneur">
-	<div id="contenu">
+		<div id="contenu">
 
 		[(#REM) Fil d'Ariane ]
 		<div id="hierarchie"><a href="#URL_SITE_SPIP/"><:accueil_site:></a><BOUCLE_ariane(HIERARCHIE){id_rubrique}> &gt; <a href="#URL_RUBRIQUE">[(#TITRE|couper{80})]</a></BOUCLE_ariane>[ &gt; <strong class="on">(#TITRE|couper{80})</strong>]</div>
@@ -59,8 +56,8 @@
 			[<p class="pagination">(#PAGINATION)</p>]
 		</B_articles>
 
-	</div><!--#contenu-->
-	</div><!--#conteneur-->
+		</div>
+	</div>
 
 	<div id="extra">
 		<div class="menu">
@@ -71,7 +68,7 @@
 			<INCLURE{fond=_blog_nuls} />
 
 		</div>
-	</div><!--#extra-->
+	</div>
 
 	[(#REM) Menu de navigation laterale ]
  	<INCLURE{fond=_blog_nav,env} />
@@ -79,7 +76,7 @@
 	[(#REM) Pied de page ]
 	<INCLURE{fond=_blog_footer, skel=#SQUELETTE, mentions=silvousplait} />
 
-</div><!--#page-->
+</div>
 </body>
 </html>
 </BOUCLE_principale>

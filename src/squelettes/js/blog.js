@@ -1,5 +1,9 @@
-$(document).ready(function(){
-	$('h3.accessibility',this).css({cursor:'pointer'}).click(function () {
-		$(this).next().slideToggle();
-	});
+addEventListener('DOMContentLoaded', function() {
+	document.querySelectorAll('h3.accessibility').forEach(function(element) {
+		element.style.cursor = 'pointer'
+
+		element.addEventListener('click', function(ev){
+			ev.target.nextElementSibling.classList.toggle('h');
+		})
+	})
 });

@@ -1,45 +1,40 @@
 [(#REM) Menu de navigation laterale ]
- <div id="navigation">
-		<div class="menu">
-
-			[(#REM) rubriques]
-			<B_categories>
+<div id="navigation">
+	<div class="menu">
+		[(#REM) rubriques]
+		<B_categories>
 			<div class="categories">
 				<h3 class="accessibility">Catégories</h3>
 				<ul>
-				<BOUCLE_categories(RUBRIQUES){id_parent=1}{par num titre, titre}>
-					[<li><a href="#URL_RUBRIQUE" [title="(#DESCRIPTIF|attribut_html)"] class="#EXPOSE">(#TITRE|supprimer_numero)</a></li>]
-				</BOUCLE_categories>
+					<BOUCLE_categories(RUBRIQUES){id_parent=1}{par num titre, titre}>
+						[<li><a href="#URL_RUBRIQUE" [title="(#DESCRIPTIF|attribut_html)"] class="#EXPOSE">(#TITRE|supprimer_numero)</a></li>]
+					</BOUCLE_categories>
 				</ul>
 			</div>
-			</B_categories>
+		</B_categories>
 
-			[(#REM) archives]
-			<B_archives>
+		[(#REM) archives]
+		<B_archives>
 			<div class="archives">
 				<h3 class="accessibility">Archives</h3>
 				<ul class="h">
-				<BOUCLE_archives(ARTICLES){id_secteur=1}{!par date}{mois_relatif!=0}>
-					[<li><a href="/blog/archives/[(#DATE|affdate{'Y-m'})]"[ title="<:archives_de:> (#DATE|affdate_mois_annee)"]>(#DATE|affdate_mois_annee|unique)</a></li>]
-				</BOUCLE_archives>
+					<BOUCLE_archives(ARTICLES){id_secteur=1}{!par date}{mois_relatif!=0}>
+						[<li><a href="/blog/archives/[(#DATE|affdate{'Y-m'})]"[ title="<:archives_de:> (#DATE|affdate_mois_annee)"]>(#DATE|affdate_mois_annee|unique)</a></li>]
+					</BOUCLE_archives>
 				</ul>
 			</div>
-			</B_archives>
+		</B_archives>
 
 			[(#REM) Sites de la rubrique ]
 			<B_sites>
-			<div class="blogroll">
-				<h3 class="accessibility">Blogroll</h3>
-				<ul class="h">
-				<BOUCLE_sites(SITES) {id_rubrique=1} {par nom_site}>
-					<li>
-						<a href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT})]">#NOM_SITE</a>
-					</li>
-				</BOUCLE_sites>
-				</ul>
+				<div class="blogroll">
+					<h3 class="accessibility">Blogroll</h3>
+					<ul class="h">
+						<BOUCLE_sites(SITES) {id_rubrique=1} {par nom_site}>
+							<li><a href="[(#ID_SYNDIC|generer_url_entite{site,'','',#CONNECT})]">#NOM_SITE</a></li>
+						</BOUCLE_sites>
+					</ul>
 				</B_sites>
 			</div>
-
-		</div><!--.menu-->
-
- </div><!--#navigation-->
+	</div>
+</div>
