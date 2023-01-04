@@ -3,9 +3,10 @@
 	cache d'un mois, juste pour voir comme ca]
 #CACHE{2592000}
 <BOUCLE_principale(RUBRIQUES) {id_rubrique}>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR" class="h-feed">
+<!DOCTYPE html>
+<html lang="#LANG" dir="#LANG_DIR">
 <head>
+<meta charset="utf-8">
 <title class="p-name">[(#TITRE|textebrut) - ]
 	<BOUCLE_blogroot(RUBRIQUES){id_rubrique=1}>
 	[(#DESCRIPTIF|textebrut)]

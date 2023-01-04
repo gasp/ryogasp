@@ -2,9 +2,10 @@
 	on calcule une fois par mois
 ]#CACHE{2592000}
 <BOUCLE_rubrique_principale_head(RUBRIQUES){id_rubrique}>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<!DOCTYPE html>
+<html lang="#LANG" dir="#LANG_DIR">
 <head>
+<meta charset="utf-8">
 <title>[(#DESCRIPTIF|textebrut)] [| (#ENV{date}|affdate)]</title>
 [<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{100}|textebrut)[archives du (#ENV{date}|affdate)]" />]
 [<meta name-"date" content="(#ENV{date})">]

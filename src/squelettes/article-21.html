@@ -1,13 +1,13 @@
 [(#REM)
 	blog gameover article
 	quand les articles sont créés, ils ne sont jamais modifiés
-	pau de publications
 	cache d'un trimestre
 ]#CACHE{7776000}
 <BOUCLE_principale(ARTICLES) {id_article}>
-<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<!DOCTYPE html>
+<html lang="#LANG" dir="#LANG_DIR">
 <head>
+<meta charset="utf-8">
 <title>[(#TITRE|attribut_html) - ]
 	<BOUCLE_blogroot(RUBRIQUES){id_rubrique=21}>
 		[(#DESCRIPTIF|attribut_html)]
