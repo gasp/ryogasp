@@ -6,17 +6,6 @@
 
 -------------------------------------------------------------- */
 
-body {
-	text-align: center;
-	background: #dedbc5 url(img/sommaire/bg.png) repeat-x scroll top left;
-}
-#page {
-	text-align: left;
-	background: transparent url(img/sommaire/page.png) repeat-y scroll top center;
-}
-#container{
-	background: transparent url(img/sommaire/header_inner.png) no-repeat scroll top center;
-}
 #main{
 	position: relative;
 	width: 930px;
@@ -29,7 +18,6 @@ body {
 .aside { float: left; width: 230px; overflow: hidden; margin:100px 0 1em 50px;}
 .footer {
 	clear:both;
-	background: transparent url(img/sommaire/footer.png) no-repeat scroll top center;
 	height:63px;
 	text-align:center;
 }
