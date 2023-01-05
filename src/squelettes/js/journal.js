@@ -27,6 +27,8 @@ var fixImg = function() {
 					})()];
 					element.src = src;
 					element.dataset.lazy = false;
+					element.setAttribute('width','100%');
+					element.setAttribute('height','auto');
 				}
 			} else {
 				element.removeAttribute("width");

@@ -1,4 +1,4 @@
-<BOUCLE_doc (DOCUMENTS) {id_document} {tout}>
+<BOUCLE_doc (DOCUMENTS) {id_document=#ID} {tout}>
 [<!--(#REM)
 
 	Modele pour <doc> en dl/dt/dd
@@ -32,8 +32,8 @@
 
 [(#ENV{largeur,0}|ou{#ENV{hauteur,0}})
 	#SET{fichier,#GET{fichier}|image_reduire{#ENV{largeur,0},#ENV{hauteur,0}}}
-	#SET{width,#GET{fichier}|largeur}
-	#SET{height,#GET{fichier}|hauteur}
+	#SET{width,#GET{fichier}|largeur|intval}
+	#SET{height,#GET{fichier}|hauteur|intval}
 	#SET{fichier,#GET{fichier}|extraire_attribut{src}}
 	#SET{url,#ENV{lien,#URL_DOCUMENT}}
 ]
@@ -47,17 +47,15 @@
 
 <figure class='spip_photo spip_img_responsive spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
 	<img
+	  src="#GET{pico_fichier}"
 		[ alt="(#TITRE)"]
-		src='#GET{pico_fichier}'
 		style="width:100%"
-		width="100%"
-		height="auto"
 		data-small="#GET{s_fichier}"
 		data-medium="#GET{m_fichier}"
 		data-large="#GET{l_fichier}"
 		data-xlarge="#GET{xl_fichier}"
 		data-lazy="yes"
-		data-locked="yes"
+		data-locked="no"
 	>
 [<figcaption>
 	<div class='#EDIT{titre} title'>(#TITRE)</div>
