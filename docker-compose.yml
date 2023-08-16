@@ -20,7 +20,7 @@ services:
       - ./src/config:/var/www/html/config:rw
     restart: unless-stopped
   mariadb:
-    image: mariadb:latest
+    image: mariadb:10.4
     volumes:
       - ./maria/database:/var/lib/mysql
       - ./maria/logs:/var/log/mysql/:rw
