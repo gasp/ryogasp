@@ -84,3 +84,10 @@ curl -0 https://raw.githubusercontent.com/gasp/ryogasp/master/src/.htaccess > .h
 (todo)
 put these dir outside the spip root path
 redefine _DIR_TMP & _DIR_CONNECT constants in mes_options.php
+
+# spip plugins
+install
+* [hash_documents](https://contrib.spip.net/Le-plugin-hash_documents) https://plugins.spip.net/hasher
+* [squelettes_par_rubrique](https://plugins.spip.net/squelettes_par_rubrique.html)
+* [comments](https://plugins.spip.net/comments.html)
+* [breves](https://plugins.spip.net/breves.html)
