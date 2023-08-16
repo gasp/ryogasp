@@ -18,8 +18,10 @@ services:
       - ./src/plugins:/var/www/html/plugins:rw
       - ./src/tmp/dump:/var/www/html/tmp/dump:rw
       - ./src/config:/var/www/html/config:rw
+      - ./src/ryogasp.htaccess:/var/www/html/.htaccess
     restart: unless-stopped
   mariadb:
+    # upgrade: https://mariadb.com/docs/server/service-management/upgrades/community-server/release-series-cs10-6/
     image: mariadb:10.4
     volumes:
       - ./maria/database:/var/lib/mysql
