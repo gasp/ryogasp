@@ -26,13 +26,15 @@
 <div id="main-container">
 	<div id="main" class="wrapper clearfix">
 		<div class="content">
-[<h2>Résultats de la recherche de &ldquo;(#ENV{recherche})&rdquo;</h2>
-[(#INCLURE{fond=inclure/journal_recherche,env})]
-]
-[(#ENV{archive}|?{
-[(#INCLURE{fond=inclure/journal_archives}{date=#ENV{archive}})],
-[(#INCLURE{fond=inclure/journal_list,env})]
+
+[(#ENV{recherche}|?{
+	[(#INCLURE{fond=inclure/journal_recherche,env})],
+	[(#ENV{archive}|?{
+		[(#INCLURE{fond=inclure/journal_archives}{date=#ENV{archive}})],
+		[(#INCLURE{fond=inclure/journal_list,env})]
+	})]
 })]
+
 		</div><!-- /.content-->
 		<aside>
 			<section>
