@@ -273,9 +273,6 @@ td {
 #main article header {
   padding: 2em 0;
 }
-#main aside {
-  padding: 0px 5% 10px;
-}
 #main aside section {
   display: none;
 }
@@ -300,16 +297,10 @@ td {
   display: none;
   float: right;
 }
-/* ===============
-    ALL: IE Fixes
-   =============== */
-.ie7 #title {
-  padding-top: 20px;
-}
 @font-face {
-  font-family: 'AdelleBasicBold';
-  src: url('adellebasic_bold-adelle.eot');
-  src: url('adellebasic_bold-adelle.eot?#iefix') format('eot'), url('adellebasic_bold-adelle.woff') format('woff'), url('adellebasic_bold-adelle.ttf') format('truetype'), url('adellebasic_bold-adelle.svgz#webfontQtT5Mhrs') format('svg'), url('adellebasic_bold-adelle.svg#webfontQtT5Mhrs') format('svg');
+  font-family: "AdelleBasicBold";
+  src: url("adellebasic_bold-adelle.eot");
+  src: url("adellebasic_bold-adelle.eot?#iefix") format("eot"), url("adellebasic_bold-adelle.woff") format("woff"), url("adellebasic_bold-adelle.ttf") format("truetype"), url("adellebasic_bold-adelle.svgz#webfontQtT5Mhrs") format("svg"), url("adellebasic_bold-adelle.svg#webfontQtT5Mhrs") format("svg");
   font-weight: normal;
   font-style: normal;
   font-display: swap;
@@ -321,7 +312,7 @@ h1,
 h2 {
   font-weight: normal;
   font-style: normal;
-  font-family: 'AdelleBasicBold', Georgian, Times, serif;
+  font-family: "AdelleBasicBold", Georgian, Times, serif;
   line-height: 1em;
 }
 .active {
@@ -463,8 +454,8 @@ li.erreur input.text,
 li.erreur input[type="password"],
 li.erreur input.password,
 li.erreur textarea {
-  background-color: #FBE3E4;
-  border-color: #FBC2C4;
+  background-color: #fbe3e4;
+  border-color: #fbc2c4;
 }
 .comments .vcard .avatar {
   border: medium none;
@@ -661,22 +652,7 @@ a.badge:hover {
  */
 @media only screen and (min-width: 321px) {
   body {
-    background: #ffffff;
-    /* Old browsers */
-    background: -moz-linear-gradient(top, #ffffff 0%, #fefefe 100%);
-    /* FF3.6+ */
-    background: -webkit-gradient(linear, left top, left bottom, color-stop(0%, #ffffff), color-stop(100%, #fefefe));
-    /* Chrome,Safari4+ */
-    background: -webkit-linear-gradient(top, #ffffff 0%, #fefefe 100%);
-    /* Chrome10+,Safari5.1+ */
-    background: -o-linear-gradient(top, #ffffff 0%, #fefefe 100%);
-    /* Opera 11.10+ */
-    background: -ms-linear-gradient(top, #ffffff 0%, #fefefe 100%);
-    /* IE10+ */
     background: linear-gradient(to bottom, #ffffff 0%, #fefefe 100%);
-    /* W3C */
-    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='@fakewhitelight', endColorstr='@fakewhitedark', GradientType=0);
-    /* IE6-9 */
   }
   #header-container h1#title {
     font-size: 3em;
@@ -699,6 +675,7 @@ a.badge:hover {
     width: 57%;
   }
   #main aside {
+    padding: 0px 5% 10px;
     float: right;
     width: 28%;
   }
@@ -711,6 +688,11 @@ a.badge:hover {
     width: 1024px;
     /* 1140px - 10% for margins */
     margin: 0 auto;
+  }
+}
+@media only screen and (pointer: coarse) {
+  #main aside section.feeds {
+    display: none;
   }
 }
 /* =============================================================================
@@ -767,10 +749,8 @@ a.badge:hover {
 .clearfix {
   *zoom: 1;
 }
-/* =============================================================================
-   Print Styles
-   ========================================================================== */
 @media print {
+  /* black prints faster (source: html5boilerplate.com) */
   * {
     background: transparent !important;
     color: black !important;
@@ -779,25 +759,13 @@ a.badge:hover {
     filter: none !important;
     -ms-filter: none !important;
   }
-  /* Black prints faster: h5bp.com/s */
+  @page {
+    margin: 0.5cm;
+  }
   a,
   a:visited {
     text-decoration: underline;
   }
-  article p a[href]:after {
-    content: " (" attr(href) ")";
-  }
-  article p abbr[title]:after {
-    content: " (" attr(title) ")";
-  }
-  header a[href]:after,
-  .comment-meta a[href]:after,
-  .ir a:after,
-  a[href^="javascript:"]:after,
-  a[href^="#"]:after {
-    content: "";
-  }
-  /* Don't show links for images,  links */
   pre,
   blockquote {
     border: 1px solid #999;
@@ -806,16 +774,12 @@ a.badge:hover {
   thead {
     display: table-header-group;
   }
-  /* h5bp.com/t */
   tr,
   img {
     page-break-inside: avoid;
   }
   img {
     max-width: 100% !important;
-  }
-  @page {
-    margin: 0.5cm;
   }
   p,
   h2,
@@ -827,28 +791,25 @@ a.badge:hover {
   h3 {
     page-break-after: avoid;
   }
+  /* display links destination */
+  article p a[href]:after {
+    content: " (" attr(href) ")";
+  }
+  article p abbr[title]:after {
+    content: " (" attr(title) ")";
+  }
+  /*  don't show links for headers, comments, javascript, internal links */
+  header a[href]:after,
+  .comment-meta a[href]:after,
+  .ir a:after,
+  a[href^="javascript:"]:after,
+  a[href^="#"]:after {
+    content: "";
+  }
   aside,
   footer {
     display: none;
   }
-}
-.search-bar {
-  text-align: right;
-  width: 100%;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background-color: rgba(0, 0, 0, 0.2);
-}
-.search-bar form {
-  display: block;
-  margin: 0;
-  padding: 2px;
-}
-.search-bar form label {
-  display: inline-block;
-  margin: 0;
-  padding: 0 10px;
 }
 #spip-admin .spip-admin-bloc,
 #spip-admin.spip-admin-float {

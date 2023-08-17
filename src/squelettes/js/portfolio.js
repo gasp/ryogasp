@@ -13,21 +13,10 @@ $(function(){
 
 	// portfolio
 	portfolio.init();
-
-	// search
-	// activate only if touch is not enabled
-	// this could be moved to Modernizr if used
-	if(!app.isTouch())
-		$("aside section.search").hide();
-	else
-		search.init();
-
-	if(app.isTouch())
-		$("aside section.feeds").hide();
-
 });
 
 var app = window.app || {};
+console.log("portfolio.js loaded")
 
 var portfolio = {
 	env: {},
@@ -353,54 +342,5 @@ var portfolio = {
 		}).mouseout(function(){
 			raquo.css({'visibility':'hidden'});
 		}).append(raquo);
-	}
-};
-
-var search = {
-	initialized: false,
-	opened: false,
-	init: function() {
-		this.create();
-		this.hide();
-		this.listen();
-		this.initialized = true;
-	},
-	listen: function() {
-		var that = this;
-		$(document).on("keypress", function(ev) {
-			if ($(ev.target).is('input, textarea'))
-				return;
-			if(ev.which==102 && (ev.ctrlKey || ev.metaKey)) {
-				that.show();
-				console.log(ev);
-				return false;
-			}
-		});
-		$("#search-bar-field").on("keypress", function(ev) {
-			console.log(ev);
-			if(ev.keyCode == 27)
-				that.hide();
-		});
-	},
-	create: function() {
-		var div = document.createElement("div"), // fastest way
-			form = document.createElement("form"),
-			label = document.createElement("label"),
-			input = document.createElement("input");
-		$(input).attr({"type": "search", "id": "search-bar-field", "name": "recherche","autocorrect":"off","autocapitalize":"off"});
-		$(label).attr("for","search-bar-field").text("search");
-		$(form).attr("action","/journal/").append(label,input);
-		$(div).addClass("search-bar").append(form)
-		$("body").append(div);
-	},
-	show: function() {
-		$(".search-bar").show();
-		$("#search-bar-field").focus();
-		this.opened = true;
-	},
-	hide: function() {
-		$(".search-bar").hide();
-//		$(document).focus();
-		this.opened = false;
 	}
 };

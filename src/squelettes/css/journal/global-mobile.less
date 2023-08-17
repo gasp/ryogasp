@@ -1,59 +1,60 @@
-.wrapper{
-	width:85%;
-	margin:0 5%;
+.wrapper {
+	width: 85%;
+	margin: 0 5%;
 }
 
-::-moz-selection { background: #369; color: #fff; text-shadow: none; }
-::selection      { background: #369; color: #fff; text-shadow: none; }
+::-moz-selection {
+	background: #369;
+	color: #fff;
+	text-shadow: none;
+}
+::selection {
+	background: #369;
+	color: #fff;
+	text-shadow: none;
+}
 
-#main{
-	section.content{
-		padding:2em 0
+#main {
+	section.content {
+		padding: 2em 0;
 	}
-	article{
-		img{
+	article {
+		img {
 			max-width: 100%;
 		}
-		header{
-			padding:2em 0
+		header {
+			padding: 2em 0;
 		}
 	}
 }
 
-#main aside{
-	padding:0px 5% 10px;
-	section{
-		display:none;
-		&.nav{
-			display:block;
+#main aside {
+	section {
+		display: none;
+		&.nav {
+			display: block;
 		}
 	}
 }
 
-#footer-container footer{
-	border-top:1px solid @light;
+#footer-container footer {
+	border-top: 1px solid @light;
 
-	.colophon{
-		a{
-			text-decoration:none;
-			color:@dark;
-			display:none; // responsive
+	.colophon {
+		a {
+			text-decoration: none;
+			color: @dark;
+			display: none; // responsive
 			&.login_modal {
 				display: inline;
 			}
 		}
-		.sep{
-			display:none
+		.sep {
+			display: none;
 		}
 	}
-	.tech{
-		display:none;
-		float:right;
+	.tech {
+		display: none;
+		float: right;
 	}
 }
-
-/* ===============
-    ALL: IE Fixes
-   =============== */
-
-.ie7 #title{ padding-top:20px; }

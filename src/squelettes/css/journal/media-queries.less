@@ -2,56 +2,55 @@
  */
 // more than portrait iPhone
 @media only screen and (min-width: 321px) {
-	body{
-		background: @fakewhitelight; /* Old browsers */
-		background: -moz-linear-gradient(top,  @fakewhitelight 0%, @fakewhitedark 100%); /* FF3.6+ */
-		background: -webkit-gradient(linear, left top, left bottom, 
-			color-stop(0%, @fakewhitelight), color-stop(100%, @fakewhitedark)); /* Chrome,Safari4+ */
-		background: -webkit-linear-gradient(top, @fakewhitelight 0%,@fakewhitedark 100%); /* Chrome10+,Safari5.1+ */
-		background: -o-linear-gradient(top, @fakewhitelight 0%,@fakewhitedark 100%); /* Opera 11.10+ */
-		background: -ms-linear-gradient(top,  @fakewhitelight 0%,@fakewhitedark 100%); /* IE10+ */
-		background: linear-gradient(to bottom, @fakewhitelight 0%,@fakewhitedark 100%); /* W3C */
-		filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='@fakewhitelight', endColorstr='@fakewhitedark',GradientType=0 ); /* IE6-9 */
+	body {
+		background: linear-gradient(to bottom, @fakewhitelight 0%, @fakewhitedark 100%);
 	}
-	#header-container{
-		h1#title{
-			font-size:3em;
+	#header-container {
+		h1#title {
+			font-size: 3em;
 		}
 		.last_pubdate, .ariane{
-			display:block;
+			display: block;
 		}
 	}
 	#footer-container footer .colophon a,
-	#footer-container footer .colophon .sep{
-		display:inline;
+	#footer-container footer .colophon .sep {
+		display: inline;
 	}
-	#main aside section{
-		display:block;
+	#main aside section {
+		display: block;
 	}
-	
 }
 
-// more than 900px width, a little wider than iPad (ipad is 768)
+// more than 900px width, a little wider than old iPad
 @media only screen and (min-width: 901px) {
 
-	#main .content{
-		float:left;
-		width:57%;
+	#main .content {
+		float: left;
+		width: 57%;
 	}
 
-	#main aside{
-		float:right;
-		width:28%;
+	#main aside {
+		padding: 0px 5% 10px;
+		float: right;
+		width: 28%;
 	}
-	#footer-container footer .tech{
-		display:block;
+	#footer-container footer .tech {
+		display: block;
 	}
 }
 
+// maximal width
 @media only screen and (min-width: 1140px) {
-	// Maximal Width
-	.wrapper{
-		width:1024px; /* 1140px - 10% for margins */
-		margin:0 auto;
+	.wrapper {
+		width: 1024px; /* 1140px - 10% for margins */
+		margin: 0 auto;
+	}
+}
+
+// hide feed section for touch devices
+@media only screen and (pointer:coarse) {
+	#main aside section.feeds {
+		display: none;
 	}
 }

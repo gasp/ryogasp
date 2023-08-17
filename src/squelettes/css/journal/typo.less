@@ -1,137 +1,138 @@
 @font-face {
-	font-family: 'AdelleBasicBold';
-	src: url('adellebasic_bold-adelle.eot');
-	src: url('adellebasic_bold-adelle.eot?#iefix')
-		format('eot'), url('adellebasic_bold-adelle.woff')
-		format('woff'), url('adellebasic_bold-adelle.ttf')
-		format('truetype'),
-		url('adellebasic_bold-adelle.svgz#webfontQtT5Mhrs')
-		format('svg'),
-		url('adellebasic_bold-adelle.svg#webfontQtT5Mhrs')
-		format('svg');
+	font-family: "AdelleBasicBold";
+	src: url("adellebasic_bold-adelle.eot");
+	src: url("adellebasic_bold-adelle.eot?#iefix") format("eot"),
+		url("adellebasic_bold-adelle.woff") format("woff"),
+		url("adellebasic_bold-adelle.ttf") format("truetype"),
+		url("adellebasic_bold-adelle.svgz#webfontQtT5Mhrs") format("svg"),
+		url("adellebasic_bold-adelle.svg#webfontQtT5Mhrs") format("svg");
 	font-weight: normal;
 	font-style: normal;
 	font-display: swap;
 }
 
+body {
+	font: 16px/26px Georgia;
+}
 
-//body{ font:16px/26px 'Helvetica Neue',Helvetica, Arial; }
-body{ font:16px/26px Georgia; }
-
-h1,h2{
-	font-weight:normal;
+h1,
+h2 {
+	font-weight: normal;
 	font-style: normal;
-	font-family: 'AdelleBasicBold', Georgian, Times, serif;
-	line-height:1em
+	font-family: "AdelleBasicBold", Georgian, Times, serif;
+	line-height: 1em;
 }
 
-.active{
-	font-weight:bold;
+.active {
+	font-weight: bold;
 }
-.light{
-	color:@grey;
+.light {
+	color: @grey;
 }
 
-#header-container{
-	color:@dark;
-	h1#title{
-		font-size:2.1em;
-		margin-bottom:.1em;
-		a{
-			color:@dark;
-			text-decoration:none;
-			&:visited{
-				color:@dark;
-			}
-			&:hover{
-				color:@hover;
-			}
-		}
-	}
-	.last_pubdate, .ariane{
-		display:none; // responsive
-		color:#ccc;
+#header-container {
+	color: @dark;
+	h1#title {
+		font-size: 2.1em;
+		margin-bottom: 0.1em;
 		a {
-			color:#bbb;
-			text-decoration:none;
-			&:hover{
-				text-decoration:underline;
+			color: @dark;
+			text-decoration: none;
+			&:visited {
+				color: @dark;
+			}
+			&:hover {
+				color: @hover;
+			}
+		}
+	}
+	.last_pubdate,
+	.ariane {
+		display: none; // responsive
+		color: #ccc;
+		a {
+			color: #bbb;
+			text-decoration: none;
+			&:hover {
+				text-decoration: underline;
 			}
 		}
 	}
 }
 
-article{
-	header{
-		h1,h2{
-			margin-bottom:.1em;
-			a{
-				text-decoration:none;
-				color:@darker;
-				&:visited{
-					color:@darker;
+article {
+	header {
+		h1,
+		h2 {
+			margin-bottom: 0.1em;
+			a {
+				text-decoration: none;
+				color: @darker;
+				&:visited {
+					color: @darker;
 				}
-				&:hover{
-					color:@hover;
+				&:hover {
+					color: @hover;
 				}
 			}
 		}
-		h1{
-			font-size:1.8em;
-			margin-top:0;
+		h1 {
+			font-size: 1.8em;
+			margin-top: 0;
 		}
-		p{
-			margin:0;
-			padding:0;
-		}
-	}
-	section.chapo{
-		font-size:1.1em;
-		padding-left:1em;
-		color:@dark;
-		border-left:.5em solid @light;
-	}
-	section{
-		h2{
-			font-size:1.6em;
-		}
-		blockquote.spip_poesie{
-			color:@grey;
+		p {
+			margin: 0;
+			padding: 0;
 		}
 	}
-	figure{
-		margin:.3em 0 1em 0;
-		figcaption{
-			margin:.3em 0;
+	section.chapo {
+		font-size: 1.1em;
+		padding-left: 1em;
+		color: @dark;
+		border-left: 0.5em solid @light;
+	}
+	section {
+		h2 {
+			font-size: 1.6em;
+		}
+		blockquote.spip_poesie {
+			color: @grey;
+		}
+	}
+	figure {
+		margin: 0.3em 0 1em 0;
+		figcaption {
+			margin: 0.3em 0;
 
-			.title{
-				font-weight:normal;
-				font-size:.8em;
-				line-height:1.2em;
-				padding:.4em;
+			.title {
+				font-weight: normal;
+				font-size: 0.8em;
+				line-height: 1.2em;
+				padding: 0.4em;
 			}
-			.legend{
-				font-weight:normal;
-				font-size:.7em;
-				line-height:1.1em;
-				padding:.4em;
+			.legend {
+				font-weight: normal;
+				font-size: 0.7em;
+				line-height: 1.1em;
+				padding: 0.4em;
 			}
 		}
 	}
-	.spip_documents_left{
-		margin:1em 1em 1em 0;
+	.spip_documents_left {
+		margin: 1em 1em 1em 0;
 	}
-	.spip_documents_right{
-		margin:1em 0 1em 1em;
+	.spip_documents_right {
+		margin: 1em 0 1em 1em;
 	}
-	footer hr{
-		clear:both;
+	footer hr {
+		clear: both;
 	}
 }
 
-aside{
-	font-size:.8em;
-	ul,ol {
+aside {
+	font-size: 0.8em;
+	ul,
+	ol {
 		padding: 0 0 0 20px;
 	}
 }
