@@ -2,10 +2,9 @@
   "name": "ryogasp",
   "version": "4.0.0",
   "description": "ryogasp.com files",
-  "main": "gulpfile.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "gulp less"
+    "build": "lessc src/squelettes/css/journal/style.less src/squelettes/css/journal/style.css"
   },
   "repository": {
     "type": "git",
@@ -18,7 +17,6 @@
   },
   "homepage": "https://forge.freelancis.net/gasp/ryogasp",
   "devDependencies": {
-    "gulp": "^4.0.2",
-    "gulp-less": "^5.0.0"
+    "less": "^4.2.0"
   }
 }
