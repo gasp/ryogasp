@@ -4,7 +4,8 @@
   "description": "ryogasp.com files",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "lessc src/squelettes/css/journal/style.less src/squelettes/css/journal/style.css"
+    "build": "lessc src/squelettes/css/journal/style.less src/squelettes/css/journal/style.css",
+    "dev": "lessc --source-map src/squelettes/css/journal/style.less src/squelettes/css/journal/style.css"
   },
   "repository": {
     "type": "git",

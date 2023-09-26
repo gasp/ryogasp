@@ -415,6 +415,7 @@ article .spip_documents_right {
 }
 article footer hr {
   clear: both;
+  border-top-color: #f4f0f0;
 }
 aside {
   font-size: 0.8em;

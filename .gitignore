@@ -23,9 +23,11 @@
 *.swp
 
 /node_modules/
+/portfolio
 
 /src/squelettes/js/libs/jquery.min.js
 /src/squelettes/js/libs/three.min.js
+/src/squelettes/css/journal/style.css.map
 
 /maria/*
 !/maria/.gitkeep
