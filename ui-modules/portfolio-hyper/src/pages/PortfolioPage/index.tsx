@@ -40,6 +40,19 @@ const SelectIndex = (state: State, index: number) => ({
 const HomePage = (state: State) => (
   <div class={utils.container}>
     <h1>Portfolio</h1>
+    <p>expected experience: http://sydxrey.art/wp/ni-fait-ni-a-faire/</p>
+
+    <p>todo:</p>
+    <ul>
+      <li>change cursor to arrows to scroll between images</li>
+      <li>click left & right to scroll</li>
+      <li>bounce when reachging end / beginning</li>
+      <li>open in bigger screen</li>
+      <li>support panoramic images</li>
+      <li>swipe on mobile</li>
+      <li>scroll content behind it if navigate through images?</li>
+    </ul>
+
     <div class={utils.grid}>
       {state.pictures.map((picture, index) => (
         <div class={utils.card}>
