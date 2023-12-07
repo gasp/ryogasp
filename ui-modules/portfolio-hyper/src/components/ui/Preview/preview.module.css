@@ -1,0 +1,22 @@
+.preview {
+    position: absolute;
+    width: 100vw;
+    height: 10rem;
+    left: 0;
+    background-color: pink;
+}
+
+.current {
+    background-color: #aaa;
+}
+.picture {
+    position: absolute;
+    width: calc(100% - 40px);
+    height: 100px;
+    left: 20px;
+    top: 0;
+    background-color: #ccc;
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
