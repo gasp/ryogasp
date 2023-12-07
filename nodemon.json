@@ -1,0 +1,11 @@
+{
+    "restartable": "rs",
+    "verbose": true,
+    "watch": [
+        "src/squelettes/css/journal/*.less"
+    ],
+    "execMap": {
+        "less": "lessc --source-map src/squelettes/css/journal/style.less src/squelettes/css/journal/style.css"
+    },
+    "ext": ".less"
+}
