@@ -1,4 +1,3 @@
-
 #FILTRE{compacte_head}
 [(#REM)
 	Eviter les boutons d'admin sur la page de login
@@ -13,13 +12,9 @@
 <meta name="viewport" content="width=device-width" />
 <link rel="stylesheet" href="[(#VAL{reset.css}|find_in_theme|direction_css)]" type="text/css" />
 <link rel="stylesheet" href="[(#VAL{clear.css}|find_in_theme|direction_css)]" type="text/css" />
-<link rel="stylesheet" href="[(#VAL{minipres.css}|find_in_theme|direction_css)]" type="text/css" />
-#INSERT_HEAD
+<link rel="stylesheet" href="[(#VAL{login_prive.css}|find_in_theme|direction_css)]" type="text/css" />
+#INSERT_HEAD[
 <script type='text/javascript'>
-jQuery(function(){ jQuery('input#var_login').focus();
-jQuery('a#spip_pass').click(function(){window.open(this.href, 'spip_pass', 'scrollbars=yes, resizable=yes, width=480, height=380'); return false;});
-});
-
 document.addEventListener('DOMContentLoaded', function() {
   if (self.location.protocol !== 'https:') {
     document.getElementById('minipres').style.display = 'none';
@@ -33,11 +28,38 @@ document.addEventListener('DOMContentLoaded', function() {
   }
 });
 </script>
-<meta name="generator" content="SPIP[ (#SPIP_VERSION)]" />
+<style>
+  #redirect_notice {
+    display: none;
+    max-width: 500px;
+    background: rgba(0,0,0,.5);
+    padding: 2em;
+    margin: 3em auto auto auto;
+  }
+  #safety {
+    display: block;
+    margin: 1rem 0;
+    padding: 1rem;
+    text-align: center;
+    text-decoration: none;
+    font-size: 1.2em;
+    background-color: rgb(207, 226, 207);
+    color: green;
+  }
+  #safety:hover {
+    background-color: rgb(191, 231, 191);
+    color: rgb(2, 148, 2);
+  }
+  #dangerous {
+    color: white
+  }
+</style>
+<meta name="generator" content="SPIP (#SPIP_VERSION|header_silencieux)" />]
+[(#REM|styles_inline_page_login_pass)]
 </head>
-<body class="page_login">
+<body class="page_login" [ (#ENV{body_class})]>
 
-<div id="redirect_notice" style="display: none; max-width: 500px; background: #fff; padding: 2em; margin: auto; border: 1px solid orange">
+<div id="redirect_notice">
   <p>Depuis quelques temps, ryogasp.com est également disponible en https.</p>
   <p>
     Tant qu'à faire, je préfèrerais qu'on accède à l'espace privé avec https,
@@ -45,11 +67,11 @@ document.addEventListener('DOMContentLoaded', function() {
     le risque est limité vu qu'on se connecte de chez nous vers notre propre
     serveur, mais bon.
   </p>
-  <p>
-    <a style="font-size: 1.3em; color: green" id="safety" href="https://ryogasp.com/ecrire">
+
+    <a id="safety" href="https://ryogasp.com/ecrire">
       Accéder à l'espace privé de manière sécurisée.
     </a>
-  </p>
+
   <p>
     ou sinon, <a id="dangerous" href="http://ryogasp.com/ecrire">afficher le
     formulaire</a> et se connecter sans accès sécurisé.
