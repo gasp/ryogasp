@@ -2,7 +2,7 @@
 <section class="articles">
 <B_articles>
 #ANCRE_PAGINATION
-<BOUCLE_articles(ARTICLES) {id_rubrique=32} {par date}{inverse} {pagination}>
+<BOUCLE_articles(ARTICLES) {id_rubrique=32} {par date}{inverse} {pagination 5}>
 <article>
 	<header>
 		<h1>[<a href="#URL_ARTICLE">(#TITRE|sinon{sans titre})</a>]</h1>
@@ -16,8 +16,7 @@
 	<section>
 [		<div>(#TEXTE|image_reduire{700,0})</div>]
 	</section>
-	
-	
+
 	[(#REM) Gestion du portfolio et des documents ]
 	<section class="journal_portfolio">
 		[(#INCLURE{fond=inclure/journal_portfolio,id_article, env})]
@@ -34,7 +33,7 @@
 			[<div class="comments-nb">(#MODELE{comments-nb})</div>]
 		<//B_age>
 	</footer>
-	
+
 </article>
 </BOUCLE_articles>
 [<p class="pagination">(#PAGINATION)</p>]
