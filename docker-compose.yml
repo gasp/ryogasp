@@ -1,5 +1,3 @@
-# integrate ipeos/spip + mariadb + create network (based on wordpress)
-
 version: '3'
 services:
   spip:

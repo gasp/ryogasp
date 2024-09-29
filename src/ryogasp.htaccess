@@ -1,6 +1,6 @@
 # SPIP v 4.2.4
 # ryogasp v 3.2.1
-
+# vim: set ft=apache ts=2 sw=2 et:
 RewriteEngine On
 RewriteBase /
 
