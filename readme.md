@@ -1,34 +1,9 @@
+# system requirements
 
-# migration
+- choose any ubuntu/debian distro
+- install docker and nginx `# apt-get install docker nginx`
+- docker user id matching
 
-how to migrate from remote spip to docker spip
-
-## on remote
-
-```
-install spip-cli
-~/.local/bin/spip sql:dump:create
-```
-copy on local
-```
-scp ryogasp.com:/home/ryogasp/ryogasp.com/www/tmp/dump/ryogasp_20200201.sqlite .
-
-copy plugins
-from `/src/` dir
-scp -r ryogasp.com:/home/ryogasp/ryogasp.com/www/plugins ./plugins
-```
-
-## on local
-
-(on ububtu 18)
-
-### install docker and nginx
-
-```
-# apt-get install docker nginx
-
-```
-### user id matching
 ```
 # systemctl enable docker
 
@@ -40,12 +15,14 @@ scp -r ryogasp.com:/home/ryogasp/ryogasp.com/www/plugins ./plugins
 }
 ```
 
-### connect to docker and import
+# data dump import
+
+check in scripts/
 
 ```
 docker exec -it ryogasp_spip_1 bash
 cd tmp/dump
-spip sql:dump:restore --name ryogasp_20200428
+spip sql:dump:restore --name ryogasp_20xx0428
 ```
 
 you can check if everything went fine into mariadb
@@ -54,7 +31,21 @@ you can check if everything went fine into mariadb
 if this does not work, create a temporary superadmin
 `spip auteurs:superadmin` if lang is fucked up, set spip_lang=fr into cookies
 
+# install spip plugins
+
+install these required plugins:
+
+```
+cd scripts && bash plugins.sh
+```
+
+- [hash_documents](https://plugins.spip.net/hasher) [complete article (fr)](https://contrib.spip.net/Le-plugin-hash_documents)
+- [squelettes_par_rubrique](https://plugins.spip.net/squelettes_par_rubrique.html)
+- [comments](https://plugins.spip.net/comments.html)
+- [breves](https://plugins.spip.net/breves.html)
+
 # configure nginx
+
 ## nginx as a proxy to docker container
 
 check file doc/nginx_proxy.txt
@@ -67,31 +58,42 @@ http://geekyplatypus.com/dockerise-your-php-application-with-nginx-and-php7-fpm/
 ## https
 
 use certbot to en able https via letsencrypt
+
 ```
 apt-get install certbot python-certbot-nginx
 certbot --nginx
 ```
+
 ## on apache
 
 get rid of default .htaccess and get the custom one
 
 (from inside the container `docker exec -it ryogasp_spip_1 bash`)
+
 ```
-curl -0 https://raw.githubusercontent.com/gasp/ryogasp/master/src/.htaccess > .htaccess
+curl -0 https://raw.githubusercontent.com/gasp/ryogasp/refs/heads/master/src/ryogasp.htaccess > .htaccess
 ```
 
 # reorganize folders
+
 (todo)
 put these dir outside the spip root path
-redefine _DIR_TMP & _DIR_CONNECT constants in mes_options.php
+redefine \_DIR_TMP & \_DIR_CONNECT constants in mes_options.php
 
-# spip plugins
-install these required plugins:
+# data dump
+
+check in scripts/
 
 ```
-cd scripts && bash plugins.sh
+#!/usr/bin/env bash
+
+date=$(date '+%Y-%m-%d')
+docker exec -it ryogasp_spip_1 spip sql:dump:create --name $date
 ```
-* [hash_documents](https://contrib.spip.net/Le-plugin-hash_documents) https://plugins.spip.net/hasher
-* [squelettes_par_rubrique](https://plugins.spip.net/squelettes_par_rubrique.html)
-* [comments](https://plugins.spip.net/comments.html)
-* [breves](https://plugins.spip.net/breves.html)
+
+automated export in crontab with `crontab -e`
+
+```
+# twice a month, create a dump
+0 0 1,15 \* \* bash /home/ryogasp/ryogasp/scripts/dump.sh >/dev/null 2>&1
+```

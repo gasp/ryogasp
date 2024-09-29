@@ -34,7 +34,13 @@
 !/maria/database/.gitkeep
 !/maria/logs/.gitkeep
 
+/src/tmp/dump/*.sqlite
+scripts/dump-2024-*.sql
+
 !/src/tmp/dump
 !/src/IMG/.gitkeep
 !/src/plugins/.gitkeep
 !/src/config/mes_options.php
+
+/hyper
+/tests
