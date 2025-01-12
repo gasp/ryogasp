@@ -1,15 +1,15 @@
 # system requirements
 
 - choose any ubuntu/debian distro
-- install docker and nginx `# apt-get install docker nginx`
+- install docker and nginx `apt-get install docker nginx`
 - docker user id matching
 
-```
-# systemctl enable docker
+```bash
+systemctl enable docker
 
-# adduser ryogasp
-# usermod -aG docker ryogasp
-# cat /etc/docker/daemon.json
+adduser ryogasp
+usermod -aG docker ryogasp
+cat /etc/docker/daemon.json
 {
   "userns-remap": "ryogasp"
 }
@@ -19,14 +19,14 @@
 
 check in scripts/
 
-```
-docker exec -it ryogasp_spip_1 bash
+```bash
+docker exec -it ryogasp-spip-1 bash
 cd tmp/dump
-spip sql:dump:restore --name ryogasp_20xx0428
+spip sql:dump:restore --name 2025-04-28
 ```
 
 you can check if everything went fine into mariadb
-`docker exec -it ryogasp_mariadb_1 bash`
+`docker exec -it ryogasp-mariadb-1 bash`
 
 if this does not work, create a temporary superadmin
 `spip auteurs:superadmin` if lang is fucked up, set spip_lang=fr into cookies
@@ -35,7 +35,7 @@ if this does not work, create a temporary superadmin
 
 install these required plugins:
 
-```
+```bash
 cd scripts && bash plugins.sh
 ```
 
@@ -59,7 +59,7 @@ http://geekyplatypus.com/dockerise-your-php-application-with-nginx-and-php7-fpm/
 
 use certbot to en able https via letsencrypt
 
-```
+```bash
 apt-get install certbot python-certbot-nginx
 certbot --nginx
 ```
@@ -68,9 +68,9 @@ certbot --nginx
 
 get rid of default .htaccess and get the custom one
 
-(from inside the container `docker exec -it ryogasp_spip_1 bash`)
+(from inside the container `docker exec -it ryogasp-spip-1 bash`)
 
-```
+```bash
 curl -0 https://raw.githubusercontent.com/gasp/ryogasp/refs/heads/master/src/ryogasp.htaccess > .htaccess
 ```
 
@@ -84,16 +84,16 @@ redefine \_DIR_TMP & \_DIR_CONNECT constants in mes_options.php
 
 check in scripts/
 
-```
+```bash
 #!/usr/bin/env bash
 
 date=$(date '+%Y-%m-%d')
-docker exec -it ryogasp_spip_1 spip sql:dump:create --name $date
+docker exec -it ryogasp-spip-1 spip sql:dump:create --name $date
 ```
 
 automated export in crontab with `crontab -e`
 
 ```
 # twice a month, create a dump
-0 0 1,15 \* \* bash /home/ryogasp/ryogasp/scripts/dump.sh >/dev/null 2>&1
+0 0 1,15 * * cd /home/ryogasp/ryogasp/scripts && bash dump.sh >/dev/null 2>&1
 ```
