@@ -15,9 +15,14 @@
 	[<dt>Descriptif</dt><dd>(#DESCRIPTIF|image_reduire{10,*})</dd>]
 	<BOUCLE_portfolio(DOCUMENTS){id_document}{extension==jpg|png|gif}>
 		#SET{pico_fichier,#FICHIER|image_reduire{10,0}|extraire_attribut{src}}
+		#SET{s_fichier,#FICHIER|image_reduire{400,0}|extraire_attribut{src}}
 		<dt>Miniature</dt>
 		<dd>
-			<img alt="document thumbnail" src='#GET{pico_fichier}' style="width: 400px" width="100px" height="auto">
+			<BOUCLE_prive (MOTS) {id_document}{id_mot=4}>
+				<img alt="document thumbnail" src='#GET{pico_fichier}' style="width: 400px">
+			</BOUCLE_prive>
+			<img alt="document thumbnail" src='#GET{s_fichier}' style="width: 400px">
+			<//B_prive>
 		</dd>
 		[<dt>Type</dt>
 		<dd>(#MIME_TYPE)</dd>]

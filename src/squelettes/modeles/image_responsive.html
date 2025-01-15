@@ -47,29 +47,46 @@
 -->
 
 
-[(#REM)
-	alternatively, we could use srcset="#GET{s_fichier} 400w, #GET{m_fichier} 1200w"
-	but we wouldn't do lazy loading and preventing from displaying locked images
-]
-
-<figure class='image_responsive spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
+<BOUCLE_prive (MOTS) {id_document}{id_mot=4}>
+	<figure class='image_responsive image_private spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
+		<img
+			src="#GET{pico_fichier}"
+			[ alt="(#_doc:TITRE)"]
+			style="width:100%"
+			data-ratio="#GET{ratio}"
+			data-small="#GET{s_fichier}"
+			data-medium="#GET{m_fichier}"
+			data-large="#GET{l_fichier}"
+			data-xlarge="#GET{xl_fichier}"
+			data-locked="yes"
+		>
+	[<figcaption>
+		<div class="title">(#_doc:TITRE)</div>
+		[<div class="legend">(#_doc:DESCRIPTIF|PtoBR)[(#_doc:NOTES|PtoBR)]</div>]
+	</figcaption>
+	]
+	</figure>
+</BOUCLE_prive>
+<figure class='image_responsive image_public spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
 	<img
 	  src="#GET{pico_fichier}"
 		[ alt="(#TITRE)"]
-		style="width:100%"
+		style="width:100px"
+		width="auto"
+		height="auto"
 		data-ratio="#GET{ratio}"
-		data-small="#GET{s_fichier}"
-		data-medium="#GET{m_fichier}"
-		data-large="#GET{l_fichier}"
-		data-xlarge="#GET{xl_fichier}"
+		loading="lazy"
+		srcset="[(#GET{s_fichier}) 500w,] [(#GET{m_fichier})  1200w,] #GET{l_fichier} 1530w, #GET{xl_fichier} 2000w"
 		data-locked="no"
 	>
 [<figcaption>
-	<div class='#EDIT{titre} title'>(#TITRE)</div>
-	[<div class='#EDIT{descriptif} legend'>(#DESCRIPTIF|PtoBR)[(#NOTES|PtoBR)]</div>]
+	<div class="title">(#TITRE)</div>
+	[<div class="legend">(#DESCRIPTIF|PtoBR)[(#NOTES|PtoBR)]</div>]
 </figcaption>
 ]
 </figure>
+<//B_prive>
+
 
 </BOUCLE_doc>
 #FILTRE{trim}

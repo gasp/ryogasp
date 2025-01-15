@@ -1,7 +1,7 @@
 var pxlratio = window.devicePixelRatio || 1;
 
 function imageResponsive() {
-	const figures = document.querySelectorAll('.image_responsive');
+	const figures = document.querySelectorAll('.image_responsive.image_private');
 
 	Array.from(figures).forEach(function (figure) {
 		const width = figure.offsetWidth;
@@ -9,21 +9,32 @@ function imageResponsive() {
 
 		image.width = width;
 		image.height = width * 1 / image.dataset.ratio
-		console.log(image);
-		const caption = figure.querySelector('figcaption');
 
+		if (localStorage.getItem('unlockImages')) {
+			const sources = [image.dataset.small, image.dataset.medium, image.dataset.large, image.dataset.xlarge];
+			const sizes = [400, 1200, 1530, 2000];
+			const minsize = width * pxlratio;
+			const index = sizes.findIndex(size => size >= minsize);
+			image.src = sources[index];
+		}
 
-		const sources = [image.dataset.small, image.dataset.medium, image.dataset.large, image.dataset.xlarge];
-		const sizes = [400, 1200, 1530, 2000];
-		const minsize = width * pxlratio;
-		const index = sizes.findIndex(size => size >= minsize);
-		image.src = sources[index];
+		// const caption = figure.querySelector('figcaption');
+		// const debug = document.createElement('div');
+		// debug.innerHTML = `width: ${width}px pixelratio: ${pxlratio} optimalresolution: ${width * pxlratio}px src: ${image.src}`;
+		// caption.appendChild(debug);
 
+	});
 
-		const debug = document.createElement('div');
-		debug.innerHTML = `width: ${width}px pixelratio: ${pxlratio} optimalresolution: ${width * pxlratio}px src: ${image.src}`;
-		caption.appendChild(debug);
-
+	const figures2 = document.querySelectorAll('.image_responsive.image_public');
+	Array.from(figures2).forEach(function (figure) {
+		const image = figure.querySelector('img');
+		const width = figure.offsetWidth;
+		// const caption = figure.querySelector('figcaption');
+		// const debug = document.createElement('div');
+		image.width = width;
+		image.height = width * 1 / image.dataset.ratio
+		// debug.innerHTML = `width: ${width}px currentSrc: ${image.currentSrc}`;
+		// caption.appendChild(debug);
 	});
 }
 
@@ -43,7 +54,7 @@ var unlockOverlay = function (pos, callback) {
 	var explanation = document.createElement('p');
 	explanation.style.padding = '2em';
 	explanation.style.textAlign = 'center';
-	explanation.innerHTML = "Ces images sont bloquées<br /> pour ne pas être indexées "
+	explanation.innerHTML = "Ces images sont bloquées pour ne pas être indexées "
 		+ "dans les moteurs de recherche.<br />";
 	var link = document.createElement('a')
 	link.innerHTML = 'Cliquez pour afficher'
@@ -64,6 +75,7 @@ var displayUnlockForm = function () {
 		var overlay = unlockOverlay(pos, function () {
 			localStorage.setItem('unlockImages', 'true');
 			document.querySelectorAll('div.lockedImageOverlay').forEach(el => el.remove());
+			imageResponsive();
 		});
 		document.body.appendChild(overlay);
 	});
@@ -71,5 +83,5 @@ var displayUnlockForm = function () {
 
 document.addEventListener("DOMContentLoaded", function () {
 	imageResponsive();
-	window.setTimeout(displayUnlockForm, 5000)
+	window.setTimeout(displayUnlockForm, 50)
 });
