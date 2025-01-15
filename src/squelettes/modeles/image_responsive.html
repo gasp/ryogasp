@@ -1,14 +1,11 @@
 <BOUCLE_doc (DOCUMENTS) {id_document=#ID} {tout}>
 [<!--(#REM)
 
-	Modele pour <doc> en dl/dt/dd
-	cf. http://pompage.net/pompe/listesdefinitions/
-
-	La largeur de la legende est egale a la largeur de l'image
-	avec un minimum de 120px, et un maximum de 350px.
-
-	Dans le cas d'une simple image (mode=image), on affiche
-	le document lui-meme, sans lien de telechargement
+	<image_responsive5443>
+	<img5443|reponsive>
+	affiche l'images en lazy loading
+	affiche l'image de la bonne résolution
+	conserve son aspect ratio
 -->]
 
 #SET{fichier,#URL_DOCUMENT}
@@ -16,15 +13,19 @@
 [<!--(#REM) générer le doc avant loading-->]
 #SET{pico_fichier,#GET{fichier}|image_reduire{10,0}|extraire_attribut{src}}
 #SET{s_fichier,#GET{fichier}|image_reduire{400,0}|extraire_attribut{src}}
-#SET{m_fichier,#GET{fichier}|image_reduire{800,0}|extraire_attribut{src}}
-#SET{l_fichier,#GET{fichier}|image_reduire{1200,0}|extraire_attribut{src}}
+#SET{m_fichier,#GET{fichier}|image_reduire{1200,0}|extraire_attribut{src}}
+#SET{l_fichier,#GET{fichier}|image_reduire{1530,0}|extraire_attribut{src}}
 #SET{xl_fichier,#GET{fichier}|image_reduire{2000,0}|extraire_attribut{src}}
+
+#SET{largeur,#GET{fichier}|largeur}
+#SET{hauteur,#GET{fichier}|hauteur}
+#SET{ratio,#GET{largeur}|div{#GET{hauteur}}}
 
 #SET{url,#ENV{lien}}
 [<!--(#REM)
 
 	Si aucune largeur est spécifiée, la placer à 750
-	Si largeur ou hauteur fournit en parametre, redimensionner
+	Si largeur ou hauteur fournit en parametre, redimentionner
 
 -->]
 
@@ -45,16 +46,22 @@
 	large fichier #GET{xl_fichier}<br>
 -->
 
-<figure class='spip_photo spip_img_responsive spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
+
+[(#REM)
+	alternatively, we could use srcset="#GET{s_fichier} 400w, #GET{m_fichier} 1200w"
+	but we wouldn't do lazy loading and preventing from displaying locked images
+]
+
+<figure class='image_responsive spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
 	<img
 	  src="#GET{pico_fichier}"
 		[ alt="(#TITRE)"]
 		style="width:100%"
+		data-ratio="#GET{ratio}"
 		data-small="#GET{s_fichier}"
 		data-medium="#GET{m_fichier}"
 		data-large="#GET{l_fichier}"
 		data-xlarge="#GET{xl_fichier}"
-		data-lazy="yes"
 		data-locked="no"
 	>
 [<figcaption>

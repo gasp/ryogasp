@@ -1,45 +1,35 @@
-var fixImg = function() {
-	// clear spip_photo size, let it be responsive
-	// display lazy loaded images
-	var pxlratio = window.devicePixelRatio || 1;
-	[
-		'.spip_photo img',
-		'.spip_documents img',
-		'.journal_portfolio',
-		'.portfolio_big img'
-	].forEach(function(selector) {
-		var nodes = document.querySelectorAll(selector);
-		Array.from(nodes).forEach(function(element) {
-			if (element.dataset.lazy) {
-				if (element.dataset.locked !== 'yes' || localStorage.getItem('unlockImages')) {
-					var sources = [element.dataset.small, element.dataset.medium, element.dataset.large, element.dataset.xlarge];
-					var sizes = [400, 800, 1200, 2000];
-					var minsize = element.width * pxlratio;
-					var src = sources[(function() {
-						var i = 0; // let
-						while (i < sizes.length) {
-							if (minsize < sizes[i]) {
-								return i;
-							}
-							i++;
-						}
-						return sizes.length - 1; // the last iteration
-					})()];
-					element.src = src;
-					element.dataset.lazy = false;
-					element.setAttribute('width','100%');
-					element.setAttribute('height','auto');
-				}
-			} else {
-				element.removeAttribute("width");
-				element.removeAttribute("height");
-			}
-		});
+var pxlratio = window.devicePixelRatio || 1;
+
+function imageResponsive() {
+	const figures = document.querySelectorAll('.image_responsive');
+
+	Array.from(figures).forEach(function (figure) {
+		const width = figure.offsetWidth;
+		const image = figure.querySelector('img');
+
+		image.width = width;
+		image.height = width * 1 / image.dataset.ratio
+		console.log(image);
+		const caption = figure.querySelector('figcaption');
+
+
+		const sources = [image.dataset.small, image.dataset.medium, image.dataset.large, image.dataset.xlarge];
+		const sizes = [400, 1200, 1530, 2000];
+		const minsize = width * pxlratio;
+		const index = sizes.findIndex(size => size >= minsize);
+		image.src = sources[index];
+
+
+		const debug = document.createElement('div');
+		debug.innerHTML = `width: ${width}px pixelratio: ${pxlratio} optimalresolution: ${width * pxlratio}px src: ${image.src}`;
+		caption.appendChild(debug);
+
 	});
 }
 
-var unlockOverlay = function(pos, callback) {
-	// TODO: use hyperapp for this
+
+var unlockOverlay = function (pos, callback) {
+	// TODO: use hyperapp or mythriljs for this
 	var main = document.createElement('div');
 	main.classList.add('lockedImageOverlay');
 	main.style.position = 'absolute';
@@ -54,7 +44,7 @@ var unlockOverlay = function(pos, callback) {
 	explanation.style.padding = '2em';
 	explanation.style.textAlign = 'center';
 	explanation.innerHTML = "Ces images sont bloquées<br /> pour ne pas être indexées "
-	+ "dans les moteurs de recherche.<br />";
+		+ "dans les moteurs de recherche.<br />";
 	var link = document.createElement('a')
 	link.innerHTML = 'Cliquez pour afficher'
 	link.style.color = 'blue'
@@ -66,21 +56,20 @@ var unlockOverlay = function(pos, callback) {
 	return main;
 }
 
-var displayUnlockForm = function() {
+var displayUnlockForm = function () {
 	if (localStorage.getItem('unlockImages')) return;
 	var nodes = document.querySelectorAll('img[data-locked="yes"]');
-	Array.from(nodes).forEach(function(element) {
+	Array.from(nodes).forEach(function (element) {
 		var pos = element.getBoundingClientRect();
-		var overlay = unlockOverlay(pos, function() {
+		var overlay = unlockOverlay(pos, function () {
 			localStorage.setItem('unlockImages', 'true');
 			document.querySelectorAll('div.lockedImageOverlay').forEach(el => el.remove());
-			fixImg();
 		});
 		document.body.appendChild(overlay);
 	});
 }
 
-document.addEventListener("DOMContentLoaded", function() {
-	fixImg();
+document.addEventListener("DOMContentLoaded", function () {
+	imageResponsive();
 	window.setTimeout(displayUnlockForm, 5000)
 });
