@@ -51,7 +51,7 @@
 	<figure class='image_responsive image_private spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
 		<img
 			src="#GET{pico_fichier}"
-			[ alt="(#_doc:TITRE)"]
+			[ alt="(#_doc:TITRE|attribut_html)"]
 			style="width:100%"
 			data-ratio="#GET{ratio}"
 			data-small="#GET{s_fichier}"
@@ -70,7 +70,7 @@
 <figure class='image_responsive image_public spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
 	<img
 	  src="#GET{pico_fichier}"
-		[ alt="(#TITRE)"]
+		[ alt="(#TITRE|attribut_html)"]
 		style="width:100px"
 		width="auto"
 		height="auto"
