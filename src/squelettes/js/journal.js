@@ -15,7 +15,7 @@ function imageResponsive() {
 			const sizes = [400, 1200, 1530, 2000];
 			const minsize = width * pxlratio;
 			const index = sizes.findIndex(size => size >= minsize);
-			image.src = sources[index];
+			image.src = unrot13(sources[index]);
 		}
 
 		// const caption = figure.querySelector('figcaption');
@@ -81,7 +81,15 @@ var displayUnlockForm = function () {
 	});
 }
 
+function unrot13(s) {
+	return s.replace(/[a-zA-Z]/g, function (c) {
+		return String.fromCharCode(
+			(c <= 'Z' ? 90 : 122) >= (c = c.charCodeAt(0) + 13) ? c : c - 26
+		);
+	})
+}
+
 document.addEventListener("DOMContentLoaded", function () {
-	imageResponsive();
+	imageResponsive()
 	window.setTimeout(displayUnlockForm, 50)
 });

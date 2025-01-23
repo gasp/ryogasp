@@ -39,13 +39,12 @@
 	#SET{url,#ENV{lien,#URL_DOCUMENT}}
 ]
 
-<!--
+[(#REM)
 	small fichier #GET{s_fichier}<br>
 	medium fichier #GET{m_fichier}<br>
 	large fichier #GET{l_fichier}<br>
 	large fichier #GET{xl_fichier}<br>
--->
-
+]
 
 <BOUCLE_prive (MOTS) {id_document}{id_mot=4}>
 	<figure class='image_responsive image_private spip_document_#ID_DOCUMENT spip_documents[ (#ENV{class})] spip_lien_ok'>
@@ -54,10 +53,10 @@
 			[ alt="(#_doc:TITRE|attribut_html)"]
 			style="width:100%"
 			data-ratio="#GET{ratio}"
-			data-small="#GET{s_fichier}"
-			data-medium="#GET{m_fichier}"
-			data-large="#GET{l_fichier}"
-			data-xlarge="#GET{xl_fichier}"
+			[data-small="(#GET{s_fichier}|rot13)"]
+			[data-medium="(#GET{m_fichier}|rot13)"]
+			[data-large="(#GET{l_fichier}|rot13)"]
+			[data-xlarge="(#GET{xl_fichier}|rot13)"]
 			data-locked="yes"
 		>
 	[<figcaption>
