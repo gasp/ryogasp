@@ -51,7 +51,6 @@
 		<img
 			src="#GET{pico_fichier}"
 			[ alt="(#_doc:TITRE|attribut_html)"]
-			style="width:100%"
 			data-ratio="#GET{ratio}"
 			[data-small="(#GET{s_fichier}|rot13)"]
 			[data-medium="(#GET{m_fichier}|rot13)"]
@@ -70,9 +69,6 @@
 	<img
 	  src="#GET{pico_fichier}"
 		[ alt="(#TITRE|attribut_html)"]
-		style="width:100px"
-		width="auto"
-		height="auto"
 		data-ratio="#GET{ratio}"
 		loading="lazy"
 		srcset="[(#GET{s_fichier}) 500w,] [(#GET{m_fichier})  1200w,] #GET{l_fichier} 1530w, #GET{xl_fichier} 2000w"

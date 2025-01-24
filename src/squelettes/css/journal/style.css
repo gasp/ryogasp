@@ -269,6 +269,7 @@ td {
 }
 #main article img {
   max-width: 100%;
+  max-height: fit-content;
 }
 #main article header {
   padding: 2em 0;
