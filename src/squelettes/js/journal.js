@@ -15,7 +15,7 @@ function imageResponsive() {
 			const sizes = [400, 1200, 1530, 2000];
 			const minsize = width * pxlratio;
 			const index = sizes.findIndex(size => size >= minsize);
-			image.src = unrot13(sources[index]);
+			image.src = unobfuscate(sources[index]);
 		}
 
 		// const caption = figure.querySelector('figcaption');
@@ -79,6 +79,19 @@ var displayUnlockForm = function () {
 		});
 		document.body.appendChild(overlay);
 	});
+}
+
+
+function unobfuscate(s) {
+	if (s === 'mismatch') throw new Error('mismatch')
+	const [, largeur, extc, noext, hauteur, ts] = s.match(/([0-9]{1,4})([a-z]{1})(.*)\/([0-9]{1,4})\/([0-9]+)/)
+	if (extc === 'z') throw new Error('Unknown extc')
+	const ext = [['a', 'jpg'], ['b', 'jpeg'], ['c', 'gif'], ['d', 'png'], ['e', 'bmp'], ['f', 'apng'], ['g', 'svg'], ['h', 'webp']].find(([c, r]) => c === extc)[1]
+	return `local/cache-vignettes/L${largeur}xH${hauteur}/${reverse(unrot13(noext))}.${ext}?${ts}`
+}
+
+function reverse(str) {
+	return str.split('').reverse().join('');
 }
 
 function unrot13(s) {
