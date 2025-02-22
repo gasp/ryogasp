@@ -12,13 +12,17 @@
 <title>mini-blog</title>
 <meta charset="utf-8">
 <style type="text/css">
+:root {
+	font-size:2px;
+	line-height:2px;
+}
 body {
 	margin:0;padding:0;
-	background-color:#eee;
+	background-color:#eee;	
 }
 .blog {
-	font-size:0.1em;
-	line-height:0.1em;
+	font-size:1em;
+	line-height:1em;
 	color:#333;
 	font-family:verdana, arial, sans-serif;
 	overflow:hidden;
@@ -59,7 +63,6 @@ body {
 	font-size:0.5em;
 	line-height:0.5em;
 	font-family:verdana, arial, sans-serif;
-
 }
 </style>
 
@@ -67,9 +70,7 @@ body {
 </head>
 <body>
 <div class="blog">
-
 <INCLURE{fond=inclure/miniblog_articles,debut=0,step=300}>
-
 </div>
 
 <script src="#CHEMIN{js/libs/jquery-2.min.js}" type="text/javascript" charset="utf-8"></script>
@@ -139,14 +140,9 @@ $(function(){
 				// console.log("data.length is 0");
 				remove854();
 			}
-
 		});
-
 	};
-
-
-}); // end of dom ready
-
+});
 </script>
 <INCLURE{fond=inclure/stats}>
 </body>
