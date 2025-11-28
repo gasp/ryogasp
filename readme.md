@@ -74,12 +74,6 @@ get rid of default .htaccess and get the custom one
 curl -0 https://raw.githubusercontent.com/gasp/ryogasp/refs/heads/master/src/ryogasp.htaccess > .htaccess
 ```
 
-# reorganize folders
-
-(todo)
-put these dir outside the spip root path
-redefine \_DIR_TMP & \_DIR_CONNECT constants in mes_options.php
-
 # data dump
 
 check in scripts/
