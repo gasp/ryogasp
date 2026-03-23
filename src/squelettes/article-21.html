@@ -13,10 +13,10 @@
 		[(#DESCRIPTIF|attribut_html)]
 	</BOUCLE_blogroot>
 </title>
-[<meta name="description" content="(#INTRODUCTION{150}|textebrut)" />]
-<INCLURE{fond=inclure/head} />
-<INCLURE{fond=inclure/head_blog} />
-<link rel="alternate" type="application/rss+xml" title="RSS" href="/gameover/rss" />
+[<meta name="description" content="(#INTRODUCTION{150}|textebrut)">]
+<INCLURE{fond=inclure/head}>
+<INCLURE{fond=inclure/head_blog}>
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/gameover/rss">
 </head>
 
 <body class="blog">
@@ -114,10 +114,10 @@ suivants #GET{suivants}
 	</div><!--#extra-->
 
 	[(#REM) Menu de navigation laterale ]
-	<INCLURE{fond=_blog_nav_go,env} />
+	<INCLURE{fond=_blog_nav_go,env}>
 
 	[(#REM) Pied de page ]
-	<INCLURE{fond=_blog_footer, skel=#SQUELETTE, mentions=nonmerci} />
+	<INCLURE{fond=_blog_footer, skel=#SQUELETTE, mentions=nonmerci}>
 
 </div><!--#page-->
 </body>

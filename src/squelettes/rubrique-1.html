@@ -12,12 +12,12 @@
 	[(#DESCRIPTIF|textebrut)]
 	</BOUCLE_blogroot>
 </title>
-[<meta name="description" content="(#INTRODUCTION{150}|textebrut)" />]
-<INCLURE{fond=inclure/head} />
-<INCLURE{fond=inclure/head_blog} />
+[<meta name="description" content="(#INTRODUCTION{150}|textebrut)">]
+<INCLURE{fond=inclure/head}>
+<INCLURE{fond=inclure/head_blog}>
 [(#REM) Lien vers le flux RSS des articles la rubrique ]
-<link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
-<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss" />
+<link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/blog/rss">
 </head>
 
 <body class="blog">
@@ -74,16 +74,16 @@
 			[<h3 class="accessibility">&Agrave; propos</h3>
 			<div class="#EDIT{texte} chapo">(#TEXTE)</div>]
 
-			<INCLURE{fond=_blog_nuls} />
+			<INCLURE{fond=_blog_nuls}>
 
 		</div>
     </div><!--#extra-->
 
 	[(#REM) Menu de navigation laterale ]
-		<INCLURE{fond=_blog_nav,env} />
+		<INCLURE{fond=_blog_nav,env}>
 
 	[(#REM) Pied de page ]
-	<INCLURE{fond=_blog_footer, skel=#SQUELETTE, mentions=nonmerci} />
+	<INCLURE{fond=_blog_footer, skel=#SQUELETTE, mentions=nonmerci}>
 
 </div><!--#page-->
 </body>

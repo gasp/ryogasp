@@ -10,7 +10,7 @@
 <link rel="alternate" type="application/rss+xml" title="Syndiquer tout le site" href="spip.php?page=backend">
 <meta name="generator" content="SPIP">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<link rel="icon" type="image/svg+xml" href="/spip.php?page=favicon.svg" />
+<link rel="icon" type="image/svg+xml" href="/spip.php?page=favicon.svg">
 <style>
 	body {
 		font-family: -apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol";
@@ -134,10 +134,9 @@
   to debug the image_responsive model, uncomment the following loop and comment the one above
 	<BOUCLE_d(DOCUMENTS){0,10}>
 	<div>#TITRE #ID_DOCUMENT</div>
-	<INCLURE{fond=modeles/image_responsive, id=#ID_DOCUMENT} />
+	<INCLURE{fond=modeles/image_responsive, id=#ID_DOCUMENT}>
 </BOUCLE_d>
-	<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
-]
+	<INCLURE{fond=inclure/footer, skel=#SQUELETTE}>
 </div>
 </body>
 </html>
