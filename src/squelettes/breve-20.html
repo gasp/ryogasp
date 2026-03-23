@@ -5,9 +5,9 @@
 <html dir="#LANG_DIR" lang="#LANG">
 <head>
 <title>[(#TITRE|couper{80}|textebrut) - ][(#NOM_SITE_SPIP|textebrut)]</title>
-[<meta name="description" content="(#INTRODUCTION{150}|attribut_html)" />]
-[<link rel="canonical" href="(#URL_BREVE|url_absolue)" />]
-<INCLURE{fond=inclure/head} />
+[<meta name="description" content="(#INTRODUCTION{150}|attribut_html)">]
+[<link rel="canonical" href="(#URL_BREVE|url_absolue)">]
+<INCLURE{fond=inclure/head}>
 
 </head>
 
@@ -34,18 +34,18 @@
 		[<figure>(#LOGO_BREVE|image_reduire{600,*}|inserer_attribut{alt,#TITRE|attribut_html})</figure>]
 		[<div class="#EDIT{texte} texte surlignable">(#TEXTE|image_reduire{500,*})</div>]
 
-		[<hr /><p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
-		[<div class="#EDIT{ps} ps surlignable"><hr />(#PS|image_reduire{500,*})</div>]
+		[<hr><p class="#EDIT{hyperlien} hyperlien"><:voir_en_ligne:> : <a href="(#URL_SITE)">[(#NOM_SITE|sinon{[(#URL_SITE|couper{80})]})]</a></p>]
+		[<div class="#EDIT{ps} ps surlignable"><hr>(#PS|image_reduire{500,*})</div>]
 
 		[(#REM) Gestion du portfolio et des documents ]
 		[(#INCLURE{fond=inclure/documents,id_breve, env})]
 
 
-		[<div class="notes"><hr />(#NOTES)</div>]
+		[<div class="notes"><hr>(#NOTES)</div>]
 
 		[(#REM) Forum de l'article ]
 		<a href="#forum" name="forum" id="forum"></a>
-		<INCLURE{fond=inclure/forum,id_breve} />
+		<INCLURE{fond=inclure/forum,id_breve}>
 		[(#REM) point de FORMULAIRE_FORUM]
 
 	</div><!--.content-->
@@ -54,7 +54,7 @@
 
     <div class="aside">
 
-        <INCLURE{fond=inclure/navsub, id_rubrique} />
+        <INCLURE{fond=inclure/navsub, id_rubrique}>
 
         [(#REM) Articles dans la meme rubrique ]
         <B_articles_rubrique>
@@ -91,7 +91,7 @@
 		<div class="clearfix"></div>
 		</div><!--#main-->
 	</div><!--#container-->
-	<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
+	<INCLURE{fond=inclure/footer, skel=#SQUELETTE}>
 </div><!--#page-->
 </body>
 </html>

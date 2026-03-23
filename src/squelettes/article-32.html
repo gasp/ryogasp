@@ -12,7 +12,7 @@
 [	<meta name="description" content="(#INTRODUCTION{150}|textebrut)">]
 [	<meta name="author" content="(#LESAUTEURS|strip_tags)">]
 	<link rel="alternate" type="application/rss+xml"
-		title="[(#DESCRIPTIF|textebrut)en ]RSS" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
+		title="[(#DESCRIPTIF|textebrut)en ]RSS" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]">
 </head>
 
 <body class="journal article">
@@ -57,13 +57,13 @@
 				[<div class="notes">(#NOTES)</div>]
 				[<div class="ps">(#PS)</div>]
 
-				[<div class="notes"><hr />(#NOTES)</div>]
+				[<div class="notes"><hr>(#NOTES)</div>]
 			</footer>
 
 			<section>
 				[(#REM) Forum de l'article ]
 				<a href="#forum" name="forum" id="forum"></a>
-				<INCLURE{fond=inclure/forum,id_article} />
+				<INCLURE{fond=inclure/forum,id_article}>
 
 				<BOUCLE_age(ARTICLES){id_article}{age < 31}>
 					#FORMULAIRE_FORUM

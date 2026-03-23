@@ -7,13 +7,13 @@
 <head>
 <meta charset="utf-8">
 <title>[(#DESCRIPTIF|textebrut)] [| (#ENV{date}|affdate)]</title>
-[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{100}|textebrut)[archives du (#ENV{date}|affdate)]" />]
+[<meta name="description" content="(#DESCRIPTIF_SITE_SPIP|couper{100}|textebrut)[archives du (#ENV{date}|affdate)]">]
 [<meta name-"date" content="(#ENV{date})">]
 
 
 </BOUCLE_rubrique_principale_head>
 
-[<link rel="canonical" href="https://ryogasp.com/spip.php?page=archivesjour&id_rubrique=#ID_RUBRIQUE&date=(#ENV{date}|affdate{Y-m-d})" />]
+[<link rel="canonical" href="https://ryogasp.com/spip.php?page=archivesjour&id_rubrique=#ID_RUBRIQUE&date=(#ENV{date}|affdate{Y-m-d})">]
 </head>
 <body>
 
@@ -22,7 +22,7 @@
 <B_articles_deladate>
 <ul>
 <BOUCLE_articles_deladate(ARTICLES) {id_secteur=#ID_RUBRIQUE}{jour_relatif=0} {par date} >
-	<li><a href="#URL_ARTICLE">#TITRE</a><br /> [(#DATE|affdate)]</li>
+	<li><a href="#URL_ARTICLE">#TITRE</a><br> [(#DATE|affdate)]</li>
 </BOUCLE_articles_deladate>
 </ul>
 </B_articles_deladate>

@@ -11,7 +11,7 @@
 <head>
 <title>mini-blog</title>
 <meta charset="utf-8">
-<style type="text/css">
+<style>
 :root {
 	font-size:2px;
 	line-height:2px;
@@ -73,9 +73,9 @@ body {
 <INCLURE{fond=inclure/miniblog_articles,debut=0,step=300}>
 </div>
 
-<script src="#CHEMIN{js/libs/jquery-2.min.js}" type="text/javascript" charset="utf-8"></script>
-<script src="#CHEMIN{js/libs/jquery.masonry.min.js}" type="text/javascript" charset="utf-8"></script>
-<script type="text/javascript" charset="utf-8">
+<script src="#CHEMIN{js/libs/jquery-2.min.js}"></script>
+<script src="#CHEMIN{js/libs/jquery.masonry.min.js}"></script>
+<script>
 $(function(){
 	var $articles = $("article");
 	$articles.each(function(){

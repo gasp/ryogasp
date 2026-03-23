@@ -8,12 +8,12 @@
 <head>
 <meta charset="utf-8">
 <title>[(#DESCRIPTIF|textebrut)]</title>
-[<meta name="description" content="(#INTRODUCTION{150}|textebrut)" />]
-<INCLURE{fond=inclure/head} />
-<INCLURE{fond=inclure/head_blog} />
+[<meta name="description" content="(#INTRODUCTION{150}|textebrut)">]
+<INCLURE{fond=inclure/head}>
+<INCLURE{fond=inclure/head_blog}>
 [(#REM) Lien vers le flux RSS des articles la rubrique ]
-<link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]" />
-<link rel="alternate" type="application/rss+xml" title="RSS" href="/gameover/rss" />
+<link rel="alternate" type="application/rss+xml" title="<:syndiquer_rubrique:>" href="[(#URL_PAGE{backend}|parametre_url{id_rubrique,#ID_RUBRIQUE})]">
+<link rel="alternate" type="application/rss+xml" title="RSS" href="/gameover/rss">
 </head>
 
 <body class="blog">
@@ -73,10 +73,10 @@
     </div><!--#extra-->
 
 	[(#REM) Menu de navigation laterale ]
- 	<INCLURE{fond=_blog_nav_go,env} />
+ 	<INCLURE{fond=_blog_nav_go,env}>
 
 	[(#REM) Pied de page ]
-	<INCLURE{fond=_blog_footer, skel=#SQUELETTE, mentions=silvousplait} />
+	<INCLURE{fond=_blog_footer, skel=#SQUELETTE, mentions=silvousplait}>
 
 </div><!--#page-->
 </body>

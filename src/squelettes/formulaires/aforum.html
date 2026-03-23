@@ -4,7 +4,7 @@
 [<p class="reponse_formulaire reponse_formulaire_erreur">(#ENV*{message_erreur})</p>]
 
 [(#ENV{login_forum_abo})
-<INCLURE{fond=formulaires/inc-login_forum_abo, env} />
+<INCLURE{fond=formulaires/inc-login_forum_abo, env}>
 ]
 
 [(#ENV{editable})
@@ -107,13 +107,13 @@
 	Sauver les donnees du formulaire dans la session, si on quitte la page,
 	et proposer de les remettre quand on revient
 ]
-<script type="text/javascript">/*<!#EVAL{chr(91)}CDATA#EVAL{chr(91)}*/
+<script>
 if (window.jQuery)(function($){
 	$(function(){
 		$('#formulaire_forum form')
 		.autosave();
 	});
 }(jQuery));
-/*#EVAL{chr(93)}[(#EVAL{chr(93)})]>*/</script>
+</script>
 ]
 </div>

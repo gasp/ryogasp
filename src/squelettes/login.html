@@ -4,17 +4,17 @@
 ]
 #HTTP_HEADER{Content-Type: text/html; charset=#CHARSET}
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="#LANG" lang="#LANG" dir="#LANG_DIR">
+<html lang="#LANG" dir="#LANG_DIR">
 <head>
 <title>[(#NOM_SITE_SPIP|textebrut)]</title>
-<meta http-equiv="Content-Type" content="text/html; charset=#CHARSET" />
-<meta name="robots" content="none" />
-<meta name="viewport" content="width=device-width" />
-<link rel="stylesheet" href="[(#VAL{reset.css}|find_in_theme|direction_css)]" type="text/css" />
-<link rel="stylesheet" href="[(#VAL{clear.css}|find_in_theme|direction_css)]" type="text/css" />
-<link rel="stylesheet" href="[(#VAL{login_prive.css}|find_in_theme|direction_css)]" type="text/css" />
+<meta charset="#CHARSET">
+<meta name="robots" content="none">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="[(#VAL{reset.css}|find_in_theme|direction_css)]">
+<link rel="stylesheet" href="[(#VAL{clear.css}|find_in_theme|direction_css)]">
+<link rel="stylesheet" href="[(#VAL{login_prive.css}|find_in_theme|direction_css)]">
 #INSERT_HEAD[
-<script type='text/javascript'>
+<script>
 document.addEventListener('DOMContentLoaded', function() {
   if (self.location.protocol !== 'https:') {
     document.getElementById('minipres').style.display = 'none';

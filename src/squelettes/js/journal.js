@@ -41,6 +41,8 @@ function imageResponsive() {
 
 var unlockOverlay = function (pos, callback) {
 	// TODO: use hyperapp or mythriljs for this
+	// https://github.com/jorgebucaran/hyperapp 1k https://github.com/loteoo/hyperapp-starter
+	// https://mithril.js.org/ 9k
 	var main = document.createElement('div');
 	main.classList.add('lockedImageOverlay');
 	main.style.position = 'absolute';
@@ -55,7 +57,7 @@ var unlockOverlay = function (pos, callback) {
 	explanation.style.padding = '2em';
 	explanation.style.textAlign = 'center';
 	explanation.innerHTML = "Ces images sont bloquées pour ne pas être indexées "
-		+ "dans les moteurs de recherche.<br />";
+		+ "dans les moteurs de recherche.<br>";
 	var link = document.createElement('a')
 	link.innerHTML = 'Cliquez pour afficher'
 	link.style.color = 'blue'
