@@ -130,11 +130,14 @@
 		</BOUCLE_ephemerides>
 		</B_ephemerides>
 	</ul>
-<BOUCLE_d(DOCUMENTS){0,10}>
+[(#REM)
+  to debug the image_responsive model, uncomment the following loop and comment the one above
+	<BOUCLE_d(DOCUMENTS){0,10}>
 	<div>#TITRE #ID_DOCUMENT</div>
 	<INCLURE{fond=modeles/image_responsive, id=#ID_DOCUMENT} />
 </BOUCLE_d>
 	<INCLURE{fond=inclure/footer, skel=#SQUELETTE} />
+]
 </div>
 </body>
 </html>
