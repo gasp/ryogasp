@@ -21,12 +21,13 @@
 .header { width: 100%; }
 .wrapper { flex: 1 1 580px; min-width: 0; overflow: hidden; }
 .content { min-height: 300px; padding: 60px 0 0 40px; }
-.aside { flex: 0 1 220px; min-width: 160px; overflow: hidden; margin: 80px 0 1em 30px; }
+aside { flex: 0 1 220px; min-width: 160px; overflow: hidden; margin: 80px 0 1em 30px; }
 .footer {
 	clear: both;
 	height: 63px;
 	text-align: center;
 }
+
 
 @media (max-width: 700px) {
 	#main {
@@ -38,7 +39,7 @@
 	.content {
 		padding: 20px 0 0;
 	}
-	.aside {
+	aside {
 		flex: 1 1 100%;
 		margin: 1em 0;
 	}
@@ -46,7 +47,7 @@
 
 /* Gabarit d'impression */
 @media print {
-	.nav,.aside,.footer { display: none; }
+	.nav, aside,.footer { display: none; }
 	#page,.content { width: auto; }
 }
 
