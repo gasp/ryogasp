@@ -10,7 +10,7 @@ ARG ALPINE_VERSION=3.22
 # Stage 1: fetch SPIP core and spip-cli. curl/unzip/git/composer stay out of the runtime image.
 # ---------------------------------------------------------------------------
 FROM alpine:${ALPINE_VERSION} AS build
-ARG SPIP_VERSION=4.3.5
+ARG SPIP_VERSION=4.4.21
 ARG SPIP_CLI_VERSION=2.0.1
 
 RUN apk add --no-cache curl unzip git composer
@@ -58,6 +58,10 @@ RUN set -eu; \
 
 COPY --from=build /spip /var/www/html
 COPY --from=build /spip-cli /opt/spip-cli
+
+# SPIP >= 4.4 boots from config/spip/{dirs,routes}.php; the site's config/ is a bind mount,
+# so keep a pristine copy for the entrypoint to restore when it is missing
+RUN cp -a /var/www/html/config/spip /usr/local/share/spip-config-spip
 
 COPY spip                    /usr/local/bin/spip
 COPY docker-entrypoint.sh    /usr/local/bin/docker-entrypoint.sh

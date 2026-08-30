@@ -69,7 +69,7 @@ Same recipe as the Dockerfile — download the core, then symlink the site's dir
 into it:
 
 ```sh
-SPIP_VERSION=4.3.5
+SPIP_VERSION=4.4.21
 curl -fsSL "https://files.spip.net/spip/archives/spip-v${SPIP_VERSION}.zip" -o /tmp/spip.zip
 mkdir -p /var/www/html
 unzip -q /tmp/spip.zip -d /var/www/html
@@ -210,8 +210,10 @@ If php-fpm is down, nginx serves the static `squelettes/502.html` teapot page.
 
 ## upgrades
 
-- **SPIP**: `spip core:mettreajour` then `spip core:maj:bdd`
-  (or download the new zip like in step 4 — the symlinks are yours, not SPIP's)
+- **SPIP**: `spip core:mettreajour` then `spip core:maj:bdd` and `spip plugins:maj:bdd`
+  (or download the new zip like in step 4 — the symlinks are yours, not SPIP's);
+  refresh `src/config/spip/` from the new zip's `config/spip/` if it changed
+  (SPIP >= 4.4 cannot boot without these files)
 - **Alpine / nginx / php**: `apk upgrade`, then `rc-service php-fpm83 restart && rc-service nginx restart`
 
 ---

@@ -67,7 +67,7 @@ check /config/connect.php                      403 text/html 'ryogasp-403'
 check /tmp/meta_cache.php                      403 text/html 'ryogasp-403'
 check /vendor/autoload.php                     403 text/html 'ryogasp-403'
 check /.git/config                             403 text/html 'ryogasp-403'
-check /composer.json                           404 text/html 'ryogasp-404'   # was 200 on Apache; SPIP 4.3 htaccess.txt blocks it
+check /composer.json                           404 text/html 'ryogasp-404'   # was 200 on Apache; SPIP 4.4 htaccess.txt blocks it
 # documents (hash_documents plugin) and thumbnails
 check /IMG/does-not-exist.jpg                  200 text/html '404 Not Found'
 check /IMG/jpg/a/2/a/161012_reggie_nx.jpg      200 image/jpeg

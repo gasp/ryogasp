@@ -4,7 +4,7 @@ services:
     build:
       context: ./docker
       args:
-        SPIP_VERSION: "4.3.5"
+        SPIP_VERSION: "4.4.21"
         SPIP_CLI_VERSION: "2.0.1"
         # uid/gid owning src/IMG, src/config, ... on the host (33 = www-data of the previous image)
         SPIP_UID: "33"

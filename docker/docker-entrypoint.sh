@@ -25,6 +25,14 @@ INI
 mkdir -p tmp/dump tmp/log tmp/upload local lib plugins/auto
 find tmp local lib -maxdepth 1 ! -user www-data -exec chown www-data:www-data {} + 2>/dev/null || true
 
+# SPIP >= 4.4 cannot boot without config/spip/{dirs,routes}.php (they ship with the core
+# but the mounted config/ hides them; ryogasp tracks them in src/config/spip)
+if [ ! -d config/spip ]; then
+	cp -a /usr/local/share/spip-config-spip config/spip
+	chown -R www-data:www-data config/spip
+	echo "restored missing config/spip/ from the SPIP core defaults"
+fi
+
 # 3. Wait for the database
 if [ "${SPIP_DB_SERVER}" = "mysql" ]; then
 	until nc -z -w 2 "${SPIP_DB_HOST}" 3306; do

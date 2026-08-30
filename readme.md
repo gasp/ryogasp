@@ -59,7 +59,9 @@ docker/
   `PHP_MAX_EXECUTION_TIME` (60), `PHP_TIMEZONE`, `SPIP_DB_*`
 
 upgrade SPIP: change `SPIP_VERSION` in `docker-compose.yml`, then `docker compose build && docker compose up -d`
-and run `docker exec ryogasp-spip-1 spip core:maj:bdd`.
+and run `docker exec ryogasp-spip-1 spip core:maj:bdd` and `... spip plugins:maj:bdd`.
+Refresh `src/config/spip/` from the new core's `config/spip/` if it changed (SPIP >= 4.4
+cannot boot without these files; the entrypoint restores them if the folder is missing).
 
 ## smoke test
 

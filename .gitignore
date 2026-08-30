@@ -41,6 +41,7 @@ scripts/dump-2024-*.sql
 !/src/IMG/.gitkeep
 !/src/plugins/.gitkeep
 !/src/config/mes_options.php
+!/src/config/spip
 
 /hyper
 /tests
