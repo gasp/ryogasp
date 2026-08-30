@@ -1,0 +1,9 @@
+#!/bin/sh
+# spip-cli wrapper. Always runs from the SPIP root and, when called as root
+# (docker exec ryogasp-spip-1 spip sql:dump:create --name ...), as the web user so that
+# the files it creates (dumps, plugin activation cache) stay writable by SPIP.
+cd /var/www/html || exit 1
+if [ "$(id -u)" = "0" ]; then
+	exec su-exec www-data php /opt/spip-cli/bin/spip "$@"
+fi
+exec php /opt/spip-cli/bin/spip "$@"

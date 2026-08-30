@@ -1,7 +1,8 @@
 # system requirements
 
 - choose any ubuntu/debian distro
-- install docker and nginx `apt-get install docker nginx`
+- install docker and nginx `apt-get install docker nginx` (nginx on the host is only the TLS reverse proxy,
+  the site itself runs in the container: nginx + php-fpm on Alpine, no Apache)
 - docker user id matching
 
 ```bash
@@ -44,16 +45,46 @@ cd scripts && bash plugins.sh
 - [comments](https://plugins.spip.net/comments.html)
 - [breves](https://plugins.spip.net/breves.html)
 
-# configure nginx
+# the container: nginx + php-fpm (Alpine)
+
+`docker compose up` builds `docker/Dockerfile`: Alpine Linux, nginx, PHP 8.3 fpm, SPIP core
+(downloaded from files.spip.net at build time) and [spip-cli](https://git.spip.net/spip-contrib-outils/spip-cli)
+for the `spip` command used by `scripts/*.sh`.
+
+```
+docker/
+  Dockerfile               # build args: SPIP_VERSION, SPIP_CLI_VERSION, SPIP_UID, SPIP_GID
+  docker-entrypoint.sh     # php.ini from PHP_* env, wait for mariadb, start php-fpm + nginx
+  nginx/ryogasp.conf       # the site: translation of the old .htaccess rules, rule by rule
+  nginx/fastcgi-spip.conf  # fastcgi params (https detection through X-Forwarded-Proto)
+  php/                     # php-fpm pool + php.ini defaults
+```
+
+- `src/IMG`, `src/squelettes`, `src/plugins`, `src/config`, `src/tmp/dump` are bind mounts, as before
+- `tmp/` and `local/` (SPIP caches) live in the named volumes `spip-tmp` / `spip-local`
+- the container listens on port 80, published on `localhost:9000`
+- files created by the container belong to uid/gid 33 (`www-data` of the previous image);
+  pass `--build-arg SPIP_UID=... --build-arg SPIP_GID=...` if the host user differs
+- environment: `PHP_MEMORY_LIMIT` (256M), `PHP_POST_MAX_SIZE` (40M), `PHP_UPLOAD_MAX_FILESIZE` (32M),
+  `PHP_MAX_EXECUTION_TIME` (60), `PHP_TIMEZONE`, `SPIP_DB_*`
+
+upgrade SPIP: change `SPIP_VERSION` in `docker-compose.yml`, then `docker compose build && docker compose up -d`
+and run `docker exec ryogasp-spip-1 spip core:maj:bdd`.
+
+## smoke test
+
+with the stack running, checks ~40 URLs (pages, rss, redirects, 403/404, documents):
+
+```bash
+bash scripts/smoke.sh http://localhost:9000
+```
+
+# configure nginx on the host
 
 ## nginx as a proxy to docker container
 
-check file doc/nginx_proxy.txt
-
-## nginx with fastcgi to php-fpm
-
-this will be for next upgrade
-http://geekyplatypus.com/dockerise-your-php-application-with-nginx-and-php7-fpm/
+check file doc/nginx_proxy.txt — it must pass `X-Forwarded-Proto` so that SPIP generates
+`https://` links (this replaces the `$_SERVER['HTTPS']` hack in `config/mes_options.php`).
 
 ## https
 
@@ -62,16 +93,6 @@ use certbot to en able https via letsencrypt
 ```bash
 apt-get install certbot python-certbot-nginx
 certbot --nginx
-```
-
-## on apache
-
-get rid of default .htaccess and get the custom one
-
-(from inside the container `docker exec -it ryogasp-spip-1 bash`)
-
-```bash
-curl -0 https://raw.githubusercontent.com/gasp/ryogasp/refs/heads/master/src/ryogasp.htaccess > .htaccess
 ```
 
 # reorganize folders

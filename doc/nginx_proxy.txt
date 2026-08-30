@@ -1,4 +1,4 @@
-# proxy pass
+# host nginx: TLS termination + reverse proxy to the spip container (nginx + php-fpm, port 9000)
 server {
   server_name ryogasp.com;
   access_log /var/log/nginx/ryogasp.vhost.ping.access.log;
@@ -18,6 +18,9 @@ server {
     proxy_set_header Connection 'upgrade';
     proxy_set_header Host $host;
     proxy_set_header X-Real-IP $remote_addr;
+    proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    # the container's nginx uses it to tell SPIP the site is served over https
+    proxy_set_header X-Forwarded-Proto $scheme;
     proxy_cache_bypass $http_upgrade;
   }
   error_page 501 502 503 /502.html;

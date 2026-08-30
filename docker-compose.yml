@@ -1,26 +1,41 @@
-version: '3'
 services:
   spip:
-    image: ipeos/spip:latest
+    # SPIP on nginx + php-fpm (Alpine), see docker/Dockerfile
+    build:
+      context: ./docker
+      args:
+        SPIP_VERSION: "4.3.5"
+        SPIP_CLI_VERSION: "2.0.1"
+        # uid/gid owning src/IMG, src/config, ... on the host (33 = www-data of the previous image)
+        SPIP_UID: "33"
+        SPIP_GID: "33"
+    image: ryogasp/spip-nginx
     environment:
       - PHP_TIMEZONE=Europe/Paris
-      - LANG='fr_FR.UTF-8'
+      - LANG=fr_FR.UTF-8
       - SPIP_DB_PASS=spippassword
     ports:
       - 9000:80
-    links:
-      - mariadb:mysql
+    depends_on:
+      - mariadb
     volumes:
       - ./src/IMG:/var/www/html/IMG:rw
       - ./src/squelettes:/var/www/html/squelettes:rw
       - ./src/plugins:/var/www/html/plugins:rw
-      - ./src/tmp/dump:/var/www/html/tmp/dump:rw
       - ./src/config:/var/www/html/config:rw
-      - ./src/ryogasp.htaccess:/var/www/html/.htaccess
+      - ./src/tmp/dump:/var/www/html/tmp/dump:rw
+      # SPIP caches survive container re-creation (tmp/dump above is mounted inside spip-tmp)
+      - spip-tmp:/var/www/html/tmp
+      - spip-local:/var/www/html/local
     restart: unless-stopped
   mariadb:
     # upgrade: https://mariadb.com/docs/server/service-management/upgrades/community-server/release-series-cs10-6/
     image: mariadb:10.4
+    networks:
+      default:
+        # src/config/connect.php connects to host "mysql"
+        aliases:
+          - mysql
     volumes:
       - ./maria/database:/var/lib/mysql
       - ./maria/logs:/var/log/mysql/:rw
@@ -32,3 +47,7 @@ services:
       - MYSQL_PASSWORD=spippassword
       - MYSQL_DATABASE=spip
     restart: unless-stopped
+
+volumes:
+  spip-tmp:
+  spip-local:
