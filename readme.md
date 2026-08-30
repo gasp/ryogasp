@@ -1,20 +1,10 @@
 # system requirements
 
-- choose any ubuntu/debian distro
-- install docker and nginx `apt-get install docker nginx` (nginx on the host is only the TLS reverse proxy,
-  the site itself runs in the container: nginx + php-fpm on Alpine, no Apache)
-- docker user id matching
-
-```bash
-systemctl enable docker
-
-adduser ryogasp
-usermod -aG docker ryogasp
-cat /etc/docker/daemon.json
-{
-  "userns-remap": "ryogasp"
-}
-```
+- **development (mac)**: docker desktop — `docker compose up` builds and runs the whole
+  stack, site on http://localhost:9000 (see below)
+- **production**: bare-metal Alpine Linux — nginx, php-fpm 8.3 and mariadb directly on
+  the host, **no docker**. Full runbook: [doc/nginx.md](doc/nginx.md). The nginx and
+  php-fpm config files in `docker/` are shared between both environments.
 
 # data dump import
 
@@ -45,7 +35,7 @@ cd scripts && bash plugins.sh
 - [comments](https://plugins.spip.net/comments.html)
 - [breves](https://plugins.spip.net/breves.html)
 
-# the container: nginx + php-fpm (Alpine)
+# development: docker on the mac (nginx + php-fpm on Alpine)
 
 `docker compose up` builds `docker/Dockerfile`: Alpine Linux, nginx, PHP 8.3 fpm, SPIP core
 (downloaded from files.spip.net at build time) and [spip-cli](https://git.spip.net/spip-contrib-outils/spip-cli)
@@ -79,21 +69,11 @@ with the stack running, checks ~40 URLs (pages, rss, redirects, 403/404, documen
 bash scripts/smoke.sh http://localhost:9000
 ```
 
-# configure nginx on the host
+# production install (bare metal)
 
-## nginx as a proxy to docker container
-
-check file doc/nginx_proxy.txt — it must pass `X-Forwarded-Proto` so that SPIP generates
-`https://` links (this replaces the `$_SERVER['HTTPS']` hack in `config/mes_options.php`).
-
-## https
-
-use certbot to en able https via letsencrypt
-
-```bash
-apt-get install certbot python-certbot-nginx
-certbot --nginx
-```
+alpine linux + nginx, php-fpm and mariadb on the host, no docker — the full walkthrough
+(packages, users and rights, code in `/home/gaspard/ryogasp`, symlinks, certbot, checks,
+cron, upgrades) is in [doc/nginx.md](doc/nginx.md)
 
 # reorganize folders
 

@@ -71,7 +71,6 @@ COPY php/spip.ini            /etc/php83/conf.d/90-spip.ini
 RUN set -eu; \
     rm -f /etc/nginx/http.d/default.conf; \
     chmod +x /usr/local/bin/spip /usr/local/bin/docker-entrypoint.sh; \
-    mkdir -p /run/php /run/nginx; \
     cd /var/www/html; \
     # directories SPIP writes to (IMG, config, plugins, squelettes, tmp/dump are bind mounts in docker-compose.yml)
     mkdir -p tmp/dump tmp/log tmp/upload local lib plugins/auto squelettes IMG config; \

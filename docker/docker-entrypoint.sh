@@ -59,7 +59,7 @@ fi
 php-fpm83 --nodaemonize --fpm-config /etc/php83/php-fpm.conf &
 FPM=$!
 i=0
-while [ ! -S /run/php/php-fpm.sock ] && [ $i -lt 50 ]; do
+while [ ! -S /run/php-fpm.sock ] && [ $i -lt 50 ]; do
 	sleep 0.2
 	i=$((i + 1))
 done

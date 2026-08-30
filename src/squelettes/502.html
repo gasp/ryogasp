@@ -1,12 +1,11 @@
 <!DOCTYPE html>
 <html lang="fr" dir="ltr">
 <!--
-	this static page is called directly by ngnix reverse-proxy
-	when the spip container (nginx + php-fpm) is down
-	it can be a 501, 502 or 503 error
+	this static page is served straight by nginx (error_page 50x)
+	when php-fpm is down
 
 	it could be great to have a whale illustration,
-	but it should be embedded in page because the spip container
+	but it should be embedded in page because php
 	is not running (remember?)
 -->
 	<head>

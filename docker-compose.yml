@@ -15,7 +15,7 @@ services:
       - LANG=fr_FR.UTF-8
       - SPIP_DB_PASS=spippassword
     ports:
-      - 9000:80
+      - 127.0.0.1:9000:80
     depends_on:
       - mariadb
     volumes:
