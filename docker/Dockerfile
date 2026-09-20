@@ -69,7 +69,7 @@ COPY spip                    /usr/local/bin/spip
 COPY docker-entrypoint.sh    /usr/local/bin/docker-entrypoint.sh
 COPY nginx/nginx.conf        /etc/nginx/nginx.conf
 COPY nginx/fastcgi-spip.conf /etc/nginx/fastcgi-spip.conf
-COPY nginx/ryogasp.conf      /etc/nginx/http.d/ryogasp.conf
+COPY nginx/ryogasp.com.conf  /etc/nginx/http.d/ryogasp.com.conf
 COPY php/php-fpm.conf        /etc/php85/php-fpm.conf
 COPY php/www.conf            /etc/php85/php-fpm.d/www.conf
 COPY php/spip.ini            /etc/php85/conf.d/90-spip.ini

@@ -181,7 +181,7 @@ snippet:
 ```sh
 cd /home/gaspard/ryogasp
 cp docker/nginx/fastcgi-spip.conf /etc/nginx/fastcgi-spip.conf
-cp docker/nginx/ryogasp.conf      /etc/nginx/http.d/ryogasp.com.conf
+cp docker/nginx/ryogasp.com.conf  /etc/nginx/http.d/ryogasp.com.conf
 vi /etc/nginx/http.d/ryogasp.com.conf
 #   listen 80;  listen [::]:80;                 <- no default_server
 #   server_name ryogasp.com www.ryogasp.com;
@@ -227,8 +227,12 @@ server {
 	listen 80;
 	listen [::]:80;
 	server_name ryogasp.com www.ryogasp.com;
+	# respond to letsencrypt .well-known/acme-challenge
 	include /etc/nginx/snippets/acme.conf;
-	location / { return 301 https://$host$request_uri; }
+	# otherwise, redirect to apex TLS
+	location / {
+		return 301 https://ryogasp.com$request_uri;
+	}
 }
 
 server {
@@ -264,8 +268,8 @@ SH
 chmod +x /etc/periodic/daily/lego
 ```
 
-HTTPS is detected natively by SPIP (`$https`); the `X-Forwarded-Proto` maps in the
-config only matter if a reverse proxy ever sits in front again.
+HTTPS is detected natively: nginx passes `$scheme`, `$https`, and `$server_port`
+directly to SPIP through FastCGI.
 
 Finally point SPIP at its public address (used in RSS feeds and absolute links):
 

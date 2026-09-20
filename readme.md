@@ -44,8 +44,8 @@ for the `spip` command used by `scripts/*.sh`.
 docker/
   Dockerfile               # build args: SPIP_VERSION, SPIP_CLI_VERSION, SPIP_UID, SPIP_GID
   docker-entrypoint.sh     # php.ini from PHP_* env, wait for mariadb, start php-fpm + nginx
-  nginx/ryogasp.conf       # the site: translation of the old .htaccess rules, rule by rule
-  nginx/fastcgi-spip.conf  # fastcgi params (https detection through X-Forwarded-Proto)
+  nginx/ryogasp.com.conf   # ngnix conf, translation of the old .htaccess rules, rule by rule
+  nginx/fastcgi-spip.conf  # FastCGI params using nginx's native TLS values
   php/                     # php-fpm pool + php.ini defaults
 ```
 
