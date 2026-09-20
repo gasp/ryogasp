@@ -4,7 +4,7 @@
 #   docker compose build            # uses the defaults below
 #   docker compose build --build-arg SPIP_VERSION=4.3.9
 #
-ARG ALPINE_VERSION=3.22
+ARG ALPINE_VERSION=3.24
 
 # ---------------------------------------------------------------------------
 # Stage 1: fetch SPIP core and spip-cli. curl/unzip/git/composer stay out of the runtime image.
@@ -38,18 +38,20 @@ FROM alpine:${ALPINE_VERSION}
 ARG SPIP_UID=33
 ARG SPIP_GID=33
 
-# PHP 8.3 with the same extensions as the previous image (php -m), plus nginx, nc (db wait), su-exec (drop root)
+# PHP 8.5 — same version as production (Alpine 3.24)
+# opcache is built into php85 itself
 RUN apk add --no-cache \
       nginx netcat-openbsd su-exec tzdata \
-      php83 php83-fpm php83-opcache \
-      php83-bcmath php83-ctype php83-curl php83-dom php83-exif php83-fileinfo php83-gd \
-      php83-iconv php83-intl php83-ldap php83-mbstring php83-mysqli php83-openssl \
-      php83-pdo php83-pdo_sqlite php83-phar php83-posix php83-session php83-simplexml \
-      php83-sodium php83-sqlite3 php83-tokenizer php83-xml php83-xmlreader php83-xmlwriter \
-      php83-zip php83-zlib php83-pecl-apcu php83-pecl-imagick \
- && ln -sf /usr/bin/php83 /usr/local/bin/php
+      php85 php85-fpm \
+      php85-bcmath php85-ctype php85-curl php85-dom php85-exif php85-fileinfo php85-gd \
+      php85-iconv php85-intl php85-ldap php85-mbstring php85-mysqli php85-openssl \
+      php85-pdo php85-pdo_mysql php85-pdo_sqlite php85-phar php85-posix php85-session \
+      php85-simplexml php85-sodium php85-sqlite3 php85-tokenizer php85-xml php85-xmlreader \
+      php85-xmlwriter php85-zip php85-zlib php85-pecl-apcu php85-pecl-imagick \
+ && ln -sf /usr/bin/php85 /usr/local/bin/php
 
-# Single runtime user for nginx workers and php-fpm (they share a unix socket and SPIP's writable dirs)
+# Single runtime user for nginx workers and php-fpm
+# they share a unix socket and SPIP's writable dirs
 RUN set -eu; \
     for u in $(getent passwd "${SPIP_UID}" | cut -d: -f1) www-data; do deluser "$u" 2>/dev/null || true; done; \
     for g in $(getent group "${SPIP_GID}" | cut -d: -f1) www-data; do delgroup "$g" 2>/dev/null || true; done; \
@@ -68,9 +70,9 @@ COPY docker-entrypoint.sh    /usr/local/bin/docker-entrypoint.sh
 COPY nginx/nginx.conf        /etc/nginx/nginx.conf
 COPY nginx/fastcgi-spip.conf /etc/nginx/fastcgi-spip.conf
 COPY nginx/ryogasp.conf      /etc/nginx/http.d/ryogasp.conf
-COPY php/php-fpm.conf        /etc/php83/php-fpm.conf
-COPY php/www.conf            /etc/php83/php-fpm.d/www.conf
-COPY php/spip.ini            /etc/php83/conf.d/90-spip.ini
+COPY php/php-fpm.conf        /etc/php85/php-fpm.conf
+COPY php/www.conf            /etc/php85/php-fpm.d/www.conf
+COPY php/spip.ini            /etc/php85/conf.d/90-spip.ini
 
 RUN set -eu; \
     rm -f /etc/nginx/http.d/default.conf; \
@@ -80,7 +82,7 @@ RUN set -eu; \
     mkdir -p tmp/dump tmp/log tmp/upload local lib plugins/auto squelettes IMG config; \
     chown -R www-data:www-data tmp local lib plugins squelettes IMG config; \
     nginx -t; \
-    php-fpm83 --test
+    php-fpm85 --test
 
 # Same variables as the previous ipeos/spip image (docker-compose.yml overrides what it needs)
 ENV SPIP_DB_SERVER=mysql \

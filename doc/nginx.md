@@ -1,33 +1,35 @@
 # production: ryogasp on bare-metal alpine linux + nginx
 
 Development runs in docker on the mac (see `readme.md`). **Production runs without
-docker**: Alpine Linux with nginx, php-fpm, SPIP and MariaDB straight on the host.
+docker**: Alpine Linux 3.24 with nginx, php-fpm 8.5, SPIP and MariaDB straight on the
+host.
 
 The `docker/` directory stays the single source of truth: `docker/Dockerfile` documents
 the packages and the layout, and the nginx / php-fpm files in it are copied to the host
 **as-is** — same rules in dev and in prod.
 
-```
-internet ──https──> nginx (certbot) ──/run/php-fpm.sock──> php-fpm 8.3 ──> mariadb (localhost)
-                                                           SPIP in /var/www/html
-                                                           symlinks -> /home/gaspard/ryogasp/src/
+```mermaid
+flowchart LR
+    internet((internet)) -->|https| nginx["nginx<br>certs by lego"]
+    nginx -->|/run/php-fpm.sock| fpm["php-fpm 8.5<br>SPIP in /var/www/html<br>symlinks → /home/gaspard/ryogasp/src/"]
+    fpm -->|localhost| db[(mariadb)]
 ```
 
 ## 1. packages
 
-The same list as `docker/Dockerfile`, plus mariadb and certbot:
+The same list as `docker/Dockerfile`, plus *mariadb* and *lego*.
 
 ```sh
-apk add nginx mariadb mariadb-client certbot certbot-nginx \
+apk add nginx mariadb mariadb-client lego \
     git composer curl unzip su-exec tzdata \
-    php83 php83-fpm php83-opcache \
-    php83-bcmath php83-ctype php83-curl php83-dom php83-exif php83-fileinfo php83-gd \
-    php83-iconv php83-intl php83-ldap php83-mbstring php83-mysqli php83-openssl \
-    php83-pdo php83-pdo_sqlite php83-phar php83-posix php83-session php83-simplexml \
-    php83-sodium php83-sqlite3 php83-tokenizer php83-xml php83-xmlreader php83-xmlwriter \
-    php83-zip php83-zlib php83-pecl-apcu php83-pecl-imagick
-ln -sf /usr/bin/php83 /usr/local/bin/php
-for s in mariadb php-fpm83 nginx crond; do rc-update add "$s" default; done
+    php85 php85-fpm \
+    php85-bcmath php85-ctype php85-curl php85-dom php85-exif php85-fileinfo php85-gd \
+    php85-iconv php85-intl php85-ldap php85-mbstring php85-mysqli php85-openssl \
+    php85-pdo php85-pdo_mysql php85-pdo_sqlite php85-phar php85-posix php85-session \
+    php85-simplexml php85-sodium php85-sqlite3 php85-tokenizer php85-xml php85-xmlreader \
+    php85-xmlwriter php85-zip php85-zlib php85-pecl-apcu php85-pecl-imagick
+ln -sf /usr/bin/php85 /usr/local/bin/php
+for s in mariadb php-fpm85 nginx crond; do rc-update add "$s" default; done
 ```
 
 ## 2. users and rights
@@ -65,7 +67,7 @@ find src -type f -exec chmod 664 {} +
 
 ## 4. SPIP core in /var/www/html
 
-Same recipe as the Dockerfile — download the core, then symlink the site's directories
+Same recipe as the Dockerfile: download the core, then symlink the site's directories
 into it:
 
 ```sh
@@ -128,14 +130,14 @@ spip plugins:activer -y -e breves squelettes_par_rubrique hasher comments
 
 ## 7. php-fpm
 
-Replace the pool, keep Alpine's stock `/etc/php83/php-fpm.conf` (daemon + logs are the
+Replace the pool, keep Alpine's stock `/etc/php85/php-fpm.conf` (daemon + logs are the
 distro's business):
 
 ```sh
 cd /home/gaspard/ryogasp
-cp docker/php/www.conf  /etc/php83/php-fpm.d/www.conf
-cp docker/php/spip.ini  /etc/php83/conf.d/90-spip.ini
-cat > /etc/php83/conf.d/99-local.ini <<'INI'
+cp docker/php/www.conf  /etc/php85/php-fpm.d/www.conf
+cp docker/php/spip.ini  /etc/php85/conf.d/90-spip.ini
+cat > /etc/php85/conf.d/99-local.ini <<'INI'
 ; in docker these come from the PHP_* environment (docker-entrypoint.sh)
 max_execution_time = 60
 memory_limit = 256M
@@ -143,43 +145,127 @@ post_max_size = 40M
 upload_max_filesize = 32M
 date.timezone = Europe/Paris
 INI
-rc-service php-fpm83 restart
+rc-service php-fpm85 restart
 ls -l /run/php-fpm.sock    # must belong to www-data
 ```
 
+This moves the pool off Alpine's stock settings (`nobody` on `127.0.0.1:9000`) to
+`www-data` on the socket. If other vhosts on the host reach php through a shared
+snippet pointing at `127.0.0.1:9000`, repoint its `fastcgi_pass` at
+`unix:/run/php-fpm.sock` too, or they lose php.
+
 ## 8. nginx
 
-The site config is byte-identical to the dev container's. Keep the stock
-`/etc/nginx/nginx.conf` (logs in `/var/log/nginx`), just switch its worker user:
+Alpine's layout: stock `/etc/nginx/nginx.conf`, one file per vhost in `http.d/`.
+**Keep `http.d/default.conf`** as the `default_server` catch-all (scanners, bare-IP
+hits, other names on the machine) — the site config therefore gives up the
+`default_server` role it plays in dev.
+
+A shared snippet gives every vhost the webroot where lego answers HTTP-01 challenges
+(see step 9):
+
+```sh
+mkdir -p /etc/nginx/snippets
+cat > /etc/nginx/snippets/acme.conf <<'NGINX'
+# lego HTTP-01 webroot
+location /.well-known/acme-challenge/ {
+	root /var/lib/nginx/html;
+}
+NGINX
+```
+
+Copy the dev container's site config with three host adjustments — drop
+`default_server` from the `listen` lines, set the real names, include the acme
+snippet:
 
 ```sh
 cd /home/gaspard/ryogasp
 cp docker/nginx/fastcgi-spip.conf /etc/nginx/fastcgi-spip.conf
-cp docker/nginx/ryogasp.conf      /etc/nginx/http.d/ryogasp.conf
-rm -f /etc/nginx/http.d/default.conf
+cp docker/nginx/ryogasp.conf      /etc/nginx/http.d/ryogasp.com.conf
+vi /etc/nginx/http.d/ryogasp.com.conf
+#   listen 80;  listen [::]:80;                 <- no default_server
+#   server_name ryogasp.com www.ryogasp.com;
+#   include /etc/nginx/snippets/acme.conf;      <- first line inside the server block
 sed -i 's/^user nginx;/user www-data;/' /etc/nginx/nginx.conf
 nginx -t && rc-service nginx restart
-curl -sI http://127.0.0.1/ | head -1    # HTTP/1.1 200 OK
+curl -sI -H 'Host: ryogasp.com' http://127.0.0.1/ | head -1    # HTTP/1.1 200 OK
 ```
 
-## 9. https
+## 9. https (lego)
+
+lego keeps its state in `/etc/lego/` (`accounts/`,
+`certificates/<first-domain>.crt|.key`); the account email lives in `/etc/lego/env`
+(mode 600 — it can also hold DNS API credentials, see below):
 
 ```sh
-certbot --nginx -d ryogasp.com -d www.ryogasp.com    # choose "redirect"
+mkdir -p /etc/lego
+install -m 600 /dev/null /etc/lego/env
+echo 'EMAIL=…' > /etc/lego/env
 ```
 
-Certbot edits `http.d/ryogasp.conf` in place (443 + certificates + http→https).
-To force the apex domain, add at the top of the `listen 443` server block:
+First issuance over HTTP-01 needs port 80 reachable from the internet (port-forward
+on the router + the DNS A record pointing there). As root:
+
+```sh
+. /etc/lego/env
+lego --accept-tos --email "$EMAIL" --path /etc/lego \
+     --http --http.webroot /var/lib/nginx/html \
+     -d ryogasp.com -d www.ryogasp.com run
+```
+
+When port 80 is not reachable, DNS-01 through the OVH API works from anywhere: add
+`OVH_ENDPOINT=ovh-eu`, `OVH_APPLICATION_KEY=…`, `OVH_APPLICATION_SECRET=…`,
+`OVH_CONSUMER_KEY=…` to `/etc/lego/env` and replace `--http --http.webroot …` with
+`--dns ovh`.
+
+Unlike `certbot --nginx`, lego never touches the nginx config — wire the certificate
+by hand in `http.d/ryogasp.com.conf`. The existing server block becomes the 443 one;
+a minimal port-80 block keeps the acme path and redirects the rest:
 
 ```nginx
+server {
+	listen 80;
+	listen [::]:80;
+	server_name ryogasp.com www.ryogasp.com;
+	include /etc/nginx/snippets/acme.conf;
+	location / { return 301 https://$host$request_uri; }
+}
+
+server {
+	listen 443 ssl;
+	listen [::]:443 ssl;
+	server_name ryogasp.com www.ryogasp.com;
+	ssl_certificate     /etc/lego/certificates/ryogasp.com.crt;
+	ssl_certificate_key /etc/lego/certificates/ryogasp.com.key;
+	# force the apex domain:
 	if ($host = www.ryogasp.com) {
 		return 301 https://ryogasp.com$request_uri;
 	}
+	# ... the rest of the block unchanged
+}
 ```
 
-then `nginx -t && rc-service nginx reload`. HTTPS is detected natively by SPIP
-(`$https`); the `X-Forwarded-Proto` maps in the config only matter if a reverse proxy
-ever sits in front again.
+then `nginx -t && rc-service nginx reload`.
+
+Renewal: a daily busybox-cron script renews anything due within 30 days and reloads
+nginx — a no-op until `EMAIL` is set and a certificate exists:
+
+```sh
+cat > /etc/periodic/daily/lego <<'SH'
+#!/bin/sh
+# renew lego certificates due within 30 days; reload nginx to pick them up
+. /etc/lego/env
+[ -n "$EMAIL" ] || exit 0
+lego --accept-tos --email "$EMAIL" --path /etc/lego \
+     --http --http.webroot /var/lib/nginx/html \
+     -d ryogasp.com -d www.ryogasp.com \
+     renew --days 30 --renew-hook "rc-service nginx reload"
+SH
+chmod +x /etc/periodic/daily/lego
+```
+
+HTTPS is detected natively by SPIP (`$https`); the `X-Forwarded-Proto` maps in the
+config only matter if a reverse proxy ever sits in front again.
 
 Finally point SPIP at its public address (used in RSS feeds and absolute links):
 
@@ -191,7 +277,7 @@ spip config:ecrire adresse_site --valeur=https://ryogasp.com
 
 ```sh
 bash /home/gaspard/ryogasp/scripts/smoke.sh https://ryogasp.com   # ~40 checks
-rc-service nginx status && rc-service php-fpm83 status
+rc-service nginx status && rc-service php-fpm85 status
 tail -f /var/log/nginx/error.log
 ```
 
@@ -214,10 +300,4 @@ If php-fpm is down, nginx serves the static `squelettes/502.html` teapot page.
   (or download the new zip like in step 4 — the symlinks are yours, not SPIP's);
   refresh `src/config/spip/` from the new zip's `config/spip/` if it changed
   (SPIP >= 4.4 cannot boot without these files)
-- **Alpine / nginx / php**: `apk upgrade`, then `rc-service php-fpm83 restart && rc-service nginx restart`
-
----
-
-*This file replaces the old `nginx.txt` draft (a hand translation of the Apache
-`.htaccess` — those rules now live in `docker/nginx/ryogasp.conf`) and the docker-era
-`nginx_proxy.txt` reverse-proxy setup, which production no longer uses.*
+- **Alpine / nginx / php**: `apk upgrade`, then `rc-service php-fpm85 restart && rc-service nginx restart`

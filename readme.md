@@ -1,10 +1,9 @@
 # system requirements
 
-- **development (mac)**: docker desktop — `docker compose up` builds and runs the whole
-  stack, site on http://localhost:9000 (see below)
-- **production**: bare-metal Alpine Linux — nginx, php-fpm 8.3 and mariadb directly on
-  the host, **no docker**. Full runbook: [doc/nginx.md](doc/nginx.md). The nginx and
-  php-fpm config files in `docker/` are shared between both environments.
+- **development**: `docker compose up` builds and runs the whole
+  stack, site on http://localhost:9000
+- **production**: bare-metal, nginx, php-fpm 8.5 and mariadb directly on
+  the host.
 
 # data dump import
 
@@ -37,7 +36,7 @@ cd scripts && bash plugins.sh
 
 # development: docker on the mac (nginx + php-fpm on Alpine)
 
-`docker compose up` builds `docker/Dockerfile`: Alpine Linux, nginx, PHP 8.3 fpm, SPIP core
+`docker compose up` builds `docker/Dockerfile`: Alpine Linux, nginx, PHP 8.5 fpm, SPIP core
 (downloaded from files.spip.net at build time) and [spip-cli](https://git.spip.net/spip-contrib-outils/spip-cli)
 for the `spip` command used by `scripts/*.sh`.
 
