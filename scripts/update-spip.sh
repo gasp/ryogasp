@@ -11,9 +11,9 @@
 #   2. Downloads the newest ipeos/spip:latest image.
 #   3. Recreates only the SPIP container.
 #   4. Checks that SPIP answers on $SITE_URL (X-Spip-Cache header).
-#   5. Removes dangling Docker images.
+#   5. Removes dangling Docker images and obsolete, unused SPIP volumes.
 #
-# It does not remove MariaDB, bind-mounted files, or named volumes.
+# It does not remove MariaDB, bind-mounted files, or unrelated volumes.
 
 set -Eeuo pipefail
 
@@ -112,6 +112,24 @@ echo "Removing dangling Docker images..."
 # This removes untagged layers only. It does not remove images used by running
 # containers. Use 'docker image prune -a' manually only if you want broader cleanup.
 docker image prune -f
+
+echo "Checking unused Docker volumes for obsolete SPIP files..."
+# SPIP image versions may declare /var/www/html as an anonymous volume. When
+# the container is replaced, that volume can become unused and remain on disk.
+# Only consider dangling volumes, then require several SPIP-specific files and
+# directories before removing one. Volumes attached to any container are skipped.
+while IFS= read -r volume; do
+    [ -n "$volume" ] || continue
+
+    mountpoint="$(docker volume inspect --format '{{.Mountpoint}}' "$volume")"
+    if [ -f "$mountpoint/spip.php" ] &&
+       [ -d "$mountpoint/ecrire" ] &&
+       [ -d "$mountpoint/plugins-dist" ]; then
+        echo "Removing obsolete SPIP volume: $volume"
+        docker volume rm "$volume"
+    fi
+done < <(docker volume ls --quiet --filter dangling=true)
+
 
 echo
 echo "SPIP update complete."
