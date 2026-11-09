@@ -7,7 +7,8 @@
 #   ./scripts/update-spip.sh
 #
 # This script:
-#   1. Backs up the MariaDB database and SPIP files.
+#   1. Backs up the MariaDB database and SPIP config/plugins/templates
+#      (not src/IMG: see the backup step below).
 #   2. Downloads the newest ipeos/spip:latest image.
 #   3. Recreates only the SPIP container.
 #   4. Checks that SPIP answers on $SITE_URL (X-Spip-Cache header).
@@ -59,11 +60,21 @@ $COMPOSE exec -T mariadb sh -c \
     'exec mysqldump -uroot -p"$MYSQL_ROOT_PASSWORD" "$MYSQL_DATABASE"' \
     > "$BACKUP_DIR/spip-database-$timestamp.sql"
 
-echo "Backing up SPIP files..."
+echo "Backing up SPIP config, plugins and templates..."
 
-# These are bind-mounted by docker-compose.yml and survive container removal,
-# but backing them up makes the update reversible.
-tar czf "$BACKUP_DIR/spip-files-$timestamp.tar.gz" -C "$PROJECT_DIR" src
+# Deliberately NOT the whole of src/:
+#   - src/IMG is several GB of already-compressed media. Docker never touches
+#     bind-mounted host files when a container is replaced, and a SPIP upgrade
+#     does not rewrite the media library, so archiving it every run only filled
+#     the disk.
+#   - src/tmp is regenerable cache, and SPIP writes to it while the container
+#     runs, which makes tar fail with "file changed as we read it".
+# What is kept is what a new SPIP version can rewrite in place on first boot:
+# config/ (connect.php, chmod.php, and cles.php - the secret keys), plugins/
+# (rewritten by the plugin manager), plus squelettes/ so the archive restores
+# on its own without a checkout.
+tar czf "$BACKUP_DIR/spip-files-$timestamp.tar.gz" -C "$PROJECT_DIR" \
+    src/config src/plugins src/squelettes src/ryogasp.htaccess
 cp docker-compose.yml "$BACKUP_DIR/docker-compose-$timestamp.yml"
 
 echo "Downloading the newest ipeos/spip:latest image..."
