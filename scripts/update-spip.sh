@@ -125,21 +125,55 @@ echo "Removing dangling Docker images..."
 docker image prune -f
 
 echo "Checking unused Docker volumes for obsolete SPIP files..."
-# SPIP image versions may declare /var/www/html as an anonymous volume. When
-# the container is replaced, that volume can become unused and remain on disk.
-# Only consider dangling volumes, then require several SPIP-specific files and
-# directories before removing one. Volumes attached to any container are skipped.
-while IFS= read -r volume; do
-    [ -n "$volume" ] || continue
+# The SPIP image declares /var/www/html as an anonymous volume, so each replaced
+# container leaves about 500 MB behind, attached to nothing.
+#
+# Two gates before anything is removed:
+#
+#   1. The volume must be anonymous, i.e. named with the 64-character hex id
+#      Docker generates (such volumes also carry a com.docker.volume.anonymous
+#      label, but only on recent engines, so the name is what is tested).
+#      '--filter dangling=true' lists *named* volumes as well, which are often
+#      unused merely because their project is stopped; on a host running more
+#      than one SPIP site some of those are webroots too, and removing them
+#      would be data loss in another project.
+#   2. It must really hold a SPIP install.
+#
+# Gate 2 is tested from inside a container rather than on the host filesystem.
+# The Mountpoint reported by 'docker volume inspect' is not readable by a
+# non-root user, does not exist on the host at all when the daemon runs in a VM
+# (Docker Desktop), and points into a shifted subordinate UID tree under the
+# userns-remap setup described in readme.md. Testing that path therefore always
+# answered false and no volume was ever reclaimed. The probe reuses the image of
+# the running SPIP container, so it downloads nothing, mounts the volume
+# read-only and is given no network.
+spip_container="$($COMPOSE ps -q spip || true)"
+probe_image=""
+if [ -n "$spip_container" ]; then
+    probe_image="$(docker inspect --format '{{.Config.Image}}' "$spip_container" || true)"
+fi
 
-    mountpoint="$(docker volume inspect --format '{{.Mountpoint}}' "$volume")"
-    if [ -f "$mountpoint/spip.php" ] &&
-       [ -d "$mountpoint/ecrire" ] &&
-       [ -d "$mountpoint/plugins-dist" ]; then
-        echo "Removing obsolete SPIP volume: $volume"
-        docker volume rm "$volume"
-    fi
-done < <(docker volume ls --quiet --filter dangling=true)
+if [ -z "$probe_image" ]; then
+    echo "WARNING: the SPIP image could not be determined; skipping volume cleanup" >&2
+else
+    while IFS= read -r volume; do
+        # Anonymous volumes only: skip anything that is not 64 hex characters.
+        [ "${#volume}" -eq 64 ] || continue
+        case "$volume" in
+            *[!0-9a-f]*) continue ;;
+        esac
+
+        if docker run --rm --network none --entrypoint sh \
+            -v "$volume":/v:ro "$probe_image" \
+            -c '[ -f /v/spip.php ] && [ -d /v/ecrire ] && [ -d /v/plugins-dist ]' \
+            >/dev/null 2>&1
+        then
+            echo "Removing obsolete SPIP volume: $volume"
+            docker volume rm "$volume" ||
+                echo "WARNING: volume $volume could not be removed" >&2
+        fi
+    done < <(docker volume ls --quiet --filter dangling=true)
+fi
 
 
 echo
